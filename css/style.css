@@ -1,0 +1,77 @@
+body {
+	padding: 0;
+	text-align: left;
+	font: 12px Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	color: #061C37;
+	background: #1c478e;
+}
+
+*{
+	margin: 0 auto 0 auto;
+	text-align:left;
+}
+
+#container{width:960px}
+#logo {
+	display:inline;
+	float:left;
+	height: 100px;
+    width: 150px;
+    background-color: dodgerblue;
+}
+
+#global_nav{
+	display:inline;
+	float:left;
+    height: 100px;
+    width: 810px;
+    background-color: cornflowerblue;
+}
+
+#side_nav_left{
+	clear:both;
+	float: left;
+	display:inline;
+    height: 800px;
+    width: 150px;
+    background-color: cornflowerblue;
+}
+
+#content_container {
+    float: left;
+    height: 800px;
+    width: 650px;
+    margin: 0 5px 0 5px;
+}
+
+#carousel {
+	margin: 0 30px 0 30px;
+    height: 250px;
+    width: 600px;
+    background-color: darkred;
+}
+
+#content {
+    height: 550px;
+    width: 650px;
+    background-color: antiquewhite;
+}
+
+#side_nav_right{
+    float: left;
+    display:inline;
+    height: 800px;
+    width: 150px;
+    background-color: cornflowerblue;
+}
+
+#footer{
+	clear: both;
+    width:inherit;
+	height:auto;
+    height: 100px;
+    width: 960px;
+    background-color: black;
+}
+
