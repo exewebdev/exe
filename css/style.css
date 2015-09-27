@@ -4,7 +4,7 @@ body {
 	font: 12px Arial, Helvetica, sans-serif;
 	font-size: 13px;
 	color: #061C37;
-	background: #1c478e;
+    background: #dfd4c3
 }
 
 *{
@@ -18,7 +18,7 @@ body {
 	float:left;
 	height: 100px;
     width: 150px;
-    background-color: dodgerblue;
+    background-color: black;
 }
 
 #global_nav{
@@ -26,7 +26,7 @@ body {
 	float:left;
     height: 100px;
     width: 810px;
-    background-color: cornflowerblue;
+    background-color: #4d1717;
 }
 
 #side_nav_left{
@@ -35,7 +35,7 @@ body {
 	display:inline;
     height: 800px;
     width: 150px;
-    background-color: cornflowerblue;
+    background-color: #ae9c7f;
 }
 
 #content_container {
@@ -49,7 +49,7 @@ body {
 	margin: 0 30px 0 30px;
     height: 250px;
     width: 600px;
-    background-color: darkred;
+    background-color: #4c85ff;
 }
 
 #content {
@@ -63,7 +63,7 @@ body {
     display:inline;
     height: 800px;
     width: 150px;
-    background-color: cornflowerblue;
+    background-color: #ae9c7f;
 }
 
 #footer{
@@ -72,6 +72,7 @@ body {
 	height:auto;
     height: 100px;
     width: 960px;
-    background-color: black;
+    background-color: #9c8968;
+
 }
 
