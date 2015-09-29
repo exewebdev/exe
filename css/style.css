@@ -1,18 +1,20 @@
+*{
+    margin: 0 auto 0 auto;
+    text-align:left;
+}
+
 body {
 	padding: 0;
-	text-align: left;
 	font: 12px Arial, Helvetica, sans-serif;
 	font-size: 13px;
 	color: #061C37;
     background: #dfd4c3
 }
 
-*{
-	margin: 0 auto 0 auto;
-	text-align:left;
+#container{
+    width:960px
 }
 
-#container{width:960px}
 #logo {
 	display:inline;
 	float:left;
@@ -73,6 +75,5 @@ body {
     height: 100px;
     width: 960px;
     background-color: #9c8968;
-
 }
 
