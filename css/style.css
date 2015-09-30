@@ -41,10 +41,9 @@ body {
 }
 
 #content_container {
-    float: left;
-    height: 800px;
+    height: 550px;
     width: 650px;
-    margin: 0 5px 0 5px;
+    background-color: antiquewhite;
 }
 
 #carousel {
@@ -55,8 +54,10 @@ body {
 }
 
 #content {
-    height: 550px;
+    float: left;
+    height: 800px;
     width: 650px;
+    margin: 0 5px 0 5px;
     background-color: antiquewhite;
 }
 
