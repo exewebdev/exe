@@ -11,6 +11,14 @@ body {
     background: #dfd4c3
 }
 
+legend {
+    margin:auto;
+}
+
+fieldset {
+	border-radius: 25px;
+}
+
 #container{
     width:960px
 }
@@ -24,11 +32,41 @@ body {
 }
 
 #global_nav{
-	display:inline;
-	float:left;
+    float:left;
     height: 100px;
     width: 810px;
     background-color: #4d1717;
+}
+
+nav {
+    margin-top: 40px;
+    width: 810px;
+}
+
+#global_nav nav a {
+    display: inline;
+    text_align: center;
+    color: #ffffffff;
+    font-size:15px;
+    font-weight: bold;
+    padding: 42px 13px 42px 12px;
+    list-style: outside none none;
+    width: 810px;
+}
+
+#global_nav nav a:link {
+    color: #FFFFFF;
+    text-decoration:none;
+}
+
+#global_nav nav a:hover {
+    color: #4d1717;
+    text-decoration: none;
+    background-color: #dfd4c3;
+}
+
+#global_nav nav a:visited {
+    color: cornflowerblue;
 }
 
 #side_nav_left{
@@ -78,3 +116,6 @@ body {
     background-color: #9c8968;
 }
 
+.form_required {
+    color: red;
+}

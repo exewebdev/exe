@@ -8,31 +8,54 @@
 <body>
     <div id="container">
         <div id="logo"></div>
-        <div id="global_nav"></div>
+        <div id="global_nav">
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="about.html">About Us</a>
+                <a href="constitution.html">Constitution</a>
+                <a href="projects.html">Projects</a>
+                <a href="join.html">Join</a>
+                <a href="events.html">Events</a>
+                <a href="careers.html">Career</a>
+                <a href="forums.html">Forums</a>
+            </nav>
+        </div>
         <div id="side_nav_left"></div>
         <div id="content">
-                <h1>Interested in Joining?<br>Send us your information to Register!</h1><br />
+                <h1 style="color:#ae9c7f">Membership</h1><br />
                 <form action="" method="get" onsubmit="">
                     <fieldset><legend>Your Information</legend><br />
                         <p style="float:left">
-                            <label for="fname">First Name:</label><br />
-                            <input type="text" id="fname" size='35' required="required" style="margin-right:5px">
+                            <label for="fname">First Name:<span class='form_required'> *</span></label><br />
+                            <input type="text" id="fname" size='30' required="required" style="margin-right:5px">
                         </p>
                         <p style="float:left">
                             <label for="initial">MI:</label><br />
                             <input type="text" id="initial" size='1' maxlength='1'>
                         </p>
                         <p style="float:left">
-                            <label for="fname">Last Name:</label><br />
-                            <input type="text" id="lname" size='34' required="required" style="margin-left: 5px">
+                            <label for="lname">Last Name:<span class='form_required'> *</span></label><br />
+                            <input type="text" id="lname" size='29' required="required" style="margin-left:5px">
                         </p>
                         <p style="clear:both">
-                            <label for="email">Email</label><br />
-                            <input type="text" id="email" size="80" onblur="return checkName(this.value)" required="required"/>
+                            <label for="email">Email<span class='form_required'> *</span></label><br />
+                            <input type="text" id="email" size="70" onblur="return checkName(this.value)" required="required"/>
                         </p>
                         <p>
-                            <label for="textarea">Comment</label><br />
-                            <textarea id="textarea" rows="15" cols="60"></textarea><br /><br />
+                            <label for="major">Major</label><br />
+                            <input type="text" id="major" size="30"/>
+                        </p>
+                        <p>
+                            <label for="classification">Classification</label><br />
+                            <input type="text" id="classification" size="30"/>
+                        </p>
+                        <p>
+                            <label for="grad_date">Expected Graduation Date</label><br />
+                            <input type="date" id="grad_date" size="30"/>
+                        </p>
+                        <p>
+                            <label for="tshirt">T-Shirt Size</label><br />
+                            <input type="text" id="tshirt" size="30"/>
                         </p>
                         <p>
                             <input name="submit" type="submit" value="Submit"/>&nbsp;<input name="reset" type="reset" value="Cancel" />
@@ -42,7 +65,9 @@
         </div><!--content-->
     </div><!--container-->
     <div id="side_nav_right"></div>
-    <div id="footer"></div>
-</div>
+    <div id="footer">
+        <!-- external javascript_examples for validation -->
+        <script type="text/javascript" src="js/validation.js"></script>
+    </div>
 </body>
 </html>
