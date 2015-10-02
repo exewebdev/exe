@@ -26,37 +26,37 @@
                 <form action="" method="get" onsubmit="">
                     <fieldset><legend>Your Information</legend><br />
                         <p style="float:left">
-                            <label for="fname">First Name:<span class='form_required'> *</span></label><br />
+                            <label for="fname">First Name<span class='form_required'> *</span></label><br />
                             <input type="text" id="fname" size='30' required="required" style="margin-right:5px">
                         </p>
                         <p style="float:left">
-                            <label for="initial">MI:</label><br />
+                            <label for="initial">MI</label><br />
                             <input type="text" id="initial" size='1' maxlength='1'>
                         </p>
                         <p style="float:left">
-                            <label for="lname">Last Name:<span class='form_required'> *</span></label><br />
+                            <label for="lname">Last Name<span class='form_required'> *</span></label><br />
                             <input type="text" id="lname" size='29' required="required" style="margin-left:5px">
                         </p>
-                        <p style="clear:both">
+                        <p style="clear:both"><br />
                             <label for="email">Email<span class='form_required'> *</span></label><br />
                             <input type="text" id="email" size="70" onblur="return checkName(this.value)" required="required"/>
-                        </p>
+                        </p><br />
                         <p>
                             <label for="major">Major</label><br />
                             <input type="text" id="major" size="30"/>
-                        </p>
+                        </p><br />
                         <p>
                             <label for="classification">Classification</label><br />
                             <input type="text" id="classification" size="30"/>
-                        </p>
+                        </p><br />
                         <p>
                             <label for="grad_date">Expected Graduation Date</label><br />
-                            <input type="date" id="grad_date" size="30"/>
-                        </p>
+                            <input type="date" id="grad_date" size="30" placeholder="mm/dd/yyyy"/>
+                        </p><br />
                         <p>
                             <label for="tshirt">T-Shirt Size</label><br />
                             <input type="text" id="tshirt" size="30"/>
-                        </p>
+                        </p><br />
                         <p>
                             <input name="submit" type="submit" value="Submit"/>&nbsp;<input name="reset" type="reset" value="Cancel" />
                         </p>
