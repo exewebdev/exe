@@ -38,6 +38,10 @@ fieldset {
     background-color: #4d1717;
 }
 
+.hidden {
+    visibility:hidden;
+}
+
 nav {
     margin-top: 40px;
     width: 810px;
@@ -45,7 +49,6 @@ nav {
 
 #global_nav nav a {
     display: inline;
-    text_align: center;
     color: #ffffffff;
     font-size:15px;
     font-weight: bold;
@@ -111,8 +114,6 @@ nav {
 	clear: both;
     width:inherit;
 	height:auto;
-    height: 100px;
-    width: 960px;
     background-color: #9c8968;
 }
 

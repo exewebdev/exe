@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Join</title>
     <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <script src="js/validate_join_form.js"></script>
 </head>
 <body>
     <div id="container">
@@ -23,42 +24,54 @@
         <div id="side_nav_left"></div>
         <div id="content">
                 <h1 style="color:#ae9c7f; margin-top:20px">Membership Signup!</h1><br />
-                <form action="" method="get" onsubmit="">
+                <form id="join" action="processJoin.html" method="get" onsubmit="CheckForm()">
                     <fieldset><legend>Your Information</legend><br />
                         <p style="float:left">
                             <label for="fname">First Name<span class='form_required'> *</span></label><br />
-                            <input type="text" id="fname" size='30' required="required" style="margin-right:5px">
+                            <input type="text" id="fname" name ="fname" size='30' required="required" style="margin-right:5px">
                         </p>
                         <p style="float:left">
                             <label for="initial">MI</label><br />
-                            <input type="text" id="initial" size='1' maxlength='1'>
+                            <input type="text" id="initial" name="initial" size='1' maxlength='1'>
                         </p>
                         <p style="float:left">
                             <label for="lname">Last Name<span class='form_required'> *</span></label><br />
-                            <input type="text" id="lname" size='29' required="required" style="margin-left:5px">
+                            <input type="text" id="lname" name="lname" size='29' required="required" style="margin-left:5px">
                         </p>
                         <p style="clear:both"><br />
                             <label for="email">Email<span class='form_required'> *</span></label><br />
-                            <input type="text" id="email" size="70" onblur="return checkName(this.value)" required="required"/>
+                            <input type="text" id="email" name="email" size="70" required="required"/>
                         </p><br />
                         <p>
                             <label for="major">Major</label><br />
-                            <input type="text" id="major" size="30"/>
+                            <input type="text" id="major" name="major" size="30"/>
                         </p><br />
                         <p>
                             <label for="classification">Classification</label><br />
-                            <input type="text" id="classification" size="30"/>
+                            <select id="classification" name="classification">
+                                <option value="">--Please Select--</option>
+                                <option value="freshman">Freshman</option>
+                                <option value="sophomore">Sophomore</option>
+                                <option value="junior">Junior</option>
+                                <option value="senior">Senior</option>
+                            </select>
                         </p><br />
                         <p>
                             <label for="grad_date">Expected Graduation Date</label><br />
-                            <input type="date" id="grad_date" size="30" placeholder="mm/dd/yyyy"/>
+                            <input type="date" id="grad_date" name="grad_date" size="30" placeholder="mm/dd/yyyy"/>
                         </p><br />
-                        <p>
+                        <p class="hidden">
                             <label for="tshirt">T-Shirt Size</label><br />
-                            <input type="text" id="tshirt" size="30"/>
+                            <select id="tshirt" name="tshirt">
+                                <option value="">-Please Select--</option>
+                                <option value="small">Small</option>
+                                <option value="medium">Medium</option>
+                                <option value="large">Large</option>
+                                <option value="extra large">Extra Large</option>
+                            </select>
                         </p><br />
                         <p>
-                            <input name="submit" type="submit" value="Submit"/>&nbsp;<input name="reset" type="reset" value="Cancel" />
+                            <input type="submit" value="Submit" />&nbsp;<input name="reset" type="reset" value="Cancel" />
                         </p>
                     </fieldset>
                 </form>

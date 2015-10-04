@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Join</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <script src="js/validate_join_form.js"></script>
+</head>
+<body>
+<div id="container">
+    <div id="logo"></div>
+    <div id="global_nav">
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="constitution.html">Constitution</a>
+            <a href="projects.html">Projects</a>
+            <a href="join.html">Join</a>
+            <a href="events.html">Events</a>
+            <a href="careers.html">Career</a>
+            <a href="forums.html">Forums</a>
+        </nav>
+    </div>
+    <div id="side_nav_left"></div>
+    <div id="content">
+        <h1>Your form has been submitted!</h1><br />
+        <script type="text/javascript">
+            /* <![CDATA[ */
+            var formData = location.search;
+            formData = formData.substring(1, formData.length);  // remove the ? at position 0 in the search property
+
+            while (formData.indexOf("+") != -1) {               // convert + back to blank
+                formData = formData.replace("+", " ");
+            }
+            formData = decodeURI(formData);
+
+            var formArray = formData.split("&");                // break the string into array elements at the &
+            document.write("<p>");
+
+            // get the starting index of the value of each name=value pair
+            startFname = formArray[0].indexOf("=");
+            StartInitial = formArray[1].indexOf("=");
+            startLname= formArray[2].indexOf("=");
+            startEmail = formArray[3].indexOf("=");
+            startMajor = formArray[4].indexOf("=");
+            startClass = formArray[5].indexOf("=");
+            startGradDate = formArray[6].indexOf("=");
+
+
+            fname = formArray[0].substring(startFname+1);
+            mi = formArray[1].substring(StartInitial+1);
+            lname = formArray[2].substring(startLname+1);
+            email = formArray[3].substring(startEmail+1);
+            major = formArray[4].substring(startMajor+1);
+            classification = formArray[5].substring(startClass+1);
+            grad_date = formArray[6].substring(startGradDate+1);
+
+            if (fname != "" && lname !="" && email !="") {
+                document.write("<span class=dropcap>F</span>orm validated:<br /><br />");
+                document.write("first name: " + fname + "<br />");
+                document.write("middle initial: " + mi + "<br />");
+                document.write("last name: " + lname + "<br />");
+                document.write("email: " + email + "<br />");
+                document.write("major: " + major + "<br />");
+                document.write("class: " + classification + "<br />");
+                document.write("grad date: " + grad_date + "<br />");
+            }
+            document.write("</p>");
+            /* ]]> */
+        </script>
+    </div>
+    </div><!--content-->
+</div><!--container-->
+<div id="side_nav_right"></div>
+<div id="footer">
+    <!-- external javascript_examples for validation -->
+    <script type="text/javascript" src="js/validation.js"></script>
+</div>
+</body>
+</html>

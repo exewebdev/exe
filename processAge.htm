@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html dir="ltr" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta content="en-us" http-equiv="Content-Language" />
+        <title>TradeWinds Reservations</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+        <meta content="age" name="keywords" />
+        <meta content="age." name="description" />
+        <link href="twstyles.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <div id="masthead"></div>
+        <div id="top_nav"></div>
+        <div id="container">
+            <div id="left_col"></div>
+            <div id="page_content">
+                <h1>Your form has been submitted!</h1>
+                <script type="text/javascript">
+                    /* <![CDATA[ */
+                    var formData = location.search;
+                    formData = formData.substring(1, formData.length);  // remove the ? at position 0 in the search property
+
+                    while (formData.indexOf("+") != -1) {               // convert + back to blank
+                        formData = formData.replace("+", " ");
+                    }
+                    formData = decodeURI(formData);
+
+                    var formArray = formData.split("&");                // break the string into array elements at the &
+                    document.write("<p>");
+
+                    // get the starting index of the value of each name=value pair
+                    startName = formArray[0].indexOf("=");
+                    startAge = formArray[1].indexOf("=");
+                    startRetirement = formArray[3].indexOf("=");
+
+                    name = formArray[0].substring(startName+1);
+                    age = formArray[1].substring(startAge+1);
+                    retirement = formArray[3].substring(startRetirement+1);
+
+                    if (retirement == "yes")
+                        document.write("<span class=dropcap>A</span>t age " + age + " you may retire.");
+                    else if (retirement == "no")
+                        document.write("<span class=dropcap>H</span>i " + name + " at age " + age + " you are not ready to retire. Get to work." );
+
+                    document.write("</p>");
+                    /* ]]> */
+                    </script>
+            </div>
+        </div>
+        <div id="footer">
+            &copy; 2014 Raul Zuniga | <a href="mailto:raul.zuniga@g.austincc.edu?subject=Web Site Contact">raul.zuniga@g.austincc.edu</a>
+            <script type="text/javascript" src="../../scripts/validation.js"></script>
+        </div>
+    </body>
+</html>
