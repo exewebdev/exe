@@ -117,6 +117,10 @@ nav {
     background-color: #9c8968;
 }
 
+#join input[type="text"], input[type="email"], input[type="date"], select {
+    margin-bottom: 10px
+}
+
 .form_required {
     color: red;
 }
