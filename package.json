@@ -1,0 +1,25 @@
+{
+  "name": "exe",
+  "version": "1.0.0",
+  "description": "The Texas State Computer Science Club's webpage",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "express": "^3.2.4",
+    "sqlite3": "^3.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pokemonmegaman/exe.git"
+  },
+  "author": "The Texas State Computer Science Club",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pokemonmegaman/exe/issues"
+  },
+  "homepage": "https://github.com/pokemonmegaman/exe#readme"
+}
