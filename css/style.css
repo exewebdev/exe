@@ -76,13 +76,13 @@ nav {
 	clear:both;
 	float: left;
 	display:inline;
-    height: 800px;
+    height: 600px;
     width: 150px;
     background-color: #ae9c7f;
 }
 
 #content_container {
-    height: 550px;
+    height: 350px;
     width: 650px;
     background-color: antiquewhite;
 }
@@ -96,7 +96,6 @@ nav {
 
 #content {
     float: left;
-    height: 800px;
     width: 650px;
     margin: 0 5px 0 5px;
     background-color: antiquewhite;
@@ -105,7 +104,7 @@ nav {
 #side_nav_right{
     float: left;
     display:inline;
-    height: 800px;
+    height: 600px;
     width: 150px;
     background-color: #ae9c7f;
 }
