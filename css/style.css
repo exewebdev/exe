@@ -1,12 +1,12 @@
 *{
     margin: 0 auto 0 auto;
-    text-align:left;
 }
 
 body {
 	padding: 0;
-	font: 12px Arial, Helvetica, sans-serif;
-	font-size: 13px;
+    text-align:left;
+    font-size: 13px;
+	font-family: Arial, Helvetica, sans-serif;
 	color: #061C37;
     background: #dfd4c3
 }
@@ -17,6 +17,10 @@ legend {
 
 fieldset {
 	border-radius: 25px;
+}
+
+a {
+    text-decoration: none;
 }
 
 #container{
@@ -38,13 +42,11 @@ fieldset {
     background-color: #4d1717;
 }
 
-.hidden {
-    visibility:hidden;
-}
-
-nav {
+#global_nav nav {
     margin-top: 40px;
+    margin-left: auto;
     width: 810px;
+    padding:0;
 }
 
 #global_nav nav a {
@@ -79,6 +81,34 @@ nav {
     height: 600px;
     width: 150px;
     background-color: #ae9c7f;
+}
+
+#side_nav_left nav {
+    padding: 0;
+}
+
+#side_nav_left nav a {
+    color: #ffffffff;
+    font-size:15px;
+    font-weight: bold;
+    padding: 15px 0 8px 0;
+    margin: 15px 20px 15px 20px;
+
+    width: 810px;
+}
+
+#side_nav_left nav a:link {
+    color: #FFFFFF;
+}
+
+#side_nav_left nav a:hover {
+    color: #dfd4c3;
+    text-decoration: none;
+    background-color: #4d1717;
+}
+
+#side_nav_leftnav a:visited {
+    color: cornflowerblue;
 }
 
 #content_container {
@@ -122,4 +152,8 @@ nav {
 
 .form_required {
     color: red;
+}
+
+.hidden {
+    visibility:hidden;
 }
