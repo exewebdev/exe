@@ -99,20 +99,20 @@ a {
     list-style: none;
     font-size:16px;
     font-weight: bold;
-    width: 810px;
     border-bottom: #fff 1px dashed;
-    margin: 10px 0 10px 0;
+
+    padding: 10px 20px 0 20px;
 }
 
 #side_nav_left nav a {
-    padding: 10px 40px 0 30px;
+
 }
 
 #side_nav_left nav a:link {
     color: #FFFFFF;
 }
 
-#side_nav_left nav a:hover {
+#side_nav_left nav li:hover {
     color: #dfd4c3;
     text-decoration: none;
     background-color: #4d1717;
