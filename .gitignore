@@ -68,4 +68,6 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+#Node JS Dependencies
+node_modules/
 
