@@ -17,6 +17,24 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 CREATE SCHEMA IF NOT EXISTS `txstexe` DEFAULT CHARACTER SET utf8 ;
 USE `txstexe` ;
 
+DROP TABLE IF EXISTS `txstexe`.`Club`;
+DROP TABLE IF EXISTS `txstexe`.`Member`;
+DROP TABLE IF EXISTS `txstexe`.`Officer`;
+DROP TABLE IF EXISTS `txstexe`.`Donation`;
+DROP TABLE IF EXISTS `txstexe`.`Donor`;
+DROP TABLE IF EXISTS `txstexe`.`Blog`;
+DROP TABLE IF EXISTS `txstexe`.`MailingList`;
+DROP TABLE IF EXISTS `txstexe`.`OnCampusEvent`;
+DROP TABLE IF EXISTS `txstexe`.`Credential`;
+DROP TABLE IF EXISTS `txstexe`.`OnCampusEventSignup`;
+DROP TABLE IF EXISTS `txstexe`.`ProjectGroup`;
+DROP TABLE IF EXISTS `txstexe`.`OffCampusEvent`;
+DROP TABLE IF EXISTS `txstexe`.`OffCampusEventSignup`;
+DROP TABLE IF EXISTS `txstexe`.`Forum`;
+DROP TABLE IF EXISTS `txstexe`.`Topic`;
+DROP TABLE IF EXISTS `txstexe`.`Comment`;
+DROP TABLE IF EXISTS `txstexe`.`News`;
+
 -- -----------------------------------------------------
 -- Table `txstexe`.`Club`
 -- -----------------------------------------------------
@@ -58,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `txstexe`.`Member` (
     REFERENCES `txstexe`.`Club` (`club_name`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
 
 -- -----------------------------------------------------
@@ -82,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `txstexe`.`Officer` (
     REFERENCES `txstexe`.`Member` (`member_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
 
 -- -----------------------------------------------------
@@ -100,8 +118,7 @@ CREATE TABLE IF NOT EXISTS `txstexe`.`Donation` (
     REFERENCES `txstexe`.`Donor` (`donor_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
+ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
 -- -----------------------------------------------------
 -- Table `txstexe`.`Donor`
@@ -109,18 +126,18 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `txstexe`.`Donor` (
   `donor_id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `donation_id` BIGINT(20) NULL,
-  `fname` VARCHAR(20) NULL,
+  `fname` VARCHAR(25) NULL,
   `mi` VARCHAR(1) NULL,
   `lname` VARCHAR(25) NULL,
   `email` VARCHAR(100) NULL,
   PRIMARY KEY (`donor_id`),
   INDEX `donation_id_idx` (`donation_id` ASC),
-  CONSTRAINT `donation_id`
+  CONSTRAINT `donation_id_fk`
     FOREIGN KEY (`donation_id`)
     REFERENCES `txstexe`.`Donation` (`donation_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
 
 -- -----------------------------------------------------
@@ -144,13 +161,13 @@ CREATE TABLE IF NOT EXISTS `txstexe`.`Blog` (
     REFERENCES `txstexe`.`Officer` (`club_name`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
 
 -- -----------------------------------------------------
--- Table `txstexe`.`Mailing List`
+-- Table `txstexe`.`MailingList`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `txstexe`.`Mailing List` (
+CREATE TABLE IF NOT EXISTS `txstexe`.`MailingList` (
   `mail_list_id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `club_name` VARCHAR(20) NULL,
   `member_id` BIGINT(20) NULL,
@@ -168,7 +185,7 @@ CREATE TABLE IF NOT EXISTS `txstexe`.`Mailing List` (
     REFERENCES `txstexe`.`Member` (`member_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
 
 -- -----------------------------------------------------
@@ -191,7 +208,7 @@ CREATE TABLE IF NOT EXISTS `txstexe`.`OnCampusEvent` (
     REFERENCES `txstexe`.`Club` (`club_name`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
 
 -- -----------------------------------------------------
@@ -209,7 +226,7 @@ CREATE TABLE IF NOT EXISTS `txstexe`.`Credential` (
     REFERENCES `txstexe`.`Member` (`member_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
 
 -- -----------------------------------------------------
@@ -232,13 +249,13 @@ CREATE TABLE IF NOT EXISTS `txstexe`.`OnCampusEventSignup` (
     REFERENCES `txstexe`.`Member` (`member_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
 
 -- -----------------------------------------------------
--- Table `txstexe`.`Project Group`
+-- Table `txstexe`.`ProjectGroup`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `txstexe`.`Project Group` (
+CREATE TABLE IF NOT EXISTS `txstexe`.`ProjectGroup` (
   `proj_group_id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `club_name` VARCHAR(20) NULL,
   `member_id` BIGINT(20) NULL,
@@ -260,7 +277,7 @@ CREATE TABLE IF NOT EXISTS `txstexe`.`Project Group` (
     REFERENCES `txstexe`.`Member` (`member_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
 
 -- -----------------------------------------------------
@@ -283,7 +300,7 @@ CREATE TABLE IF NOT EXISTS `txstexe`.`OffCampusEvent` (
     REFERENCES `txstexe`.`Club` (`club_name`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
 
 -- -----------------------------------------------------
@@ -306,7 +323,7 @@ CREATE TABLE IF NOT EXISTS `txstexe`.`OffCampusEventSignup` (
     REFERENCES `txstexe`.`Member` (`member_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
 
 -- -----------------------------------------------------
@@ -322,7 +339,7 @@ CREATE TABLE IF NOT EXISTS `txstexe`.`Forum` (
     REFERENCES `txstexe`.`Club` (`club_name`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
 
 -- -----------------------------------------------------
@@ -341,7 +358,7 @@ CREATE TABLE IF NOT EXISTS `txstexe`.`Topic` (
     REFERENCES `txstexe`.`Forum` (`forum_name`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
 
 -- -----------------------------------------------------
@@ -367,7 +384,7 @@ CREATE TABLE IF NOT EXISTS `txstexe`.`Comment` (
     REFERENCES `txstexe`.`Member` (`member_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
 
 -- -----------------------------------------------------
@@ -386,7 +403,7 @@ CREATE TABLE IF NOT EXISTS `txstexe`.`News` (
     REFERENCES `txstexe`.`Club` (`club_name`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
