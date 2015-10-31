@@ -40,18 +40,11 @@ DROP TABLE IF EXISTS `txstexe`.`News`;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `txstexe`.`Club` (
   `club_name` VARCHAR(20) NOT NULL,
-  `contact_id` BIGINT(20) NULL,
+  `contact_email` VARCHAR(20) NULL,
   `building` VARCHAR(20) NULL,
   `room` VARCHAR(10) NULL,
-  PRIMARY KEY (`club_name`),
-  INDEX `club_poc_idx` (`contact_id` ASC),
-  CONSTRAINT `club_poc`
-    FOREIGN KEY (`contact_id`)
-    REFERENCES `txstexe`.`Member` (`member_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`club_name`))
 ENGINE = InnoDB;
-
 
 -- -----------------------------------------------------
 -- Table `txstexe`.`Member`
@@ -77,7 +70,6 @@ CREATE TABLE IF NOT EXISTS `txstexe`.`Member` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB DEFAULT CHARSET=utf8;
-
 
 -- -----------------------------------------------------
 -- Table `txstexe`.`Officer`
