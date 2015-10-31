@@ -14,12 +14,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pokemonmegaman/exe.git"
+    "url": "git+https://github.com/exewebdev/exe.git"
   },
   "author": "The Texas State Computer Science Club",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/pokemonmegaman/exe/issues"
+    "url": "https://github.com/exewebdev/exe/issues"
   },
-  "homepage": "https://github.com/pokemonmegaman/exe#readme"
+  "homepage": "https://github.com/exewebdev/exe#readme"
 }
