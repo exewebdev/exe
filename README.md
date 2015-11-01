@@ -1,3 +1,3 @@
-[![Build Status](https://travis-ci.org/pokemonmegaman/exe.svg?branch=master)](https://travis-ci.org/pokemonmegaman/exe)
 # exe
+[![Build Status](https://travis-ci.org/exewebdev/exe.svg?branch=master)](https://travis-ci.org/exewebdev/exe)
 Project for Texas State Computer Science Club
