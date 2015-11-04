@@ -1,12 +1,14 @@
+var config = require("./config");
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
 
 var mysql = require('mysql');
 var sql = mysql.createConnection({
-    host : 'localhost',
-    user : 'pokemonmegaman',
-    database : 'txstexe'
+    host : config.sql.host,
+    user : config.sql.user,
+    password : config.sql.password || "",
+    database : config.sql.dbname
 });
 sql.connect();
 
@@ -54,7 +56,7 @@ app.post('/submit', function(req, res) {
 });
 
 //Starts the server
-var server = app.listen(process.env.port || 8080, process.env.IP || "0.0.0.0", function(){
+var server = app.listen(process.env.port || config.port, process.env.IP || config.host, function(){
   var addr = server.address();
   console.log('listening on', addr.address + ':' + addr.port);
 });
