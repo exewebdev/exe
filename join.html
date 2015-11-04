@@ -2,33 +2,33 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Join</title>
+    <title>Join Us</title>
     <link rel="stylesheet" type="text/css" href="css/style.css" />
     <script src="js/validate_join_form.js"></script>
 </head>
-<body onpagehide="initStorage()", onpageshow="loadStorage()">
+<body onpagehide="initStorage()" onpageshow="loadStorage()">
     <div id="container">
         <div id="logo">
             <a href="/">
-                <img src="images/logo_150_x_100.png" alt="Exe logo"/>
+                <img src="images/logo_150_x_100.png" alt="Texas State EXE"/>
             </a>
         </div>
         <div id="global_nav">
             <nav>
                 <a href="index.html">Home</a>
                 <a href="about.html">About Us</a>
-                <a href="constitution.html">Constitution</a>
+                <a href="Constitution.html">Constitution</a>
                 <a href="projects.html">Projects</a>
                 <a href="join.html">Join</a>
                 <a href="events.html">Events</a>
-                <a href="careers.html">Career</a>
+                <a href="career.html">Career</a>
                 <a href="forums.html">Forums</a>
             </nav>
         </div>
         <div id="side_nav_left"></div>
         <div id="content">
                 <h1 style="color:#ae9c7f; margin-top:20px">Membership Signup!</h1><br />
-                <form id="join" action="processJoin.html" method="get" onsubmit="CheckForm()">
+                <form id="join" action="/submit" method="post" onsubmit="CheckForm()">
                     <fieldset><legend>Your Information</legend><br />
                         <p style="float:left">
                             <label for="fname">First Name<span class='form_required'> *</span></label><br />
@@ -48,7 +48,12 @@
                         </p>
                         <p>
                             <label for="major">Major</label><br />
-                            <input type="text" id="major" name="major" size="30"/>
+                            <select id="major" name="major">
+                                <option value="">--Please Select--</option>
+                                <option value="cs">Computer Science</option>
+                                <option value="cis">Computer Information Systems</option>
+                                <option value="other">Other</option>
+                            </select>
                         </p>
                         <p>
                             <label for="classification">Classification</label><br />
@@ -62,7 +67,7 @@
                         </p>
                         <p>
                             <label for="grad_date">Expected Graduation Date</label><br />
-                            <input type="date" id="grad_date" name="grad_date" size="30"/>
+                            <input type="date" id="grad_date" name="grad_date"/>
                         </p>
                         <p>
                             <label for="tshirt">T-Shirt Size</label><br />
@@ -81,7 +86,16 @@
                 </form>
         </div><!--content-->
     </div><!--container-->
-    <div id="side_nav_right"></div>
+    <div id="side_nav_right">
+        <table>
+            <tbody>
+                <tr>
+                    <td><a href="https://www.facebook.com/groups/TxstateEXE/"><img src ="images/facebook_icon.png" alt="Facebook"></a></td>
+                    <td><a href="mailto:exe.txstate@edu.com"><img src ="images/mail_icon.png" alt="Email"></a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
     <div id="footer">
         <!-- external javascript_examples for validation -->
         <script type="text/javascript" src="js/validation.js"></script>

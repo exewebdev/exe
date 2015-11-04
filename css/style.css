@@ -1,12 +1,12 @@
 *{
     margin: 0 auto 0 auto;
-    text-align:left;
 }
 
 body {
 	padding: 0;
-	font: 12px Arial, Helvetica, sans-serif;
-	font-size: 13px;
+    text-align:left;
+    font-size: 13px;
+	font-family: Arial, Helvetica, sans-serif;
 	color: #061C37;
     background: #dfd4c3
 }
@@ -17,6 +17,10 @@ legend {
 
 fieldset {
 	border-radius: 25px;
+}
+
+a {
+    text-decoration: none;
 }
 
 #container{
@@ -38,13 +42,11 @@ fieldset {
     background-color: #4d1717;
 }
 
-.hidden {
-    visibility:hidden;
-}
-
-nav {
+#global_nav nav {
     margin-top: 40px;
+    margin-left: auto;
     width: 810px;
+    padding:0;
 }
 
 #global_nav nav a {
@@ -75,14 +77,53 @@ nav {
 #side_nav_left{
 	clear:both;
 	float: left;
-	display:inline;
-    height: 800px;
     width: 150px;
+    height: 600px;
     background-color: #ae9c7f;
+    border-radius:10px;
+}
+
+#side_nav_left nav {
+    padding: 0;
+}
+
+#side_nav_left h3 {
+    color: #fff;
+    padding: 15px 0 8px 0;
+    border-bottom:#fff solid 2px;
+    margin: 15px 20px 15px 20px;
+    font-size:16px;
+}
+
+#side_nav_left nav li {
+    list-style: none;
+    font-size:16px;
+    font-weight: bold;
+    border-bottom: #fff 1px dashed;
+
+    padding: 10px 20px 0 20px;
+}
+
+#side_nav_left nav a {
+
+}
+
+#side_nav_left nav a:link {
+    color: #FFFFFF;
+}
+
+#side_nav_left nav li:hover {
+    color: #dfd4c3;
+    text-decoration: none;
+    background-color: #4d1717;
+}
+
+#side_nav_leftnav a:visited {
+    color: cornflowerblue;
 }
 
 #content_container {
-    height: 550px;
+    height: 350px;
     width: 650px;
     background-color: antiquewhite;
 }
@@ -96,18 +137,19 @@ nav {
 
 #content {
     float: left;
-    height: 800px;
     width: 650px;
     margin: 0 5px 0 5px;
     background-color: antiquewhite;
+    border-radius:10px;
 }
 
 #side_nav_right{
     float: left;
     display:inline;
-    height: 800px;
     width: 150px;
+    height: 600px;
     background-color: #ae9c7f;
+    border-radius:10px
 }
 
 #footer{
@@ -123,4 +165,8 @@ nav {
 
 .form_required {
     color: red;
+}
+
+.hidden {
+    visibility:hidden;
 }
