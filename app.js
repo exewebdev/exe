@@ -44,7 +44,7 @@ app.post('/submit', function(req, res) {
                     '"' + req.param('classification') + '",' +
                     '"' + req.param('grad_date') + '",' +
                     '"' + req.param('tshirt') + '",' +
-                    getFormattedDate() + ')'
+                    '"' + getFormattedDate() + '")'
              );
              //TODO: Render "success" page.
              res.send("Signup successful!");
@@ -66,5 +66,5 @@ function getFormattedDate() {
     month = month.length > 1 ? month : '0' + month;
     var day = date.getDate().toString();
     day = day.length > 1 ? day : '0' + day;
-    return year + '-' + month + '-' + day;
+    return (year + '-' + month + '-' + day);
 }
