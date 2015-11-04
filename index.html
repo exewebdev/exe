@@ -3,26 +3,43 @@
     <head lang="en">
         <meta charset="UTF-8">
         <title>EXE Home Page</title>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
         <link rel="stylesheet" type="text/css" href="css/style.css" />
     </head>
     <body>
-        <div id="container">
-            <div id="logo">
-                <a href="/">
-                    <img src="images/logo_150_x_100.png" alt="Texas State EXE"/>
-                </a>
+        <div id="container" class="container-fluid">
+            <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#global_nav" aria-expanded="false">
+                        <span class="sr-only">Toggle nav</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">Texas State EXE</a>
+                </div>
             </div>
-            <div id="global_nav">
-                <nav>
-                    <a href="index.html">Home</a>
-                    <a href="about.html">About Us</a>
-                    <a href="Constitution.html">Constitution</a>
-                    <a href="projects.html">Projects</a>
-                    <a href="join.html">Join</a>
-                    <a href="events.html">Events</a>
-                    <a href="career.html">Career</a>
-                    <a href="forums.html">Forums</a>
-                </nav>
+            <div class="collapse navbar-collapse" id="global_nav">
+                <ul class="nav navbar-nav">
+                    <li class><a href="index.html">Home</a></li>
+                    <li class><a href="about.html">About Us</a></li>
+                    <li class><a href="Constitution.html">Constitution</a></li>
+                    <li class><a href="projects.html">Projects</a></li>
+                    <li class><a href="join.html">Join</a></li>
+                    <li class><a href="events.html">Events</a></li>
+                    <li class><a href="career.html">Career</a></li>
+                    <li class><a href="forums.html">Forums</a></li>
+                </ul>
+            </div>
+            </nav>
             </div>
             <div id="side_nav_left"></div>
             <div id=content>
