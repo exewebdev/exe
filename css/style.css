@@ -35,6 +35,26 @@ a {
     background-color: black;
 }
 
+#global_nav2{
+    margin-top: 20px;
+    margin-bottom: 0;
+    background-color: #4d1717;
+}
+
+#navbar a{
+    color:#dfd4c3;
+}
+
+#navbar a:hover {
+    color: #4d1717;
+    text-decoration: none;
+    background-color: #dfd4c3;
+}
+
+#navbar nav a:visited {
+    color: cornflowerblue;
+}
+
 #global_nav{
     float:left;
     height: 100px;
