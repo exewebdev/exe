@@ -1,9 +1,15 @@
 var config = require("./config");
 var express = require('express');
+var swig = require('swig');
 var bodyParser = require('body-parser');
 var app = express();
-
 var mysql = require('mysql');
+
+app.engine('html', swig.renderFile);
+
+app.set('view engine', 'html');
+app.set('views', __dirname);
+
 var sql = mysql.createConnection({
     host : config.sql.host,
     user : config.sql.user,
@@ -15,9 +21,6 @@ sql.connect();
 app.use(bodyParser.urlencoded({
     extended: true
 }));
-
-//Static files code
-app.use(express.static(__dirname));
 
 //Handles membership signup submits.
 app.post('/submit', function(req, res) {
@@ -54,6 +57,22 @@ app.post('/submit', function(req, res) {
         });
     
 });
+
+app.use('/css', express.static(__dirname + "/static/css"));
+app.use('/js', express.static(__dirname + "/static/js"));
+app.use('/images', express.static(__dirname + "/static/images"));
+
+app.get('/:page', function (req,res){
+    res.render('static/' + req.params.page);
+});
+
+app.get('/Projects/:page', function (req,res){
+    res.render('static/Projects/' + req.params.page);
+});
+
+app.get('/', function(req, res){
+    res.render('static/index.html');
+})
 
 //Starts the server
 var server = app.listen(process.env.port || config.port, process.env.IP || config.host, function(){
