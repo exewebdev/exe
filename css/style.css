@@ -23,10 +23,6 @@ a {
     text-decoration: none;
 }
 
-#container{
-    width:960px
-}
-
 #logo {
 	display:inline;
 	float:left;
@@ -36,9 +32,9 @@ a {
 }
 
 #global_nav2{
-    margin-top: 20px;
     margin-bottom: 0;
     background-color: #4d1717;
+    width:auto;
 }
 
 #navbar a{
@@ -76,7 +72,6 @@ a {
     font-weight: bold;
     padding: 42px 13px 42px 12px;
     list-style: outside none none;
-    width: 810px;
 }
 
 #global_nav nav a:link {
@@ -92,6 +87,19 @@ a {
 
 #global_nav nav a:visited {
     color: cornflowerblue;
+}
+
+#side_nav_left2{
+    height: 600px;
+    border-radius:10px;
+    background-color: #ae9c7f;
+}
+
+#side_nav_right2{
+    border-radius:10px;
+    background-color: #ae9c7f;
+    padding-left:0;
+    height:655px;
 }
 
 #side_nav_left{
@@ -120,7 +128,6 @@ a {
     font-size:16px;
     font-weight: bold;
     border-bottom: #fff 1px dashed;
-
     padding: 10px 20px 0 20px;
 }
 
@@ -155,6 +162,19 @@ a {
     background-color: black;
 }
 
+#content2 {
+    padding-left: 10px;
+    padding-right: 0;
+    margin: 0 5px 0 5px;
+    background-color: #FFF2DF;
+    border-radius:10px;
+}
+
+#content2 h1 {
+    margin: 0;
+    padding-top:10px;
+}
+
 #content {
     float: left;
     width: 650px;
@@ -173,7 +193,7 @@ a {
 }
 
 #footer{
-	clear: both;
+    clear:both;
     width:inherit;
 	height:auto;
     background-color: #9c8968;
@@ -190,3 +210,7 @@ a {
 .hidden {
     visibility:hidden;
 }
+
+.gold { background-color: #ae9c7f; }
+.gold-text { color:#ae9c7f;}
+.blue-text { color: cornflowerblue}
