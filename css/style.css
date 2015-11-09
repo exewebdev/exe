@@ -46,38 +46,38 @@ a {
 
 #side_nav_left{
     height: 655px;
-    padding-right:0;
     background-color: #ae9c7f;
     border-radius:10px;
-}
-
-#side_nav_left nav {
     padding: 0;
 }
 
 #side_nav_left h3 {
-    color: #fff;
-    padding: 15px 0 8px 0;
     border-bottom:#fff solid 2px;
-    margin: 15px 20px 15px 20px;
-    font-size:16px;
-}
-
-#side_nav_left nav li {
-    list-style: none;
-    font-size:16px;
-    font-weight: bold;
-    border-bottom: #fff 1px dashed;
-    padding: 10px 20px 0 20px;
-}
-
-#side_nav_left nav a:link {
     color: #FFFFFF;
+    text-align: center;
 }
 
-#side_nav_left nav li:hover {
-    color: #dfd4c3;
+#side_nav_left ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#side_nav_left li {
+    list-style-type: none;
+    padding: 4px;
+    text-align: center;
+}
+
+#side_nav_left a:link {
+    font-weight:bold;
+    color: #FFFFFF;
     text-decoration: none;
+    text-transform: uppercase;
+}
+
+#side_nav_left li:hover, li:active {
+    color: #dfd4c3;
     background-color: #4d1717;
 }
 
