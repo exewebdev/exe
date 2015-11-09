@@ -1,79 +1,108 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>Join</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <title>Exe Home Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="js/validate_join_form.js"></script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
 </head>
 <body>
-<div id="container">
-    <div id="logo"></div>
-    <div id="global_nav">
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="about.html">About Us</a>
-            <a href="Constitution.html">Constitution</a>
-            <a href="projects.html">Projects</a>
-            <a href="join.html">Join</a>
-            <a href="events.html">Events</a>
-            <a href="careers.html">Career</a>
-            <a href="forums.html">Forums</a>
-        </nav>
-    </div>
-    <div id="side_nav_left"></div>
-    <div id="content">
-        <h1>Your form has been submitted!</h1><br />
-        <script type="text/javascript">
-            /* <![CDATA[ */
-            var formData = location.search;
-            formData = formData.substring(1, formData.length);  // remove the ? at position 0 in the search property
+<div class="container">
+    <nav class="navbar navbar-default" id="global_nav">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" style="color:cornflowerblue" href="/">Texas State Exe</a>
+        </div> <!-- class="navbar-header" -->
+        <div class="collapse navbar-collapse" id="navbar">
+            <ul class="nav navbar-nav">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="constitution.html">Constitution</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="career.html">Career</a></li>
+                <li><a href="forums.html">Forums</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" style="margin-right:5px">
+                <li><a href="join.html"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            </ul>
+        </div><!-- lass="collapse navbar-collapse" id="navbar" -->
+    </nav>
+    <div class="row">
+        <div class="col-sm-10" style="padding-right:0" id="content">
+            <script type="text/javascript">
+                /* <![CDATA[ */
+                var formData = location.search;
+                formData = formData.substring(1, formData.length);  // remove the ? at position 0 in the search property
 
-            while (formData.indexOf("+") != -1) {               // convert + back to blank
-                formData = formData.replace("+", " ");
-            }
-            formData = decodeURI(formData);
+                while (formData.indexOf("+") != -1) {               // convert + back to blank
+                    formData = formData.replace("+", " ");
+                }
+                formData = decodeURI(formData);
 
-            var formArray = formData.split("&");                // break the string into array elements at the &
-            document.write("<p>");
+                var formArray = formData.split("&");                // break the string into array elements at the &
+                document.write("<p>");
 
-            // get the starting index of the value of each name=value pair
-            startFname = formArray[0].indexOf("=");
-            StartInitial = formArray[1].indexOf("=");
-            startLname= formArray[2].indexOf("=");
-            startEmail = formArray[3].indexOf("=");
-            startMajor = formArray[4].indexOf("=");
-            startClass = formArray[5].indexOf("=");
-            startGradDate = formArray[6].indexOf("=");
+                // get the starting index of the value of each name=value pair
+                startFname = formArray[0].indexOf("=");
+                StartInitial = formArray[1].indexOf("=");
+                startLname= formArray[2].indexOf("=");
+                startEmail = formArray[3].indexOf("=");
+                startMajor = formArray[4].indexOf("=");
+                startClass = formArray[5].indexOf("=");
+                startGradDate = formArray[6].indexOf("=");
 
 
-            fname = formArray[0].substring(startFname+1);
-            mi = formArray[1].substring(StartInitial+1);
-            lname = formArray[2].substring(startLname+1);
-            email = formArray[3].substring(startEmail+1);
-            major = formArray[4].substring(startMajor+1);
-            classification = formArray[5].substring(startClass+1);
-            grad_date = formArray[6].substring(startGradDate+1);
+                fname = formArray[0].substring(startFname+1);
+                mi = formArray[1].substring(StartInitial+1);
+                lname = formArray[2].substring(startLname+1);
+                email = formArray[3].substring(startEmail+1);
+                major = formArray[4].substring(startMajor+1);
+                classification = formArray[5].substring(startClass+1);
+                grad_date = formArray[6].substring(startGradDate+1);
 
-            if (fname != "" && lname !="" && email !="") {
-                document.write("<span class=dropcap>F</span>orm validated:<br /><br />");
-                document.write("first name: " + fname + "<br />");
-                document.write("middle initial: " + mi + "<br />");
-                document.write("last name: " + lname + "<br />");
-                document.write("email: " + email + "<br />");
-                document.write("major: " + major + "<br />");
-                document.write("class: " + classification + "<br />");
-                document.write("grad date: " + grad_date + "<br />");
-            }
-            document.write("</p>");
-            /* ]]> */
-        </script>
-    </div><!--content-->
+                if (fname != "" && lname !="" && email !="") {
+                    document.write("<span class=dropcap>F</span>orm validated:<br /><br />");
+                    document.write("first name: " + fname + "<br />");
+                    document.write("middle initial: " + mi + "<br />");
+                    document.write("last name: " + lname + "<br />");
+                    document.write("email: " + email + "<br />");
+                    document.write("major: " + major + "<br />");
+                    document.write("class: " + classification + "<br />");
+                    document.write("grad date: " + grad_date + "<br />");
+                }
+                document.write("</p>");
+                /* ]]> */
+            </script>
+        </div> <!-- class="col-sm-10" -->
+        <div class="col-sm-2" style="padding-left:0" id="side_nav_right">
+            <table class="table-condensed">
+                <tbody>
+                <tr>
+                    <td><a href="https://www.facebook.com/groups/TxstateEXE/"><img src ="images/facebook_icon.png" class="img-responsive" alt="Facebook"></a></td>
+                    <td><a href="mailto:exe.txstate@edu.com"><img src ="images/mail_icon.png" class="img-responsive" alt="Email"></a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div> <!-- class="col-sm-2" -->
+    </div> <!-- class="row" -->
 </div><!--container-->
-<div id="side_nav_right"></div>
-<div id="footer">
-    <!-- external javascript_examples for validation -->
-    <script type="text/javascript" src="js/validation.js"></script>
-</div>
+<footer id="footer">
+    <div class="container">
+        <div class="row">
+            <!-- external javascript_examples for validation -->
+            <script type="text/javascript" src="js/validation.js"></script>
+        </div> <!-- class="row" -->
+    </div> <!-- class="container" -->
+</footer>
 </body>
 </html>
