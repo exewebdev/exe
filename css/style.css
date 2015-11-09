@@ -71,10 +71,6 @@ a {
     padding: 10px 20px 0 20px;
 }
 
-#side_nav_left nav a {
-
-}
-
 #side_nav_left nav a:link {
     color: #FFFFFF;
 }
@@ -103,17 +99,10 @@ a {
 }
 
 #content {
-    padding-left: 10px;
-    padding-right: 0;
-    margin: 0 5px 0 5px;
     background-color: #FFF2DF;
     border-radius:10px;
 }
 
-#content h1 {
-    margin: 0;
-    padding-top:10px;
-}
 
 #side_nav_right{
     height: 655px;
