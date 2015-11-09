@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>{% block title %}Page Title{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+</head>
+<body>
+<div id="container">
+    <div id="logo">
+        <a href="/">
+            <img src="/images/logo_150_x_100.png" alt="Texas State EXE"/>
+        </a>
+    </div>
+    <div id="global_nav">
+        <nav>
+            <a href="/index.html">Home</a>
+            <a href="/about.html">About Us</a>
+            <a href="/Constitution.html">Constitution</a>
+            <a href="/projects.html">Projects</a>
+            <a href="/join.html">Join</a>
+            <a href="/events.html">Events</a>
+            <a href="/career.html">Career</a>
+            <a href="/forums.html">Forums</a>
+        </nav>
+    </div>
+    <div id="side_nav_left">
+        {% block side_nav_left %}
+        {% endblock %}
+    </div>
+    <div id=content>
+     {% block content %}
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu ante malesuada, sodales odio nec, pellentesque diam. Mauris ligula odio, fringilla vel neque non, tempus viverra erat. Etiam in lorem hendrerit, facilisis tortor a, pellentesque nibh. Vivamus auctor risus ut volutpat eleifend. Phasellus vulputate magna condimentum consequat molestie. Sed et congue lorem, scelerisque malesuada magna. Fusce rhoncus libero et porttitor ultrices.
+        </p>
+     {% endblock %}   
+    </div>
+    <div id="side_nav_right">
+        {% block side_nav_right %}
+        <table>
+        <tbody>
+        <tr>
+            <td><a href="https://twitter.com/txstEXE" class="twitter-follow-button" data-show-count="false">Follow @txstEXE</a>
+                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script></td>
+            <td><a href="https://www.facebook.com/groups/TxstateEXE/"><img src ="/images/facebook_icon.png" alt="Facebook"></a></td>
+            <td><a href="mailto:exe.txstate@edu.com"><img src ="/images/mail_icon.png" alt="Email"></a></td>
+        </tr>
+        </tbody>
+        </table>
+        {% endblock %}
+    </div>
+    <div id="footer">
+        <!-- external javascript_examples for validation -->
+        <script type="text/javascript" src="js/validation.js"></script>
+    </div>
+</div>
+</body>
+</html>

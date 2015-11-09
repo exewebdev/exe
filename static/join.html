@@ -1,0 +1,66 @@
+{% extends 'template.html' %}
+
+{% block title %}Join Us{% endblock %}
+
+{% block content %}
+<div class="form-group">
+    <h1 class="gold-text">Membership Signup!</h1><br />
+    <form role="form" id="join" action="/join" method="post" onsubmit="CheckForm()">
+        <fieldset><legend>Your Information</legend><br />
+            <div class="form-group">
+                    <label for="fname">First Name<span class='form_required'> *</span></label><br />
+                    <input type="text" id="fname" name ="fname" size='35' required="required">
+            </div>
+            <div class="form-group">
+                    <label for="initial">MI</label><br />
+                    <input type="text" id="initial" name="initial" size='1' maxlength='1'>
+            </div>
+            <div class="form-group">
+                <label for="lname">Last Name<span class='form_required'> *</span></label><br />
+                <input type="text" id="lname" name="lname" size='35' required="required">
+            </div>
+            <div class="form-group">
+                <label for="email">Email<span class='form_required'> *</span></label><br />
+                <input type="text" id="email" name="email" size="40" required="required"/>
+            </div>
+            <div class="form-group">
+                <label for="major">Major</label><br />
+                <select id="major" name="major">
+                    <option value="">--Please Select--</option>
+                    <option value="cs">Computer Science</option>
+                    <option value="cis">Computer Information Systems</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="classification">Classification</label><br />
+                <select id="classification" name="classification">
+                    <option value="">--Please Select--</option>
+                    <option value="freshman">Freshman</option>
+                    <option value="sophomore">Sophomore</option>
+                    <option value="junior">Junior</option>
+                    <option value="senior">Senior</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="grad_date">Expected Graduation Date</label><br />
+                <input type="date" id="grad_date" name="grad_date"/>
+            </div>
+            <div class="form-group">
+                <label for="tshirt">T-Shirt Size</label><br />
+                <select id="tshirt" name="tshirt">
+                    <option value="">-Please Select--</option>
+                    <option value="small">Small</option>
+                    <option value="medium">Medium</option>
+                    <option value="large">Large</option>
+                    <option value="extra large">Extra Large</option>
+                </select>
+            </div>
+            <div style="margin-bottom:10px">
+                <button type="submit" class="btn-sm btn-primary" style="margin-right:10px">Submit</button>
+                <button type="reset"  class="btn-sm btn-primary">Cancel</button>
+            </div>
+        </fieldset>
+    </form>
+</div><!--content-->
+{% endblock %}

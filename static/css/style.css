@@ -23,9 +23,40 @@ a {
     text-decoration: none;
 }
 
+<<<<<<< HEAD:static/css/style.css
+#logo {
+	display:inline;
+	float:left;
+	height: 100px;
+    width: 150px;
+    background-color: black;
+}
+
+#global_nav{
+    float:left;
+    height: 100px;
+    background-color: #4d1717;
+    width: 100%;
+}
+
+#global_nav nav {
+    margin-top: 40px;
+    margin-left: auto;
+    padding:0;
+}
+
+#global_nav nav a {
+    display: inline;
+    color: #ffffff;
+    font-size:15px;
+    font-weight: bold;
+    padding: 42px 13px 42px 12px;
+    list-style: outside none none;
+=======
 
 #navbar a{
     color:#dfd4c3;
+>>>>>>> FETCH_HEAD:css/style.css
 }
 
 #navbar a:hover {
