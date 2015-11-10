@@ -151,3 +151,62 @@ a {
     width: 100%;
     height: 100%;
 }
+
+#group_picture {
+    height: 500px;
+    width: 880px;
+    background-color: #73777a;
+    margin: 10px 40px 10px 40px;
+    padding-bottom: 10px;
+}
+
+.officer1_pic {
+    height: 300px;
+    width: 300px;
+    background-color: #73777a;
+    margin: 20px 40px 10px 107.5px;
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+.officer1_descrip {
+    vertical-align: top;
+    height: 300px;
+    width: 400px;
+    background-color: #edebe8;
+    margin: 20px 103px 10px 5px;
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+.officer2_descrip {
+    vertical-align: top;
+    height: 300px;
+    width: 400px;
+    background-color: #edebe8;
+    margin: 20px 40px 10px 107.5px;
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+.officer2_pic {
+    height: 300px;
+    width: 300px;
+    background-color: #73777a;
+    margin: 20px 103px 10px 5px;
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+.offtitle {
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
+    margin: 10px 5px 10px 5px;
+    
+}
+
+.offinfo {
+    font-size: 20px;
+    margin: 10px 5px 10px 5px;
+}
