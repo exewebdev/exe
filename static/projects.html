@@ -1,35 +1,95 @@
-{% extends 'template.html' %}
-{% block title %}Projects{% endblock %}
-{% block side_nav_left %}
-        <h3>Links</h3>
-        <nav>
-            <ul>
-                <li><a href="/Projects/Webdev.html">Web Dev</a><br></li>
-                <li><a href="/Projects/Appdev.html">App Dev</a><br></li>
-                <li><a href="/Projects/Coding.html">Program Dev</a><br></li>
-                <li><a href="/Projects/Gamedev.html">Game Dev</a><br></li>
-            </ul>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Exe Home Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="js/validate_join_form.js"></script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar navbar-default" id="global_nav">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" style="color:cornflowerblue" href="/">Texas State Exe</a>
+            </div> <!-- class="navbar-header" -->
+            <div class="collapse navbar-collapse" id="navbar">
+                <ul class="nav navbar-nav">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="constitution.html">Constitution</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="career.html">Career</a></li>
+                    <li><a href="forums.html">Forums</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right" style="margin-right:5px">
+                    <li><a href="join.html"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                </ul>
+            </div><!-- lass="collapse navbar-collapse" id="navbar" -->
         </nav>
-{% endblock %}
-{% block content %}
-        <table>
-            <tbody>
-            <tr>
-                <td><a href="/Projects/Webdev.html"><img src ="/images/Webdev.png" alt="Webdev"></a></td>
-                <td><a href="/Projects/Appdev.html"><img src ="/images/android_icon.png" alt="Appdev"></a></td>
-            </tr>
-            <tr>
-                <td style="text-align:center">Web Development</td>
-                <td style="text-align:center">Android Development</td>
-            </tr>
-            <tr>
-                <td><a href="/Projects/Coding.html"><img src ="/images/python_icon.png" alt="Python"></a></td>
-                <td><a href="/Projects/Gamedev.html"><img src ="/images/Gamedev.png" alt="Gamedev"></a></td>
-            </tr>
-            <tr>
-                <td style="text-align:center">Python Development</td>
-                <td style="text-align:center">Game Development</td>
-            </tr>
-            </tbody>
-        </table>
-{% endblock %}
+        <div class="row">
+            <div class="col-sm-2" id="side_nav_left">
+                <h3>Links</h3>
+                <nav>
+                    <ul>
+                        <li><a href="Projects/Webdev.html">Web Dev</a><br></li>
+                        <li><a href="Projects/Appdev.html">App Dev</a><br></li>
+                        <li><a href="Projects/Coding.html">Program Dev</a><br></li>
+                        <li><a href="Projects/Gamedev.html">Game Dev</a><br></li>
+                    </ul>
+                </nav>
+            </div> <!-- class="col-sm-2" -->
+            <div class="col-sm-8" style="padding-right:0" id="content">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <td><a href="Projects/Webdev.html"><img src ="images/Webdev.png" class="img-responsive" alt="Webdev"></a></td>
+                        <td><a href="Projects/Appdev.html"><img src ="images/android_icon.png" class="img-responsive" alt="Appdev"></a></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center">Web Development</td>
+                        <td style="text-align:center">Android Development</td>
+                    </tr>
+                    <tr>
+                        <td><a href="Projects/Coding.html"><img src ="images/python_icon.png" class="img-responsive" alt="Python"></a></td>
+                        <td><a href="Projects/Gamedev.html"><img src ="images/Gamedev.png" class="img-responsive" alt="Gamedev"></a></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center">Python Development</td>
+                        <td style="text-align:center">Game Development</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div> <!-- class="col-sm-8" -->
+            <div class="col-sm-2" style="padding-left:0" id="side_nav_right">
+                <table class="table-condensed">
+                    <tbody>
+                    <tr>
+                        <td><a href="https://www.facebook.com/groups/TxstateEXE/"><img src ="images/facebook_icon.png" class="img-responsive" alt="Facebook"></a></td>
+                        <td><a href="mailto:exe.txstate@edu.com"><img src ="images/mail_icon.png" class="img-responsive" alt="Email"></a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div> <!-- class="col-sm-2" -->
+        </div> <!-- class="row" -->
+    </div><!--container-->
+    <footer id="footer">
+        <div class="container">
+            <div class="row">
+                <!-- external javascript_examples for validation -->
+                <script type="text/javascript" src="js/validation.js"></script>
+            </div> <!-- class="row" -->
+        </div> <!-- class="container" -->
+    </footer>
+</body>
+</html>
