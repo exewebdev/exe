@@ -1,9 +1,16 @@
-var config = require("./config");
+var config = require("./config/config");
 var express = require('express');
 var swig = require('swig');
 var bodyParser = require('body-parser');
 var app = express();
 var mysql = require('mysql');
+
+// Configuring Passport
+var passport = require('passport');
+var expressSession = require('express-session');
+app.use(expressSession({secret: 'mySecretKey'}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.engine('html', swig.renderFile);
 
@@ -72,7 +79,7 @@ app.get('/Projects/:page', function (req,res){
 
 app.get('/', function(req, res){
     res.render('static/index.html');
-})
+});
 
 //Starts the server
 var server = app.listen(process.env.port || config.port, process.env.IP || config.host, function(){
