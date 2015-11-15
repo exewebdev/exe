@@ -38,12 +38,6 @@ a {
     color: cornflowerblue;
 }
 
-#global_nav{
-    margin-bottom: 0;
-    width: auto;
-    background-color: #4d1717;
-}
-
 #side_nav_left{
     height: 655px;
     background-color: #ae9c7f;
@@ -98,7 +92,7 @@ a {
     background-color: black;
 }
 
-#content {
+.content {
     background-color: #FFF2DF;
     border-radius:10px;
 }
@@ -131,6 +125,7 @@ a {
 }
 
 .gold { background-color: #ae9c7f; }
+.maroon { background-color: #4d1717}
 .gold-text { color:#ae9c7f;}
 .blue-text { color: cornflowerblue}
 
