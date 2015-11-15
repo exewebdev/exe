@@ -3,9 +3,6 @@
 }
 
 body {
-	padding: 0;
-    text-align:left;
-    font-size: 13px;
 	font-family: Arial, Helvetica, sans-serif;
 	color: #061C37;
     background: #dfd4c3
@@ -56,9 +53,6 @@ a {
 }
 
 #footer{
-    clear:both;
-    width:inherit;
-	height:auto;
     background-color: #9c8968;
 }
 
@@ -73,11 +67,15 @@ a {
 .hidden {
     visibility:hidden;
 }
+.pill {
+    border-radius:4px;
+    color:white;
+}
 
-.gold { background-color: #ae9c7f; }
 .maroon { background-color: #4d1717}
 .gold-text { color:#ae9c7f;}
 .blue-text { color: cornflowerblue}
+.white-text { color: white}
 
 .responsive-iframe-container {
     position: relative;
