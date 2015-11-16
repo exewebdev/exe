@@ -47,9 +47,13 @@ a {
     background-color: black;
 }
 
-.content {
-    background-color: #FFF2DF;
+#bigCallout{
+    background-color:grey;
+    text-align:center;
     border-radius:10px;
+    color:#fff;
+    margin-top:10px;
+    background-color: cornflowerblue;
 }
 
 #footer{
@@ -70,6 +74,11 @@ a {
 .pill {
     border-radius:4px;
     color:white;
+}
+
+.content {
+    background-color: #FFF2DF;
+    border-radius:10px;
 }
 
 .maroon { background-color: #4d1717}
