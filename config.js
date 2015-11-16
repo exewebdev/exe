@@ -4,6 +4,7 @@ var config = {
     port : "8080",
     //SQL Config
     sql : {
+        enabled: true,
         host : "localhost",
         user : "pokemonmegaman",
         password : "",

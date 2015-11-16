@@ -3,9 +3,6 @@
 }
 
 body {
-	padding: 0;
-    text-align:left;
-    font-size: 13px;
 	font-family: Arial, Helvetica, sans-serif;
 	color: #061C37;
     background: #dfd4c3
@@ -23,7 +20,6 @@ a {
     text-decoration: none;
 }
 
-
 #navbar a{
     color:#dfd4c3;
 }
@@ -35,53 +31,6 @@ a {
 }
 
 #navbar nav a:visited {
-    color: cornflowerblue;
-}
-
-#global_nav{
-    margin-bottom: 0;
-    width: auto;
-    background-color: #4d1717;
-}
-
-#side_nav_left{
-    height: 655px;
-    background-color: #ae9c7f;
-    border-radius:10px;
-    padding: 0;
-}
-
-#side_nav_left h3 {
-    border-bottom:#fff solid 2px;
-    color: #FFFFFF;
-    text-align: center;
-}
-
-#side_nav_left ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
-
-#side_nav_left li {
-    list-style-type: none;
-    padding: 4px;
-    text-align: center;
-}
-
-#side_nav_left a:link {
-    font-weight:bold;
-    color: #FFFFFF;
-    text-decoration: none;
-    text-transform: uppercase;
-}
-
-#side_nav_left li:hover, li:active {
-    color: #dfd4c3;
-    background-color: #4d1717;
-}
-
-#side_nav_leftnav a:visited {
     color: cornflowerblue;
 }
 
@@ -98,29 +47,25 @@ a {
     background-color: black;
 }
 
-#content {
-    background-color: #FFF2DF;
+#bigCallout{
+    background-color:grey;
+    text-align:center;
     border-radius:10px;
-}
-
-
-#side_nav_right{
-    height: 655px;
-    background-color: #ae9c7f;
-    border-radius:10px;
-    margin: 0 auto 0 auto;
+    color:#fff;
+    margin-top:10px;
+    background-color: cornflowerblue;
 }
 
 #footer{
-    clear:both;
-    width:inherit;
-	height:auto;
     background-color: #9c8968;
 }
 
 #join input[type="text"], input[type="email"], input[type="date"], select {
     margin-bottom: 10px
 }
+
+.features { text-align:center }
+.features img { margin:0 0 20px}
 
 .form_required {
     color: red;
@@ -129,10 +74,24 @@ a {
 .hidden {
     visibility:hidden;
 }
+.pill {
+    border-radius:4px;
+    color:white;
+}
 
-.gold { background-color: #ae9c7f; }
+.content {
+    background-color: #FFF2DF;
+    border-radius:10px;
+}
+
+.maroon { background-color: #4d1717}
+.gold {background-color: #ae9c7f;}
+.grey {background-color: #222222;}
+.cornflowerblue{background-color: cornflowerblue;}
 .gold-text { color:#ae9c7f;}
 .blue-text { color: cornflowerblue}
+.white-text { color: white}
+.black-text { color: black}
 
 .responsive-iframe-container {
     position: relative;
@@ -150,4 +109,63 @@ a {
     left: 0;
     width: 100%;
     height: 100%;
+}
+
+#group_picture {
+    height: 500px;
+    width: 880px;
+    background-color: #73777a;
+    margin: 10px 40px 10px 40px;
+    padding-bottom: 10px;
+}
+
+.officer1_pic {
+    height: 300px;
+    width: 300px;
+    background-color: #73777a;
+    margin: 20px 40px 10px 107.5px;
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+.officer1_descrip {
+    vertical-align: top;
+    height: 300px;
+    width: 400px;
+    background-color: #edebe8;
+    margin: 20px 103px 10px 5px;
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+.officer2_descrip {
+    vertical-align: top;
+    height: 300px;
+    width: 400px;
+    background-color: #edebe8;
+    margin: 20px 40px 10px 107.5px;
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+.officer2_pic {
+    height: 300px;
+    width: 300px;
+    background-color: #73777a;
+    margin: 20px 103px 10px 5px;
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+.offtitle {
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
+    margin: 10px 5px 10px 5px;
+    
+}
+
+.offinfo {
+    font-size: 20px;
+    margin: 10px 5px 10px 5px;
 }
