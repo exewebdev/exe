@@ -101,6 +101,7 @@ a {
 
 .maroon { background-color: #4d1717}
 .gold {background-color: #ae9c7f;}
+.cornflowerblue {background-color:cornflowerblue; font-weight: bold}
 .gold-text { color:#ae9c7f;}
 .blue-text { color: cornflowerblue}
 .white-text { color: white}
@@ -122,19 +123,6 @@ a {
     left: 0;
     width: 100%;
     height: 100%;
-}
-
-.offtitle {
-    text-align: center;
-    font-size: 25px;
-    font-weight: bold;
-    margin: 10px 5px 10px 5px;
-    
-}
-
-.offinfo {
-    font-size: 20px;
-    margin: 10px 5px 10px 5px;
 }
 
 /****** LOGIN MODAL ******/
