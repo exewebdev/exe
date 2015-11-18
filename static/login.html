@@ -1,0 +1,15 @@
+{% extends 'template.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+{% if message %}
+<div class="alert alert-danger" role="alert">{{ message }}</div>
+{% endif %}
+<h1 style="color:#ae9c7f; margin-top:20px">Login</h1><br />
+				  <form action="/login" method=post>
+					<input type="text" name="user" placeholder="Email">
+					<input type="password" name="pass" placeholder="Password">
+					<input type="submit" name="login" class="login loginmodal-submit" value="Login">
+				  </form>
+{% endblock %}
