@@ -34,17 +34,32 @@ a {
     color: cornflowerblue;
 }
 
-#content_container {
-    height: 350px;
-    width: 650px;
-    background-color: antiquewhite;
+#indexCarousel {
+    margin-top: 30px;
+    width: 80%
+}
+#indexCarousel .item {
+    height: 500px;
 }
 
-#carousel {
-	margin: 0 30px 0 30px;
-    height: 250px;
-    width: 600px;
-    background-color: black;
+.carousel-caption {
+    font-size:24px
+}
+
+.carousel-caption h4 {
+    font-size:32px
+}
+
+#slide1 {
+    background: url('../images/img1_large.jpg') top left no-repeat;
+}
+
+#slide2 {
+    background: url('../images/img2_large.jpg') top left no-repeat;
+}
+
+#slide3 {
+    background: url('../images/img3_large.jpg') top left no-repeat;
 }
 
 #bigCallout{
@@ -86,8 +101,6 @@ a {
 
 .maroon { background-color: #4d1717}
 .gold {background-color: #ae9c7f;}
-.grey {background-color: #222222;}
-.cornflowerblue{background-color: cornflowerblue;}
 .gold-text { color:#ae9c7f;}
 .blue-text { color: cornflowerblue}
 .white-text { color: white}
@@ -263,4 +276,19 @@ a {
 
 .login-help{
   font-size: 12px;
+}
+
+/* Portrait and landscape phone */
+@media (max-width: 480px){}
+
+/*landcsape phone to potrarit tablet*/
+@media (max-width: 768px){}
+    #slide1 { background: url('../images/img1_large.jpg') top left no-repeat;}
+    #slide2 { background: url('../images/img2_large.jpg') top left no-repeat;}
+    #slide3 { background: url('../images/img3_large.jpg') top left no-repeat;}
+/*large tablet*/
+@media (max-width: 1200px){
+    #slide1 { background: url('../images/img1_large.jpg') top left no-repeat;}
+    #slide2 { background: url('../images/img2_large.jpg') top left no-repeat;}
+    #slide3 { background: url('../images/img3_large.jpg') top left no-repeat;}
 }

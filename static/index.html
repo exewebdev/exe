@@ -3,6 +3,43 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
+        <div class="carousel slide" id="indexCarousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li class="active" data-slide-to="0" data-target="#indexCarousel"></li>
+                <li data-slide-to="1" data-target="#indexCarousel"></li>
+                <li data-slide-to="2" data-target="#indexCarousel"></li>
+            </ol>
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+                <div class="item active" id="slide1">
+                    <div class="carousel-caption">
+                        <h4>Title for picture</h4>
+                        <p>XXXXXXXXXXXXXXXXXXXX</p>
+                    </div>
+                </div>
+
+                <div class="item" id="slide2">
+                    <div class="carousel-caption">
+                        <h4>Title for picture</h4>
+                        <p>YYYYYYYYYYYYYYYYYY</p>
+                    </div>
+                </div>
+
+                <div class="item" id="slide3">
+                    <div class="carousel-caption">
+                        <h4>Title for picture</h4>
+                        <p>ZZZZZZZZZZZZZZZZZZZZZ</p>
+                    </div>
+                </div>
+            </div><!-- end carousel-inner -->
+
+            <!-- Controls -->
+            <a class="left carousel-control" data-slide="prev" href="#indexCarousel"><span class="icon-prev"></span></a>
+            <a class="right carousel-control" data-slide="next" href="#indexCarousel"><span class="icon-next"></span></a>
+        </div><!-- END indexCarousel -->
+
         <div class="row">
             <div class="col-sm-12">
                 <section>
