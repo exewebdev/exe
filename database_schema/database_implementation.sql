@@ -43,6 +43,7 @@ CREATE TABLE IF NOT EXISTS `txstexe`.`Member` (
   `mi` VARCHAR(1) NULL,
   `lname` VARCHAR(25) NULL,
   `email` VARCHAR(100) NULL,
+  `password` VARCHAR(100) NULL,
   `major` VARCHAR(25) NULL,
   `class` VARCHAR(10) NULL,
   `grad_date` DATE NULL,
