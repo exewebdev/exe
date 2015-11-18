@@ -6,6 +6,7 @@ var app = express();
 var mysql = require('mysql');
 var passport = require('passport');
 var localStrategy = require('passport-local').Strategy;
+var async = require('async');
 
 var session      = require('express-session');
 var flash    = require('connect-flash');
@@ -83,8 +84,23 @@ app.post('/submit', function(req, res) {
 app.use('/css', express.static(__dirname + "/static/css"));
 app.use('/js', express.static(__dirname + "/static/js"));
 app.use('/images', express.static(__dirname + "/static/images"));
+app.use('/fonts', express.static(__dirname + "/static/fonts"));
 
-
+app.get('/forums.html', function(req, res){
+    var forum = {categories : []
+    };
+    sql.query("SELECT * FROM Forum", function(error, rows, fields){
+        async.each(rows, function(row, callback){
+            var rowIndex = forum.categories.push(row);
+            sql.query("SELECT * FROM Topic WHERE forum_id=?", row.forum_id, function(error, rows, fields){
+                forum.categories[rowIndex - 1].topics = rows;
+                callback();
+            });
+        }, function (error){
+            res.render("static/forums.html", {forum: forum}); 
+        });
+    });
+});
 
 app.get('/login', function(req, res) {
     res.render('./static/login.html', {message: req.flash('error')});

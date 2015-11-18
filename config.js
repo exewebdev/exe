@@ -1,11 +1,11 @@
 var config = {
     //Server config
     host : "0.0.0.0",
-    port : "80",
+    port : "8080",
     secret : "supersecretsessionkey",
     //SQL Config
     sql : {
-        enabled: false,
+        enabled: true,
         host : "localhost",
         user : "pokemonmegaman",
         password : "",

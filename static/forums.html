@@ -3,5 +3,23 @@
 {% block title %}Forums{% endblock %}
 
 {% block content %}
-<p>This is a paragraph!</p>
+{% for category in forum.categories %}
+<div class="panel panel-primary">
+    <div class="panel-heading">{{ category.forum_name }}</div>
+    <div class="panel-content">
+        <ul class="list-group">
+        {% for topic in category.topics %}
+        <li class="list-group-item">
+            <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+            <a href = "/forums/{{ topic.topic_id }}">
+                <h4 class="list-group-item-heading">{{ topic.topic_name }}</h4>
+            </a>
+            <p class="lsit-group-item-text">{{ topic.topic_description }}</p>
+        </li>
+        {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endfor %}
+<button target="/forums/newtopic">New Topic</button>
 {% endblock %}
