@@ -8,7 +8,7 @@ var passport = require('passport');
 var localStrategy = require('passport-local').Strategy;
 var async = require('async');
 var validator = require('validator');
-if (config.bcrypt == false){
+if (config.bcrypt === false){
     console.error("Bcrypt disabled in settings!  Do not use in production!");
 } else {
     var bcrypt = require('bcrypt');
@@ -62,21 +62,21 @@ app.post('/submit', function(req, res) {
         if (config.sql.enabled) {
             //Checks to see if we already have a user with the entered email
             sql.query("SELECT email FROM Member WHERE email=?", req.param('email'), function(error, rows, fields) {
-               if (rows[0] != null) {
+               if (rows[0] !== null) {
                     //TODO: Render "error" page.
                     res.send("ERROR : Email already exists in database!");
                } else {
-                    sql.query("INSERT INTO Member (fname, mi, lname, email, password, major, class, grad_date, tshirt_size, start_date) VALUES (" +
-                        '"' + req.param('fname') + '",' +
-                        '"' + req.param('initial') + '",' +
-                        '"' + req.param('lname') + '",' +
-                        '"' + req.param('email') + '",' +
-                        '"' + hashPassword(req.param('password')) + '",' +
-                        '"' + req.param('major') + '",' +
-                        '"' + req.param('classification') + '",' +
-                        '"' + req.param('grad_date') + '",' +
-                        '"' + req.param('tshirt') + '",' +
-                        '"' + getFormattedDate() + '")'
+                    sql.query("INSERT INTO Member (fname, mi, lname, email, password, major, class, grad_date, tshirt_size, start_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                        [req.param('fname'),
+                        req.param('initial') ,
+                        req.param('lname') ,
+                        req.param('email') ,
+                        hashPassword(req.param('password')) ,
+                        req.param('major') ,
+                        req.param('classification') ,
+                        req.param('grad_date') ,
+                        req.param('tshirt') ,
+                        getFormattedDate()]
                  );
                  //TODO: Render "success" page.
                  passport.authenticate('local')(req, res, function (){
@@ -110,7 +110,7 @@ app.get('/profile/:name', function(req, res){
         if (error) { 
             res.redirect('/error.html');
         }
-        if (rows[0] == null){
+        if (rows[0] === null){
             res.redirect('/404.html');
         } else {
             rows[0].emailHash = md5sum(rows[0].email);
@@ -234,11 +234,11 @@ passport.use(new localStrategy({
           console.log(error);
           return done(error);
       }
-      if (rows[0] == null){
+      if (rows[0] === null){
         console.info("Incorrect username");
         return done(null, false, { message: 'Incorrect username.' });
       }
-      if (config.bcrypt == false){ //Bypass encryption (ONLY for development.)
+      if (config.bcrypt === false){ //Bypass encryption (ONLY for development.)
         if (password == rows[0].password){
             console.info("Incorrect password");
             return done(null, false, { message: 'Incorrect password.' });

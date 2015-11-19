@@ -71,3 +71,5 @@ $RECYCLE.BIN/
 #Node JS Dependencies
 node_modules/
 
+#Grunt www output
+www/
