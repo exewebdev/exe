@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS `txstexe`.`Member` (
   `major` VARCHAR(25) NULL DEFAULT NULL,
   `class` VARCHAR(10) NULL DEFAULT NULL,
   `grad_date` DATE NULL DEFAULT NULL,
-  `tshirt_size` VARCHAR(5) NULL DEFAULT NULL,
+  `tshirt_size` VARCHAR(6) NULL DEFAULT NULL,
   `start_date` DATE NULL DEFAULT NULL,
   `end_date` DATE NULL DEFAULT NULL,
   PRIMARY KEY (`member_id`) ,

@@ -1,0 +1,35 @@
+{% extends 'template.html' %}
+{% block title %}Profile{% endblock %}
+{% block content %}
+<br>
+<div class="row-fluid">
+    <div class="col-sm-2">
+        <img src="https://secure.gravatar.com/avatar/b649c22a44c1c5bb99e5f4061fbdf960?s=100&r=g&d=mm" class="img-circle">
+    </div>
+    <div class="col-sm-8">
+        <h2>{{ user.fname }} {{ user.lname }}</h2>
+        <h5>{{ user.email }}</h5>
+        <h6>Member Since {{ user.start_date }}</h6>
+        <h6></h6>
+    </div>
+    <div class="col-sm-2">
+        <a class="btn btn-info" href="profile/edit">
+            Edit
+        </a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <h2 class="page-header">About</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        
+    </div>
+    <div class="col-sm-6">
+        <h4>{{ user.fname }} has</h4>
+        <h1>6</h1><h4>points!</h4>
+    </div>
+</div>
+{% endblock %}

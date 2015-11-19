@@ -7,9 +7,11 @@ var mysql = require('mysql');
 var passport = require('passport');
 var localStrategy = require('passport-local').Strategy;
 var async = require('async');
+var validator = require('validator');
+var bcrypt = require('bcrypt');
 
-var session      = require('express-session');
-var flash    = require('connect-flash');
+var session = require('express-session');
+var flash = require('connect-flash');
 
 app.engine('html', swig.renderFile);
 
@@ -64,7 +66,7 @@ app.post('/submit', function(req, res) {
                         '"' + req.param('initial') + '",' +
                         '"' + req.param('lname') + '",' +
                         '"' + req.param('email') + '",' +
-                        '"' + req.param('password') + '",' +
+                        '"' + hashPassword(req.param('password')) + '",' +
                         '"' + req.param('major') + '",' +
                         '"' + req.param('classification') + '",' +
                         '"' + req.param('grad_date') + '",' +
@@ -85,6 +87,26 @@ app.use('/css', express.static(__dirname + "/static/css"));
 app.use('/js', express.static(__dirname + "/static/js"));
 app.use('/images', express.static(__dirname + "/static/images"));
 app.use('/fonts', express.static(__dirname + "/static/fonts"));
+
+app.get('/profile/:name', function(req, res){
+    
+    var names = req.params.name.split(" ");
+    console.log(names[1]);
+    sql.query('SELECT * FROM Member WHERE fname="' + names[0] + '" AND lname="' + names[1] + '"', function(error, rows, fields){
+        console.log(rows);
+        if (error) { 
+            res.render('./static/404.html');
+        }
+        if (rows[0] == null){
+            res.render('./static/404.html');
+        } else {
+            res.render('./static/profile.html', {
+                name: req.user.fname + " " + req.user.lname,
+                user: rows[0]
+            });
+        }
+    });
+});
 
 app.get('/forums.html', function(req, res){
     var forum = {categories : []
@@ -163,7 +185,7 @@ passport.use(new localStrategy({
         return done(null, false, { message: 'Incorrect username.' });
       }
       //TODO:Encrpyt passwords
-      if (password != rows[0].password) {
+      if (!bcrypt.compareSync(password, rows[0].password)){
         console.log("Incorrect password");
         return done(null, false, { message: 'Incorrect password.' });
       }
@@ -196,4 +218,14 @@ function getFormattedDate() {
     var day = date.getDate().toString();
     day = day.length > 1 ? day : '0' + day;
     return (year + '-' + month + '-' + day);
+}
+
+function hashPassword (password){
+    var salt = bcrypt.genSaltSync(10);
+    var hash = bcrypt.hashSync(password, salt);
+    return hash;
+}
+
+function checkPassword (password, hash){
+    return ;
 }
