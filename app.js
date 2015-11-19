@@ -9,6 +9,7 @@ var localStrategy = require('passport-local').Strategy;
 var async = require('async');
 var validator = require('validator');
 var bcrypt = require('bcrypt');
+var md5 = require('md5');
 
 var session = require('express-session');
 var flash = require('connect-flash');
@@ -74,7 +75,9 @@ app.post('/submit', function(req, res) {
                         '"' + getFormattedDate() + '")'
                  );
                  //TODO: Render "success" page.
-                 res.send("Signup successful!");
+                 passport.authenticate('local')(req, res, function (){
+                    res.redirect("/");
+                 });
                }
             });
         } else {
@@ -88,24 +91,64 @@ app.use('/js', express.static(__dirname + "/static/js"));
 app.use('/images', express.static(__dirname + "/static/images"));
 app.use('/fonts', express.static(__dirname + "/static/fonts"));
 
+app.get('/profile/:id/edit', function(req, res){
+    //checks for authorization before editing a profile page
+    if (req.user.member_id != req.params.id){
+        res.render("static/403.html");
+    } else {
+        res.render("static/editprofile.html", {session:req.user});
+    }
+});
+
 app.get('/profile/:name', function(req, res){
-    
     var names = req.params.name.split(" ");
-    console.log(names[1]);
     sql.query('SELECT * FROM Member WHERE fname="' + names[0] + '" AND lname="' + names[1] + '"', function(error, rows, fields){
-        console.log(rows);
         if (error) { 
-            res.render('./static/404.html');
+            res.redirect('/error.html');
         }
         if (rows[0] == null){
-            res.render('./static/404.html');
+            res.redirect('/404.html');
         } else {
+            rows[0].emailHash = md5sum(rows[0].email);
             res.render('./static/profile.html', {
-                name: req.user.fname + " " + req.user.lname,
+                session: req.user,
                 user: rows[0]
             });
         }
     });
+});
+
+//Handles profile edits.
+app.post('/profile/:id/edit', function(req, res){
+    if (req.params.id != req.user.member_id){
+        res.render("static/403.html");
+    } else {
+        //TODO: Check for email collision before SQL update
+        sql.query("UPDATE Member SET fname=?, mi=?, lname=?, email=?, password=?, major=?, class=?, grad_date=?, tshirt_size=? WHERE member_id=?", 
+        [req.param('fname'),
+        req.param('initial'),
+        req.param('lname'),
+        req.param('email'),
+        hashPassword(req.param('password')),
+        req.param('major'),
+        req.param('classification'),
+        req.param('grad_date'),
+        req.param('tshirt'),
+        req.user.member_id],
+        function(error){
+            if (error){
+                console.error(error);
+                res.redirect('/error.html');
+            } else {
+                //Recreate session with new password and email, then render profile page.
+                req.logout();
+                passport.authenticate('local')(req, res, function (){
+                    console.log("redirectiong to " + '/profile/' + req.user.fname + ' ' + req.user.lname);
+                    res.redirect('/profile/' + req.user.fname + ' ' + req.user.lname);
+                });
+            }
+        });
+    }
 });
 
 app.get('/forums.html', function(req, res){
@@ -146,7 +189,7 @@ app.get('/favicon.ico', function(req, res){
 
 app.get('/:page', function (req,res){
     if (req.isAuthenticated()){
-        res.render('./static/' + req.params.page, {name: req.user.fname + " " + req.user.lname});
+        res.render('./static/' + req.params.page, {session: req.user});
     } else {
         res.render('./static/' + req.params.page);
     }
@@ -154,7 +197,7 @@ app.get('/:page', function (req,res){
 
 app.get('/Projects/:page', function (req,res){
    if (req.isAuthenticated()){
-        res.render('./static/Projects/' + req.params.page, {name: req.user.fname + " " + req.user.lname});
+        res.render('./static/Projects/' + req.params.page, {session: req.user});
     } else {
         res.render('./static/Projects/' + req.params.page);
     }
@@ -162,16 +205,24 @@ app.get('/Projects/:page', function (req,res){
 
 app.get('/', function(req, res){
     if (req.isAuthenticated()){
-        res.render('./static/index.html', {name: req.user.fname + " " + req.user.lname});
+        res.render('./static/index.html', {session: req.user});
     } else {
         res.render('./static/index.html');
     }
 });
 
+app.use(function(req, res) {
+    if (req.isAuthenticated()){
+        res.render('./static/404.html', {session: req.user});
+    } else {
+        res.render('./static/404.html');
+    } 
+});
+
 //Authentication stuff
 passport.use(new localStrategy({
-    usernameField: 'user',
-    passwordField: 'pass'
+    usernameField: 'email',
+    passwordField: 'password'
   },
   function(username, password, done) {
     console.log("Checking login");
@@ -200,6 +251,8 @@ passport.serializeUser(function(user, done) {
 
 passport.deserializeUser(function(id, done) {
    sql.query("SELECT * FROM Member WHERE member_id=?", id, function(error, rows, fields){
+    //We'll also add the MD5 hash of the password to the session object (for use in gravatars).
+    rows[0].emailHash = md5sum(rows[0].email);
     done(error, rows[0]);
   });
 });
@@ -226,6 +279,6 @@ function hashPassword (password){
     return hash;
 }
 
-function checkPassword (password, hash){
-    return ;
+function md5sum(text){
+    return md5(text);
 }

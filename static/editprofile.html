@@ -1,0 +1,64 @@
+{% extends 'template.html' %}
+{% block title %}Edit Profile{% endblock %}
+{% block content %}
+<br>
+<h1 class="page-header">Editing profile</h1>
+<form id="join" action="edit" method="post" onsubmit="CheckForm()">
+                    <fieldset><legend>Your Information</legend><br />
+                        <p style="float:left">
+                            <label for="fname">First Name<span class='form_required'> *</span></label><br />
+                            <input type="text" id="fname" name ="fname" size='30' required="required" value="{{ session.fname }}" style="margin-right:5px">
+                        </p>
+                        <p style="float:left">
+                            <label for="initial">MI</label><br />
+                            <input type="text" id="initial" name="initial" size='1' maxlength='1' value="{{ session.mi }}">
+                        </p>
+                        <p style="float:left">
+                            <label for="lname">Last Name<span class='form_required'> *</span></label><br />
+                            <input type="text" id="lname" name="lname" size='29' required="required" style="margin-left:5px" value="{{ session.lname }}">
+                        </p>
+                        <p style="clear:both">
+                            <label for="email">Email<span class='form_required'> *</span></label><br />
+                            <input type="text" id="email" name="email" size="70" required="required" value="{{ session.email }}"/>
+                        </p>
+                        <p style="clear:both">
+                            <label for="email">Password<span class='form_required'> *</span></label><br />
+                            <input type="password" id="password" name="password" size="70" required="required"/>
+                        </p>
+                        <p>
+                            <label for="major">Major</label><br />
+                            <select id="major" name="major">
+                                <option value="" {% if session.major == '' %}selected{% endif %}>--Please Select--</option>
+                                <option value="cs" {% if session.major == 'cs' %}selected{% endif %}>Computer Science</option>
+                                <option value="cis" {% if session.major == 'cis' %}selected{% endif %}>Computer Information Systems</option>
+                                <option value="other" {% if session.major == 'other' %}selected{% endif %}>Other</option>
+                            </select>
+                        </p>
+                        <p>
+                            <label for="classification">Classification</label><br />
+                            <select id="classification" name="classification">
+                                <option value="" {% if session.classification == '' %}selected{% endif %}>--Please Select--</option>
+                                <option value="freshman" {% if session.class == 'freshman' %}selected{% endif %}>Freshman</option>
+                                <option value="sophomore" {% if session.class == 'sophomore' %}selected{% endif %}>Sophomore</option>
+                                <option value="junior" {% if session.class == 'junior' %}selected{% endif %}>Junior</option>
+                                <option value="senior" {% if session.class == 'senior' %}selected{% endif %}>Senior</option>
+                            </select>
+                        </p>
+                        <p>
+                            <label for="grad_date">Expected Graduation Date</label><br />
+                            <input type="date" id="grad_date" name="grad_date"/>
+                        </p>
+                        <p>
+                            <label for="tshirt">T-Shirt Size</label><br />
+                            <select id="tshirt" name="tshirt">
+                                <option value="" {% if session.tshirt_size == '' %}selected{% endif %}>-Please Select--</option>
+                                <option value="small" {% if session.tshirt_size == 'small' %}selected{% endif %}>Small</option>
+                                <option value="medium" {% if session.tshirt_size == 'medium' %}selected{% endif %}>Medium</option>
+                                <option value="large" {% if session.tshirt_size == 'large' %}selected{% endif %}>Large</option>
+                                <option value="xl" {% if session.tshirt_size == 'xl' %}selected{% endif %}>Extra Large</option>
+                            </select>
+                        </p>
+                        <p>
+                            <input type="submit" value="Submit" />&nbsp;<input name="reset" type="reset" value="Cancel" />
+                        </p>
+{% endblock %}

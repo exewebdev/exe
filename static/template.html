@@ -18,8 +18,8 @@
 				<div class="loginmodal-container">
 					<h1>Login to Your Account</h1><br>
 				  <form action="/login" method=post>
-					<input type="text" id="lm-user" name="user" placeholder="Email">
-					<input type="password" id="lm-password" name="pass" placeholder="Password">
+					<input type="text" id="lm-user" name="email" placeholder="Email">
+					<input type="password" id="lm-password" name="password" placeholder="Password">
 					<input type="submit" name="login" class="login loginmodal-submit" value="Login">
 				  </form>
 					
@@ -51,8 +51,10 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right" style="margin-right:5px">
                         <li><a href="mailto:exe.txstate@edu.com"><span class="glyphicon glyphicon-envelope"></span> Contact Us</a></li>
-                        {% if name %}
-                        <li><a href="/profile/{{ name }}">{{ name }}</a></li>
+                        {% if session.fname %}
+                        <li><a href="/profile/{{ session.fname }} {{ session.lname }}">
+                            <img src="https://secure.gravatar.com/avatar/{{ session.emailHash }}?s=25&r=g&d=mm" class="img-circle">
+                            {{ session.fname }} {{ session.lname }}</a></li>
                         <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                         {% else %}
                         <li><a href="/join.html"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
@@ -76,7 +78,7 @@
         <div class="container">
             <div class="row">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="https://www.facebook.com/groups/TxstateEXE/"><img src ="images/facebook_icon.png" class="img-responsive" alt="Facebook"></a></li>
+                    <li><a href="https://www.facebook.com/groups/TxstateEXE/"><img src ="/images/facebook_icon.png" class="img-responsive" alt="Facebook"></a></li>
                 </ul>
                 <!-- external javascript_examples for validation -->
                 <script type="text/javascript" src="js/validation.js"></script>
