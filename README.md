@@ -25,13 +25,13 @@ to
 
 `enabled: false`
 
-Using `nodemon` for development is recommeded.  More information can be found [here](https://github.com/remy/nodemon).
+Using `nodemon` for development is recommended.  More information can be found [here](https://github.com/remy/nodemon).
 
 # Swig templates
 
-This site uses the Swig templating engine for easy site maintianablility.
+This site uses the Swig templating engine for easy site maintainability.
 
 The base template for the site can be found in `template.html`, and an
 example that uses the template can be found in `swig_example.html`.
 
-For more information about Swig, [please refer to the official documantation](http://paularmstrong.github.io/swig/docs/).
+For more information about Swig, [please refer to the official documentation](http://paularmstrong.github.io/swig/docs/).
