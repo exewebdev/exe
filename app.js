@@ -8,7 +8,11 @@ var passport = require('passport');
 var localStrategy = require('passport-local').Strategy;
 var async = require('async');
 var validator = require('validator');
-var bcrypt = require('bcrypt');
+if (config.bcrypt == false){
+    console.error("Bcrypt disabled in settings!  Do not use in production!");
+} else {
+    var bcrypt = require('bcrypt');
+}
 var md5 = require('md5');
 
 var session = require('express-session');
@@ -143,7 +147,6 @@ app.post('/profile/:id/edit', function(req, res){
                 //Recreate session with new password and email, then render profile page.
                 req.logout();
                 passport.authenticate('local')(req, res, function (){
-                    console.log("redirectiong to " + '/profile/' + req.user.fname + ' ' + req.user.lname);
                     res.redirect('/profile/' + req.user.fname + ' ' + req.user.lname);
                 });
             }
@@ -225,20 +228,24 @@ passport.use(new localStrategy({
     passwordField: 'password'
   },
   function(username, password, done) {
-    console.log("Checking login");
+    console.info("Checking login");
     sql.query("SELECT * FROM Member WHERE email=?", username, function(error, rows, fields){
       if (error) { 
           console.log(error);
           return done(error);
       }
       if (rows[0] == null){
-        console.log("Incorrect username");
+        console.info("Incorrect username");
         return done(null, false, { message: 'Incorrect username.' });
       }
-      //TODO:Encrpyt passwords
-      if (!bcrypt.compareSync(password, rows[0].password)){
-        console.log("Incorrect password");
-        return done(null, false, { message: 'Incorrect password.' });
+      if (config.bcrypt == false){ //Bypass encryption (ONLY for development.)
+        if (password == rows[0].password){
+            console.info("Incorrect password");
+            return done(null, false, { message: 'Incorrect password.' });
+        }
+      } else if (!bcrypt.compareSync(password, rows[0].password)){
+          console.info("Incorrect password");
+          return done(null, false, { message: 'Incorrect password.' });
       }
       return done(null, rows[0]);
     });
