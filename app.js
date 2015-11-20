@@ -106,7 +106,7 @@ app.get('/profile/:id/edit', function(req, res){
 
 app.get('/profile/:name', function(req, res){
     var names = req.params.name.split(" ");
-    sql.query('SELECT * FROM Member WHERE fname="' + names[0] + '" AND lname="' + names[1] + '"', function(error, rows, fields){
+    sql.query('SELECT * FROM Member WHERE fname=? AND lname=?', [names[0], names[1]], function(error, rows, fields){
         if (error) { 
             res.redirect('/error.html');
         }
