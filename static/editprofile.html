@@ -46,7 +46,7 @@
                         </p>
                         <p>
                             <label for="grad_date">Expected Graduation Date</label><br />
-                            <input type="date" id="grad_date" name="grad_date"/>
+                            <input type="date" id="grad_date" name="grad_date" value="{{ session.grad_date.toISOString() }}" />
                         </p>
                         <p>
                             <label for="tshirt">T-Shirt Size</label><br />
@@ -61,4 +61,6 @@
                         <p>
                             <input type="submit" value="Submit" />&nbsp;<input name="reset" type="reset" value="Cancel" />
                         </p>
+                        </fieldset>
+                        </form>
 {% endblock %}
