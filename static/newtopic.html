@@ -1,0 +1,14 @@
+{% extends 'template.html' %}
+
+{% block title %}New Topic{% endblock %}
+
+{% block content %}
+<div class="alert alert-info" role="alert">Topic creation should be done sparingly - make new threads in existing topics if possible.</div>
+<h1>New Topic</h1>
+<form action="newtopic" method="post">
+   <h4>Name</h4><input type="text" name="title" style="width: 100%"/><br>
+   <h4>Description</h4><input type="text" name="description" style="width: 100%"/><br>
+   <h4>Category</h4><input type="text" name="category" style="width: 100%"/>
+    <input type="submit" value="Create"/>
+</form>
+{% endblock %}
