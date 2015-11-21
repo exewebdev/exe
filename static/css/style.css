@@ -50,15 +50,15 @@ a {
 }
 
 #slide1 {
-    background: url('../images/img1_large.jpg') top left no-repeat;
+    background: url('../images/club_large.jpg') top left no-repeat;
 }
 
 #slide2 {
-    background: url('../images/img2_large.jpg') top left no-repeat;
+    background: url('../images/event_large.jpg') top left no-repeat;
 }
 
 #slide3 {
-    background: url('../images/img3_large.jpg') top left no-repeat;
+    background: url('../images/project_large.jpg') top left no-repeat;
 }
 
 #bigCallout{
@@ -230,12 +230,12 @@ a {
 
 /*landcsape phone to potrarit tablet*/
 @media (max-width: 768px){}
-    #slide1 { background: url('../images/img1_large.jpg') top left no-repeat;}
-    #slide2 { background: url('../images/img2_large.jpg') top left no-repeat;}
-    #slide3 { background: url('../images/img3_large.jpg') top left no-repeat;}
+    #slide1 { background: url('../images/club_large.jpg') top left no-repeat;}
+    #slide2 { background: url('../images/event_large.jpg') top left no-repeat;}
+    #slide3 { background: url('../images/project_large.jpg') top left no-repeat;}
 /*large tablet*/
 @media (max-width: 1200px){
-    #slide1 { background: url('../images/img1_large.jpg') top left no-repeat;}
-    #slide2 { background: url('../images/img2_large.jpg') top left no-repeat;}
-    #slide3 { background: url('../images/img3_large.jpg') top left no-repeat;}
+    #slide1 { background: url('../images/club_large.jpg') top left no-repeat;}
+    #slide2 { background: url('../images/event_large.jpg') top left no-repeat;}
+    #slide3 { background: url('../images/project_large.jpg') top left no-repeat;}
 }
