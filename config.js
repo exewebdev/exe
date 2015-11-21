@@ -5,14 +5,14 @@ var config = {
     secret : "supersecretsessionkey",
     //SQL Config
     sql : {
-        enabled: false,
+        enabled: true,
         host : "localhost",
         user : "pokemonmegaman",
         password : "",
         dbname : "txstexe"
     },
     //The following should absouletely be turned on in production, and is only if your computer doesn't support bcrypt.
-    bcrypt: false
+    bcrypt: true
 };
 
 module.exports = config;
