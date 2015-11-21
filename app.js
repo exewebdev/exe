@@ -185,11 +185,6 @@ app.post('/login',
                                    failureFlash: 'Incorrect username or password.'})
 );
 
-app.get('/favicon.ico', function(req, res){
-    res.sendFile('./static/favicon.ico', {root : __dirname});
-});
-
-
 app.get('/:page', function (req,res){
     if (req.isAuthenticated()){
         res.render('./static/' + req.params.page, {session: req.user});

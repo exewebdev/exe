@@ -1,14 +1,14 @@
 var config = {
     //Server config
-    host : "0.0.0.0",
+    host : "localhost",
     port : "80",
     secret : "supersecretsessionkey",
     //SQL Config
     sql : {
         enabled: false,
         host : "localhost",
-        user : "pokemonmegaman",
-        password : "",
+        user : "txstexe",
+        password : "aggies92",
         dbname : "txstexe"
     },
     //The following should absouletely be turned on in production, and is only if your computer doesn't support bcrypt.
