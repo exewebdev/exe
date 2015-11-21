@@ -1,24 +1,48 @@
 {% extends 'template.html' %}
+
+{% set override = true %}
+
 {% block title %}Projects{% endblock %}
+
 {% block content %}
-<table class="table">
-        <tbody>
-        <tr>
-            <td><a href="Projects/Webdev.html"><img src ="images/Webdev.png" class="img-responsive" alt="Webdev"></a></td>
-            <td><a href="Projects/Appdev.html"><img src ="images/android_icon.png" class="img-responsive" alt="Appdev"></a></td>
-        </tr>
-        <tr>
-            <td style="text-align:center">Web Development</td>
-            <td style="text-align:center">Android Development</td>
-        </tr>
-        <tr>
-            <td><a href="Projects/Coding.html"><img src ="images/python_icon.png" class="img-responsive" alt="Python"></a></td>
-            <td><a href="Projects/Gamedev.html"><img src ="images/Gamedev.png" class="img-responsive" alt="Gamedev"></a></td>
-        </tr>
-        <tr>
-            <td style="text-align:center">Python Development</td>
-            <td style="text-align:center">Game Development</td>
-        </tr>
-        </tbody>
-</table>
+<section id="projects">
+    <div class="row features">
+        <div class="col-sm-6">
+            <div class="panel gold">
+                <img src="images/Webdev.png"alt="web development" class="img-responsive">
+                <div class="panel-footer cornflowerblue">
+                    <a href="http://getbootstrap.com/" target="_blank" class="white-text">Web Development</a>
+                </div>
+            </div><!-- end panel -->
+        </div><!-- end feature -->
+
+        <div class="col-sm-6">
+            <div class="panel gold">
+                <img src="images/android_icon.png" alt="android development" class="img-responsive">
+                <div class="panel-footer cornflowerblue">
+                    <a href="http://getbootstrap.com/" target="_blank" class="white-text">Android Development</a>
+                </div>
+            </div><!-- end panel -->
+        </div><!-- col-sm-6 -->
+    </div><!-- end row features -->
+    <div class="row features">
+        <div class="col-sm-6">
+            <div class="panel gold">
+                <img src="images/Programdev.png"alt="web development" class="img-responsive">
+                <div class="panel-footer cornflowerblue">
+                    <a href="http://getbootstrap.com/" target="_blank" class="white-text">Program Development</a>
+                </div>
+            </div><!-- end panel -->
+        </div><!-- end feature -->
+
+        <div class="col-sm-6">
+            <div class="panel gold">
+                <img src="images/Gamedev.png" alt="android development" class="img-responsive">
+                <div class="panel-footer cornflowerblue">
+                    <a href="http://getbootstrap.com/" target="_blank" class="white-text">Game Development</a>
+                </div>
+            </div><!-- end panel -->
+        </div><!-- col-sm-6 -->
+    </div><!-- end row features -->
+</section><!-- id="projects" -->
 {% endblock %}
