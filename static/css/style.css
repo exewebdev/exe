@@ -22,6 +22,7 @@ a {
 
 #navbar a{
     color:#dfd4c3;
+    background-color: #4d1717;
 }
 
 #navbar a:hover {
@@ -48,14 +49,6 @@ a {
     height: 500px;
 }
 
-.carousel-caption {
-    font-size:24px
-}
-
-.carousel-caption h4 {
-    font-size:32px
-}
-
 #slide1 {
     background: url('../images/img1_large.jpg') top left no-repeat;
 }
@@ -69,7 +62,6 @@ a {
 }
 
 #bigCallout{
-    background-color:grey;
     text-align:center;
     border-radius:10px;
     color:#fff;
@@ -83,6 +75,13 @@ a {
 
 #join input[type="text"], input[type="email"], input[type="date"], select {
     margin-bottom: 10px
+}
+.carousel-caption {
+    font-size:24px
+}
+
+.carousel-caption h4 {
+    font-size:32px
 }
 
 .features { text-align:center }
