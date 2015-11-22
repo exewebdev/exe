@@ -75,6 +75,7 @@ a {
 
 #footer{
     background-color: #9c8968;
+    font-size:11px;
 }
 
 #join input[type="text"], input[type="email"], input[type="date"], select {
@@ -110,7 +111,6 @@ a {
 
 .maroon { background-color: #4d1717}
 .gold {background-color: #ae9c7f;}
-.cornflowerblue {background-color:cornflowerblue; font-weight: bold}
 .gold-text { color:#ae9c7f;}
 .blue-text { color: cornflowerblue}
 .white-text { color: white}
@@ -199,7 +199,7 @@ a {
   /* border: 1px solid #3079ed; */
   border: 0px;
   color: #fff;
-  text-shadow: 0 1px rgba(0,0,0,0.1); 
+  text-shadow: 0 1px rgba(0,0,0,0.1);
   background-color: #4d90fe;
   padding: 17px 0px;
   font-family: roboto;
@@ -223,7 +223,7 @@ a {
   display: inline-block;
   opacity: 0.6;
   transition: opacity ease 0.5s;
-} 
+}
 
 .login-help{
   font-size: 12px;
