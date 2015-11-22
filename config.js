@@ -7,7 +7,7 @@ var config = {
     sql : {
         enabled: true,
         host : "localhost",
-        user : "your-username",
+        user : "pokemonmegaman",
         password : "",
         dbname : "txstexe"
     },
