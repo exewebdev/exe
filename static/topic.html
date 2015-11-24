@@ -1,0 +1,32 @@
+{% extends 'template.html' %}
+
+{% block title %}{{ topic.topic_name }}{% endblock %}
+
+{% block content %}
+<h1>{{ topic.topic_name }}</h1>
+<div class="panel panel-primary">
+    <div class="panel-heading">{{ topic.topic_description }}</div>
+    <div class="panel-content">
+        <ul class="list-group">
+        {% for thread in threads %}
+        <li class="list-group-item">
+            <div class="row">
+                <div class="col-sm-8">
+                    <h4 class="list-group-item-heading">
+                        <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                        <a href = "./{{ thread.thread_id }}">{{ thread.thread_name }}</a>
+                    </h4>
+                    <a href = "/profile/{{ thread.thread_op }}">{{ thread.thread_op }}</a>, {{ thread.datetime.toDateString() }}
+                </div>
+                <div class="col-sm-4">
+                    Replies: 0<br>
+                    Last post on 12/31/2015 by Some User
+                </div>
+            </div>
+        </li>
+        {% endfor %}
+        </ul>
+    </div>
+</div>
+<a href="./newpost" class="btn btn-primary">New Post</a>
+{% endblock %}

@@ -23,12 +23,22 @@ module.exports = function(grunt) {
                         'Empty heading.', //thrown by unpopulated templates, namely profile pages.  eventually remove.
                         'The “date” input type is not supported in all browsers. Please be sure to test, and consider using a polyfill.'] //to be solved, but suppress for now.
             }
+        },
+        csslint: {
+            strict: {
+                options: {
+                    import: 2,
+                    ids: false
+                },
+            src: ['static/css/style.css']
         }
+    }
     });
 
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-swig');
     grunt.loadNpmTasks('grunt-html');
+    grunt.loadNpmTasks('grunt-contrib-csslint');
 
-    grunt.registerTask('default', ['jshint', 'swig', 'htmllint']);
+    grunt.registerTask('default', ['jshint', 'swig', 'htmllint', 'csslint']);
 };

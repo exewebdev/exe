@@ -10,16 +10,18 @@
         <ul class="list-group">
         {% for topic in category.topics %}
         <li class="list-group-item">
-            <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-            <a href = "/forums/{{ topic.topic_id }}">
-                <h4 class="list-group-item-heading">{{ topic.topic_name }}</h4>
-            </a>
-            <p class="lsit-group-item-text">{{ topic.topic_description }}</p>
+            <h4 class="list-group-item-heading">
+                <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                <a href = "/forums/{{ topic.topic_name }}/">
+                {{ topic.topic_name }}
+                </a>
+            </h4>
+            <p class="list-group-item-text">{{ topic.topic_description }}</p>
         </li>
         {% endfor %}
         </ul>
     </div>
 </div>
 {% endfor %}
-<button>New Topic</button>
+<a href="newtopic.html" class="btn btn-primary">New Topic</a>
 {% endblock %}
