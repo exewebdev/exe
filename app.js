@@ -151,8 +151,10 @@ app.post("/forums/:topic/:thread/reply", function(req, res){
             getFormattedDate()],
         function(error){
             //TODO: Increase member post count and thread reply count.
-            //TODO: Update last post dates and threads.
-            res.redirect("/forums/" + req.params.topic + "/" + req.params.thread + "/");    
+            sql.query('UPDATE Member SET post_count = post_count + 1 WHERE member_id=?', [req.user.member_id], function(error, rows, fields) {
+               //TODO: Update last post dates and threads.
+                res.redirect("/forums/" + req.params.topic + "/" + req.params.thread + "/");    
+            });
         });
     } else {
         res.redirect("/login.html");

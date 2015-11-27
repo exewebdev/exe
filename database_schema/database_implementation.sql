@@ -51,6 +51,7 @@ CREATE TABLE IF NOT EXISTS `txstexe`.`Member` (
   `class` VARCHAR(10) NULL DEFAULT NULL,
   `grad_date` DATE NULL DEFAULT NULL,
   `tshirt_size` VARCHAR(6) NULL DEFAULT NULL,
+  `post_count` BIGINT(20) DEFAULT 0,
   `start_date` DATE NULL DEFAULT NULL,
   `end_date` DATE NULL DEFAULT NULL,
   PRIMARY KEY (`member_id`) ,
@@ -325,15 +326,20 @@ CREATE TABLE IF NOT EXISTS `txstexe`.`Topic` (
   `topic_name` VARCHAR(45) NULL DEFAULT NULL,
   `topic_description` MEDIUMTEXT NULL DEFAULT NULL,
   `datetime` DATETIME NULL DEFAULT NULL,
+  `last_thread_id` BIGINT(20) NULL DEFAULT NULL,
   PRIMARY KEY (`topic_id`) ,
   INDEX `forum_name_idx` (`forum_id` ASC) ,
   CONSTRAINT `forum_id`
     FOREIGN KEY (`forum_id`)
     REFERENCES `txstexe`.`Forum` (`forum_id`)
     ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `last_thread_id`
+    FOREIGN KEY (`last_thread_id`)
+    REFERENCES `txstexe`.`Thread` (`thread_id`)
+    ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
