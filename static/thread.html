@@ -1,29 +1,37 @@
 {% extends 'template.html' %}
 
-{% block title %}{{ thread.thread_name }}{% endblock %}
+{% block title %}{{ thread.thread_name }} - EXE Forums{% endblock %}
 
 {% block content %}
+{% set count = 0 %}
+{% for post in posts %}
+{% set count = count+1 %}
 <div class="panel panel-primary">
-    <div class="panel-heading">{{ topic.topic_name }}</div>
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-sm-1">
+                #{{ count }}
+                </div>
+            <div class="col-sm-11" style = "text-align: right">
+                {{ post.date.toDateString() }}
+            </div>
+        </div>
+    </div>
     <div class="panel-content">
-        <ul class="list-group">
-        {% for thread in threads %}
-        <li class="list-group-item">
-            <div class="col-sm-8">
-                <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-                <a href = "./{{ thread.thread_id }}">
-                    <h4 class="list-group-item-heading">{{ thread.thread_name }}</h4>
-                </a></br>
-                <a href = "/profile/{{ thread.thread_op }}">{{ thread.thread_op }}</a>, {{ thread.datetime }}
+        <div class="row">
+            <div class="col-sm-2">
+                <img src="https://secure.gravatar.com/avatar/2e26d153082b4619af32df054dc9d1c9?s=100&r=g&d=mm"/> <br>
+                <a>{{ post.fname }} {{ post.lname }}</a><br>
+                Posts: 42
             </div>
-            <div class="col-sm-4">
-                Replies: 0<br>
-                Last post on 12/31/2015 by Some User
+            <div class="col-sm-10">
+                {% autoescape false %}
+                {{ post.comment }}
+                {% endautoescape %}
             </div>
-        </li>
-        {% endfor %}
-        </ul>
+        </div>
     </div>
 </div>
-<a href="./newpost" class="btn btn-primary">New Post</a>
+{% endfor %}
+<a href="./reply" class="btn btn-primary">Reply</a>
 {% endblock %}

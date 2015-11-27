@@ -130,12 +130,47 @@ app.get("/forums/:name/newpost", function(req, res){
    res.render("static/newpost.html", {session: req.user}); 
 });
 
-app.get("/forums/:topic/:thread", function(req, res){
-    sql.query("SELECT * FROM Comment WHERE thread_id=?", [req.params.thread], function(error, rows, fields) {
-        res.render("static/thread.html", {
-        comments: rows,
-        session: req.user
+app.get("/forums/:topic/:thread/reply", function(req, res){
+    //Checks for login.
+    if (req.user){
+        res.render("static/reply.html", {session: req.user});
+    } else {
+        res.redirect("/login.html");
+    }
+});
+
+app.post("/forums/:topic/:thread/reply", function(req, res){
+    //Checks for login.
+    if (req.user){
+        //TODO: Check to make sure thread exists.
+        //Create the post.
+        sql.query('INSERT INTO Comment (thread_id, member_id, comment, date) VALUES (?, ?, ?, ?)',
+            [req.params.thread, 
+            req.user.member_id,
+            req.body.message,
+            getFormattedDate()],
+        function(error){
+            //TODO: Increase member post count and thread reply count.
+            //TODO: Update last post dates and threads.
+            res.redirect("/forums/" + req.params.topic + "/" + req.params.thread + "/");    
         });
+    } else {
+        res.redirect("/login.html");
+    }
+});
+
+//Handles threads.
+app.get("/forums/:topic/:thread", function(req, res){
+    sql.query("SELECT * FROM Comment INNER JOIN Member ON Comment.member_id = Member.member_id WHERE thread_id=?", [req.params.thread], function(error, rows, fields) {
+        if (error){
+            console.log(error);
+            res.redirect("/error.html")
+        } else {
+            res.render("static/thread.html", {
+            posts: rows,
+            session: req.user
+            });
+        }
     });
 });
 
@@ -156,11 +191,19 @@ app.post("/forums/:name/newpost", function(req, res){
                     res.redirect("/error.html");
                 } else {
                     //Find the newly generated thread ID.
-                    sql.query("SELECT thread_id FROM Thread WHERE thread_name=? ORDER DESC", [req.body.title], function(error, rows){
+                    sql.query("SELECT thread_id FROM Thread WHERE thread_name=? ORDER BY thread_id DESC", [req.body.title], function(error, rows){
+                        if (error){
+                                console.log(error);
+                                res.redirect("/error.html");
+                            }
                         //Post the first comment in the thread.
                         sql.query("INSERT INTO Comment (thread_id, member_id, comment, date) VALUES (?, ?, ?, ?)",
                         [rows[0].thread_id, req.user.member_id, req.body.message, getFormattedDate()],
                         function(error) {
+                            if (error){
+                                console.log(error);
+                                res.redirect("/error.html");
+                            }
                             //Redirect to the new thread.
                             res.redirect("/forums/" + req.params.name + "/" + rows[0].thread_id + "/");  
                         });
@@ -179,7 +222,7 @@ app.post("/newtopic", function(req, res) {
         //todo: permissions for creating new topics (ideally, restrict to officers)
         //gets the id of the category typed (if none exists, create one)
         sql.query("SELECT forum_id FROM Forum WHERE forum_name=?", [req.body.category], function(error, rows, fields) {
-            if (rows[0] == undefined) {
+            if (rows[0] === undefined) {
                 //create new topic
                 sql.query('INSERT INTO Forum (forum_name) VALUES (?)', [req.body.category], function() {
                     sql.query("SELECT forum_id FROM Forum WHERE forum_name=?", [req.body.category], function(error, rows, fields) {
