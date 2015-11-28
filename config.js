@@ -5,7 +5,7 @@ var config = {
     secret : "supersecretsessionkey",
     //SQL Config
     sql : {
-        enabled: false,
+        enabled: true,
         host : "localhost",
         user : "pokemonmegaman",
         password : "",
