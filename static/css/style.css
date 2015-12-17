@@ -1,3 +1,7 @@
+* {
+    margin: 0 auto 0 auto;
+}
+
 body {
 	font-family: Arial, Helvetica, sans-serif;
 	color: #061C37;
@@ -81,6 +85,16 @@ a {
     background-color: cornflowerblue;
 }
 
+.panel-primary {
+    border-color: #4d1717;
+    
+}
+
+.panel-primary>.panel-heading{
+    background-color: #4d1717;
+    border-color: #4d1717;
+}
+
 #projects .img-responsive {
     margin: 0 auto;
 }
@@ -102,7 +116,7 @@ a {
 }
 
 .features { text-align:center }
-.features img { margin:0 0 20px}
+.features img { margin:0 auto 0 auto}
 
 .form_required {
     color: red;

@@ -43,14 +43,14 @@ CREATE TABLE IF NOT EXISTS `txstexe`.`Member` (
   `mi` VARCHAR(1) NULL DEFAULT NULL,
   `lname` VARCHAR(25) NULL DEFAULT NULL,
   `email` VARCHAR(100) NULL DEFAULT NULL,
-  `password` VARCHAR(100) NULL DEFAULT NULL,
+  `email_hash` VARCHAR(100) NULL DEFAULT NULL,
   `major` VARCHAR(25) NULL DEFAULT NULL,
   `class` VARCHAR(10) NULL DEFAULT NULL,
   `grad_date` DATE NULL DEFAULT NULL,
   `tshirt_size` VARCHAR(6) NULL DEFAULT NULL,
   `post_count` BIGINT(20) NULL DEFAULT 0,
   `points` BIGINT(20) NULL DEFAULT 0,
-  `start_date` DATE NULL DEFAULT CURRENT_TIMESTAMP,
+  `start_date` DATE NULL DEFAULT NULL,
   `end_date` DATE NULL DEFAULT NULL,
   PRIMARY KEY (`member_id`) ,
   INDEX `club_name_idx` (`club_name` ASC) ,
@@ -58,6 +58,26 @@ CREATE TABLE IF NOT EXISTS `txstexe`.`Member` (
     FOREIGN KEY (`club_name`)
     REFERENCES `txstexe`.`Club` (`club_name`)
     ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `txstexe`.`Credential`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `txstexe`.`Credential` ;
+
+CREATE TABLE IF NOT EXISTS `txstexe`.`Credential` (
+  `credential_id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `member_id` BIGINT(20) NULL DEFAULT NULL,
+  `password` VARCHAR(100) NULL DEFAULT NULL,
+  PRIMARY KEY (`credential_id`) ,
+  INDEX `member` (`member_id` ASC) ,
+  CONSTRAINT `member`
+    FOREIGN KEY (`member_id`)
+    REFERENCES `txstexe`.`Member` (`member_id`)
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
@@ -213,28 +233,6 @@ CREATE TABLE IF NOT EXISTS `txstexe`.`Event` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
-
--- -----------------------------------------------------
--- Table `txstexe`.`Credential`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `txstexe`.`Credential` ;
-
-CREATE TABLE IF NOT EXISTS `txstexe`.`Credential` (
-  `credential_id` BIGINT(20) NOT NULL,
-  `member_id` BIGINT(20) NULL DEFAULT NULL,
-  `username` VARCHAR(50) NULL DEFAULT NULL,
-  `password` VARCHAR(50) NULL DEFAULT NULL,
-  PRIMARY KEY (`credential_id`) ,
-  INDEX `member` (`member_id` ASC) ,
-  CONSTRAINT `member`
-    FOREIGN KEY (`member_id`)
-    REFERENCES `txstexe`.`Member` (`member_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-
 -- -----------------------------------------------------
 -- Table `txstexe`.`Signup`
 -- -----------------------------------------------------
@@ -323,7 +321,7 @@ CREATE TABLE IF NOT EXISTS `txstexe`.`Comment` (
   `thread_id` BIGINT(20) NULL DEFAULT NULL,
   `member_id` BIGINT(20) NULL DEFAULT NULL,
   `comment` MEDIUMTEXT NULL DEFAULT NULL,
-  `datetime` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `datetime` DATETIME NULL DEFAULT NULL,
   PRIMARY KEY (`comment_id`) ,
   INDEX `member_id_idx` (`member_id` ASC) ,
   INDEX `thread_id_idx` (`thread_id` ASC) ,
@@ -351,12 +349,13 @@ CREATE TABLE IF NOT EXISTS `txstexe`.`Thread` (
   `thread_name` VARCHAR(45) NULL DEFAULT NULL,
   `topic_id` BIGINT(20) NULL DEFAULT NULL,
   `thread_op_id` BIGINT(20) NULL DEFAULT NULL,
-  `datetime` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
-  `last_ post_id` BIGINT(20) NULL,
+  `datetime` DATETIME NULL DEFAULT NULL,
+  `last_post_id` BIGINT(20) NULL,
+  `post_count` BIGINT(20) NULL DEFAULT 0,
   PRIMARY KEY (`thread_id`) ,
   INDEX `topic_name_idx` (`topic_id` ASC) ,
   INDEX `op_idx` (`thread_op_id` ASC) ,
-  INDEX `last_ post_idx` (`last_ post_id` ASC) ,
+  INDEX `last_post_idx` (`last_post_id` ASC) ,
   CONSTRAINT `topic_id`
     FOREIGN KEY (`topic_id`)
     REFERENCES `txstexe`.`Topic` (`topic_id`)
@@ -367,8 +366,8 @@ CREATE TABLE IF NOT EXISTS `txstexe`.`Thread` (
     REFERENCES `txstexe`.`Member` (`member_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `last_ post`
-    FOREIGN KEY (`last_ post_id`)
+  CONSTRAINT `last_post`
+    FOREIGN KEY (`last_post_id`)
     REFERENCES `txstexe`.`Comment` (`comment_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -386,6 +385,7 @@ CREATE TABLE IF NOT EXISTS `txstexe`.`Topic` (
   `topic_name` VARCHAR(45) NULL DEFAULT NULL,
   `topic_description` MEDIUMTEXT NULL DEFAULT NULL,
   `last_thread_id` BIGINT(20) NULL DEFAULT NULL,
+  `post_count` BIGINT(20) NULL DEFAULT 0,
   PRIMARY KEY (`topic_id`) ,
   INDEX `forum_name_idx` (`forum_id` ASC) ,
   INDEX `last_thread_id` (`last_thread_id` ASC) ,
@@ -427,3 +427,28 @@ DEFAULT CHARACTER SET = utf8;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+-- Some scripts for inserting times automatically
+DELIMITER ;;
+
+CREATE TRIGGER `add_thread_date` BEFORE INSERT ON `Thread` FOR EACH ROW
+BEGIN
+	set NEW.datetime = NOW();
+END;;
+
+CREATE TRIGGER `add_post_date` BEFORE INSERT ON `Comment` FOR EACH ROW
+BEGIN
+	set NEW.datetime = NOW();
+END;;
+
+CREATE TRIGGER `add_start_date` BEFORE INSERT ON `Member` FOR EACH ROW
+BEGIN
+	set NEW.start_date = NOW();
+END;;
+
+CREATE TRIGGER `update_post_date` BEFORE UPDATE ON `Comment` FOR EACH ROW
+BEGIN
+	set NEW.datetime = NOW();
+END;;
+
+DELIMITER ;

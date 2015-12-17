@@ -5,7 +5,7 @@
 {% block content %}
 <h1>{{ topic.topic_name }}</h1>
 <div class="panel panel-primary">
-    <div class="panel-heading">{{ topic.topic_description }}</div>
+    <div class="panel-heading"><a href="/forums.html">Forums</a> > {{ topic.topic_name }}</div>
     <div class="panel-content">
         <ul class="list-group">
         {% for thread in threads %}
@@ -16,11 +16,11 @@
                         <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
                         <a href = "./{{ thread.thread_id }}/">{{ thread.thread_name }}</a>
                     </h4>
-                    <a href = "/profile/{{ thread.thread_op }}">{{ thread.thread_op }}</a>, {{ thread.datetime.toDateString() }}
+                    <a href = "/profile/{{ thread.opfname }} {{ thread.oplname }}">{{ thread.opfname }} {{ thread.oplname }}</a>, {{ thread.opdatetime.toLocaleString() }}
                 </div>
                 <div class="col-sm-4">
-                    Replies: 0<br>
-                    Last post on 12/31/2015 by Some User
+                    Replies: {{ thread.post_count }}<br>
+                    Last post on {{ thread.datetime.toLocaleString() }} by <a href = "/profile/{{ thread.fname }} {{ thread.lname }}">{{ thread.fname }} {{ thread.lname }}</a>
                 </div>
             </div>
         </li>

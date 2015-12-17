@@ -1,4 +1,5 @@
 var config = require("./config");
+var db = require("./lib/dbhelper");
 var express = require('express');
 var swig = require('swig');
 var bodyParser = require('body-parser');
@@ -51,49 +52,31 @@ app.use(bodyParser.urlencoded({
 
 //Handles membership signup submits.
 app.post('/submit', function(req, res) {
-    console.log("Recieved entry with value " +
-        req.param('fname') + ',' +
-        req.param('initial') + ',' +
-        req.param('lname') + ',' +
-        req.param('email') + ',' +
-        req.param('major') + ',' +
-        req.param('classification') + ',' +
-        req.param('grad_date') + ',' +
-        req.param('tshirt'));
-
-    if (config.sql.enabled) {
-        //Checks to see if we already have a user with the entered email
-        sql.query("SELECT email FROM Member WHERE email=?", req.param('email'), function(error, rows, fields) {
-            if (error) {
-                res.redirect("error.html");
-            }
-            if (rows[0] !== undefined) {
-                //TODO: Render "error" page.
-                console.log(rows[0]);
-                res.send("ERROR : Email already exists in database!");
-            }
-            else {
-                sql.query("INSERT INTO Member (fname, mi, lname, email, password, major, class, grad_date, tshirt_size, start_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [req.param('fname'),
-                    req.param('initial'),
-                    req.param('lname'),
-                    req.param('email'),
-                    hashPassword(req.param('password')),
-                    req.param('major'),
-                    req.param('classification'),
-                    req.param('grad_date'),
-                    req.param('tshirt'),
-                    getFormattedDate()
-                ]);
-                //TODO: Render "success" page.
-                passport.authenticate('local')(req, res, function() {
+    var user = {  
+        fname : req.body.fname,
+        mi : req.body.initial,
+        lname : req.body.lname,
+        email : req.body.email,
+        email_hash : md5sum(req.body.email),
+        major : req.body.major,
+        'class' : req.body.classification,
+        grad_date : req.body.grad_date,
+        tshirt_size : req.body.tshirt
+    };
+    var pass = hashPassword(req.body.password);
+    console.info("Recieved entry with value " + user);
+    db.addNewUser(user, pass, function(){
+        passport.authenticate('local')(req, res, function() {
                     res.redirect("/");
-                });
-            }
         });
-    }
-    else {
-        res.send("SQL sever not configured, unable to signup.");
-    }
+    }, function(){
+        //Email likely same
+        //TODO: flash back to join page.
+        res.redirect("/join.html");
+    },function(error){
+        console.log(error);
+        res.redirect("/error.html");
+    });
 });
 
 //Static files not to be passed through the templating engine
@@ -102,6 +85,9 @@ app.use('/js', express.static(__dirname + "/static/js"));
 app.use('/scripts', express.static(__dirname + "/static/js"));
 app.use('/images', express.static(__dirname + "/static/images"));
 app.use('/fonts', express.static(__dirname + "/static/fonts"));
+app.get('/favicon.ico', function(req, res){
+   res.sendFile(__dirname + '/static/favicon.ico'); 
+});
 
 app.get("/forums/:name", function(req, res) {
     sql.query("SELECT * FROM Topic WHERE topic_name=?", [req.params.name], function(error, topicrows, fields) {
@@ -114,13 +100,23 @@ app.get("/forums/:name", function(req, res) {
             res.redirect("/404.html");
         }
         else {
+            console.log(topicrows[0].topic_id);
             //Show only the last 20 posts for a given topic.
-            sql.query("SELECT * FROM Thread WHERE topic_id=? ORDER BY datetime DESC LIMIT 20", [topicrows[0].topic_id], function(error, rows, fields) {
-                res.render("static/topic.html", {
-                    topic: topicrows[0],
-                    threads: rows,
-                    session: req.user
-                });
+            sql.query("SELECT op.fname AS opfname, op.lname AS oplname, lastpost.*, lastuser.fname, lastuser.lname, Thread.thread_name, Thread.datetime AS opdatetime, Thread.post_count FROM Thread " + 
+            "INNER JOIN Member AS op ON op.member_id=Thread.thread_op_id " +
+            "INNER JOIN Comment AS lastpost ON lastpost.comment_id=Thread.last_post_id " +
+            "INNER JOIN Member AS lastuser ON lastuser.member_id = lastpost.member_id " +
+            "WHERE topic_id=? ORDER BY lastpost.datetime DESC LIMIT 20", [topicrows[0].topic_id], function(error, rows, fields) {
+                if (error){
+                    console.log(error);
+                } else {
+                    console.log(rows[0]);
+                    res.render("static/topic.html", {
+                        topic: topicrows[0],
+                        threads: rows,
+                        session: req.user
+                    });
+                }
             });
         }
     });
@@ -139,23 +135,19 @@ app.get("/forums/:topic/:thread/reply", function(req, res){
     }
 });
 
+//Handles posting thread replies.
 app.post("/forums/:topic/:thread/reply", function(req, res){
     //Checks for login.
     if (req.user){
         //TODO: Check to make sure thread exists.
         //Create the post.
-        sql.query('INSERT INTO Comment (thread_id, member_id, comment, date) VALUES (?, ?, ?, ?)',
-            [req.params.thread, 
-            req.user.member_id,
-            req.body.message,
-            getFormattedDate()],
-        function(error){
-            //TODO: Increase member post count and thread reply count.
-            sql.query('UPDATE Member SET post_count = post_count + 1 WHERE member_id=?', [req.user.member_id], function(error, rows, fields) {
-               //TODO: Update last post dates and threads.
-                res.redirect("/forums/" + req.params.topic + "/" + req.params.thread + "/");    
-            });
+        var comment = {thread_id:req.params.thread, 
+            member_id:req.user.member_id,
+            comment:req.body.message};
+        db.postComment(comment, function() {
+            res.redirect("/forums/" + req.params.topic + "/" + req.params.thread + "/");    
         });
+
     } else {
         res.redirect("/login.html");
     }
@@ -163,10 +155,11 @@ app.post("/forums/:topic/:thread/reply", function(req, res){
 
 //Handles threads.
 app.get("/forums/:topic/:thread", function(req, res){
+    //Gets topics
     sql.query("SELECT * FROM Comment INNER JOIN Member ON Comment.member_id = Member.member_id WHERE thread_id=?", [req.params.thread], function(error, rows, fields) {
         if (error){
             console.log(error);
-            res.redirect("/error.html")
+            res.redirect("/error.html");
         } else {
             res.render("static/thread.html", {
             posts: rows,
@@ -183,13 +176,13 @@ app.post("/forums/:name/newpost", function(req, res){
        //Resolve name into an ID.
        sql.query("SELECT topic_id FROM Topic WHERE topic_name=?", [req.params.name], function(error, topicrows, fields) {
            //Create the thread.
-            sql.query("INSERT INTO Thread (thread_name, topic_id, thread_op, datetime) VALUES (?, ?, ?, ?)",
+            sql.query("INSERT INTO Thread (thread_name, topic_id, thread_op_id) VALUES (?, ?, ?)",
                 [req.body.title, 
                 topicrows[0].topic_id,
-                req.user.fname + " " + req.user.lname,  //Perhaps change to user ID in the future.
-                getFormattedDate()
+                req.user.member_id
             ], function (error){
                 if (error){
+                    console.log(error);
                     res.redirect("/error.html");
                 } else {
                     //Find the newly generated thread ID.
@@ -199,25 +192,21 @@ app.post("/forums/:name/newpost", function(req, res){
                                 res.redirect("/error.html");
                             }
                         //Post the first comment in the thread.
-                        sql.query("INSERT INTO Comment (thread_id, member_id, comment, date) VALUES (?, ?, ?, ?)",
-                        [rows[0].thread_id, req.user.member_id, req.body.message, getFormattedDate()],
-                        function(error) {
-                            if (error){
-                                console.log(error);
-                                res.redirect("/error.html");
-                            }
+                        var comment = {thread_id:rows[0].thread_id, member_id:req.user.member_id, comment:req.body.message};
+                        db.postComment(comment, function(){
                             //Redirect to the new thread.
-                            res.redirect("/forums/" + req.params.name + "/" + rows[0].thread_id + "/");  
+                            res.redirect("/forums/" + req.params.name + "/" + rows[0].thread_id + "/");
                         });
                     });
                 }
             });
         });
    } else {
-       app.redirect("/login.html");
+       res.redirect("/login.html");
    }
 });
 
+//Handles creating new topics.
 app.post("/newtopic", function(req, res) {
     //checks for logged in user
     if (req.user) {
@@ -228,9 +217,8 @@ app.post("/newtopic", function(req, res) {
                 //create new topic
                 sql.query('INSERT INTO Forum (forum_name) VALUES (?)', [req.body.category], function() {
                     sql.query("SELECT forum_id FROM Forum WHERE forum_name=?", [req.body.category], function(error, rows, fields) {
-                        sql.query('INSERT INTO Topic (forum_id, topic_name, datetime, topic_description) VALUES (?, ?, ?, ?)', [rows[0].forum_id,
+                        sql.query('INSERT INTO Topic (forum_id, topic_name, topic_description) VALUES (?, ?, ?)', [rows[0].forum_id,
                             req.body.title,
-                            getFormattedDate(),
                             req.body.description
                         ], function(error, rows, fields) {
                             if (!error) {
@@ -244,9 +232,8 @@ app.post("/newtopic", function(req, res) {
                 });
             } else {
                 console.log(rows[0]);
-                sql.query('INSERT INTO Topic (forum_id, topic_name, datetime, topic_description) VALUES (?, ?, ?, ?)', [rows[0].forum_id,
+                sql.query('INSERT INTO Topic (forum_id, topic_name, topic_description) VALUES (?, ?, ?)', [rows[0].forum_id,
                         req.body.title,
-                        getFormattedDate(),
                         req.body.description
                     ],
                     function(error, rows, fields) {
@@ -303,30 +290,33 @@ app.post('/profile/:id/edit', function(req, res) {
     }
     else {
         //TODO: Check for email collision before SQL update
-        sql.query("UPDATE Member SET fname=?, mi=?, lname=?, email=?, password=?, major=?, class=?, grad_date=?, tshirt_size=? WHERE member_id=?", [req.param('fname'),
-                req.param('initial'),
-                req.param('lname'),
-                req.param('email'),
-                hashPassword(req.param('password')),
-                req.param('major'),
-                req.param('classification'),
-                req.param('grad_date'),
-                req.param('tshirt'),
-                req.user.member_id
-            ],
-            function(error) {
-                if (error) {
-                    console.error(error);
-                    res.redirect('/error.html');
-                }
-                else {
-                    //Recreate session with new password and email, then render profile page.
-                    req.logout();
-                    passport.authenticate('local')(req, res, function() {
-                        res.redirect('/profile/' + req.user.fname + ' ' + req.user.lname);
-                    });
-                }
-            });
+        var user = {  
+        fname : req.body.fname,
+        mi : req.body.initial,
+        lname : req.body.lname,
+        email : req.body.email,
+        email_hash : md5sum(req.body.email),
+        major : req.body.major,
+        'class' : req.body.classification,
+        grad_date : req.body.grad_date,
+        tshirt_size : req.body.tshirt,
+        password : hashPassword(req.body.password)
+    };
+    sql.query("UPDATE Member INNER JOIN Credential ON Credential.member_id=Member.member_id SET ? WHERE Member.member_id=?",
+    [user, req.params.id],
+        function(error) {
+            if (error) { 
+                console.error(error);
+                res.redirect('/error.html');
+            }
+            else {
+                //Recreate session with new password and email, then render profile page.
+                req.logout();
+                passport.authenticate('local')(req, res, function() {
+                    res.redirect('/profile/' + req.user.fname + ' ' + req.user.lname);
+                });
+            }
+        });
     }
 });
 
@@ -420,7 +410,7 @@ passport.use(new localStrategy({
     },
     function(username, password, done) {
         console.info("Checking login");
-        sql.query("SELECT * FROM Member WHERE email=?", username, function(error, rows, fields) {
+        sql.query("SELECT * FROM Member JOIN Credential ON Credential.member_id = Member.member_id WHERE Email=?", username, function(error, rows, fields) {
             if (error) {
                 console.log(error);
                 return done(error);
@@ -468,7 +458,7 @@ var server = app.listen(process.env.port || config.port, process.env.IP || confi
     console.log('listening on', addr.address + ':' + addr.port);
 });
 
-function getFormattedDate() {
+/*function getFormattedDate() {
     var date = new Date();
     var year = date.getFullYear();
     var month = (1 + date.getMonth()).toString();
@@ -476,7 +466,7 @@ function getFormattedDate() {
     var day = date.getDate().toString();
     day = day.length > 1 ? day : '0' + day;
     return (year + '-' + month + '-' + day);
-}
+}*/
 
 function hashPassword(password) {
     var salt = bcrypt.genSaltSync(10);

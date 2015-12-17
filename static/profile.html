@@ -27,11 +27,12 @@
 </div>
 <div class="row">
     <div class="col-sm-6">
-        
+        Major: {{ user.major }}<br>
+        Class: {{ user.class }}
     </div>
     <div class="col-sm-6">
         <h4>{{ user.fname }} has</h4>
-        <h1>6</h1><h4>points!</h4>
+        <h1>{{ user.points }}</h1><h4>points!</h4>
     </div>
 </div>
 {% endblock %}
