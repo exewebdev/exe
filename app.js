@@ -7,6 +7,7 @@ var app = express();
 var mysql = require('mysql');
 var passport = require('passport');
 var localStrategy = require('passport-local').Strategy;
+var facebookStrategy = require("passport-facebook").Strategy;
 var async = require('async');
 var validator = require('validator');
 if (config.bcrypt === false) {
@@ -351,6 +352,13 @@ app.get('/logout', function(req, res) {
     res.redirect('/');
 });
 
+app.get('/login/facebook', passport.authenticate('facebook', {scope: 'email'}));
+
+app.get('/login/facebook/callback', passport.authenticate('facebook', {
+    successRedirect: '/',
+    failureRedirect: '/login'
+}));
+
 app.post('/login',
     passport.authenticate('local', {
         successRedirect: '/',
@@ -447,10 +455,40 @@ passport.serializeUser(function(user, done) {
 passport.deserializeUser(function(id, done) {
     sql.query("SELECT * FROM Member WHERE member_id=?", id, function(error, rows, fields) {
         //We'll also add the MD5 hash of the password to the session object (for use in gravatars).
-        rows[0].emailHash = md5sum(rows[0].email);
         done(error, rows[0]);
     });
 });
+
+passport.use(new facebookStrategy({
+    clientID : config.facebook.clientID,
+    clientSecret : config.facebook.clientSecret,
+    callbackURL : config.facebook.callbackURL,
+    profileFields: ["id", "birthday", "first_name", "last_name", "gender", "picture.width(200).height(200)",'email']
+},
+function(token, refreshToken, profile, done) {
+    sql.query("SELECT * FROM Member WHERE facebook_id=?", [profile.id], function(error, rows){
+       if (error){
+          return done(error);
+       } else if (rows[0]){ //User is already authenticated with facebook
+           return done(null, rows[0]);
+       } else {
+           console.log(profile);
+           var user = {
+               facebook_id : profile.id,
+               facebook_token : token,
+               fname : profile.name.givenName,
+               lname : profile.name.familyName,
+               email : profile.emails[0].value,
+               email_hash : md5sum(profile.emails[0].value),
+           };
+           db.addNewUser(user, null, function(user){
+               return done(null, user);
+           }, function(){
+               throw new error("Something didn't work!");  //Best error message ever
+           });
+       }
+    });
+}));
 
 //Starts the server
 var server = app.listen(process.env.port || config.port, process.env.IP || config.host, function() {

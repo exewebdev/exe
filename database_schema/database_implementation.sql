@@ -52,6 +52,8 @@ CREATE TABLE IF NOT EXISTS `txstexe`.`Member` (
   `points` BIGINT(20) NULL DEFAULT 0,
   `start_date` DATE NULL DEFAULT NULL,
   `end_date` DATE NULL DEFAULT NULL,
+  `facebook_id` VARCHAR(50) DEFAULT NULL,
+  `facebook_token` VARCHAR(50) DEFAULT NULL,
   PRIMARY KEY (`member_id`) ,
   INDEX `club_name_idx` (`club_name` ASC) ,
   CONSTRAINT `club_name`
