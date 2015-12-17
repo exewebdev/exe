@@ -78,7 +78,7 @@
                     <ul class="nav navbar-nav navbar-right" style="margin-right:5px">
                         {% if session.fname %}
                         <li><a href="/profile/{{ session.fname }} {{ session.lname }}">
-                            <img src="https://secure.gravatar.com/avatar/{{ session.emailHash }}?s=25&r=g&d=mm" class="img-circle">
+                            <img src="https://secure.gravatar.com/avatar/{{ session.email_hash }}?s=25&r=g&d=mm" class="img-circle">
                             {{ session.fname }} {{ session.lname }}</a></li>
                         <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                         {% else %}
