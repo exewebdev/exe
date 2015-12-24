@@ -9,12 +9,13 @@
     <script src="/js/bootstrap-hover-dropdown.min.js"></script>
     <script src="/js/calendar.js"></script>
     <script src="/js/validate_join_form.js"></script>
+    <script src="/js/calendar.js"></script>
     <link rel="stylesheet" href="/css/bootstrap-3.3.5.min.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css" />
     {# Templates can add their own stylesheets and scripts, if they wish. #}
     {% block head %}{% endblock %}
 </head>
-<body>
+<body onload="getTodayDate()">
     <!-- Login popup from Bootsnipp (http://bootsnipp.com/snippets/featured/clean-modal-login-form) -->
     <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
     	  <div class="modal-dialog">

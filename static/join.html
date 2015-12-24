@@ -1,5 +1,12 @@
 {% extends 'template.html' %}
-
+<head>
+    <script type="text/javascript">
+        /* <![CDATA[ */
+        $('body').onpagehide = function(){initStorage()};
+        $('body').onpageshow = function(){loadStorage()};
+        /* ]]> */
+    </script>
+</head>
 {% block title %}Join Us{% endblock %}
 
 {% block content %}
@@ -23,7 +30,7 @@
                             <input type="text" id="email" name="email" size="70" required="required"/>
                         </p>
                         <p style="clear:both">
-                            <label for="email">Password<span class='form_required'> *</span></label><br />
+                            <label for="password">Password<span class='form_required'> *</span></label><br />
                             <input type="password" id="password" name="password" size="70" required="required"/>
                         </p>
                         <p>
@@ -47,9 +54,7 @@
                         </p>
                         <p>
                             <label for="grad_date">Expected Graduation Date</label><br />
-                            <input type="date" id="grad_date" name="grad_date">
-                            <!--input type="date" id="grad_date" name="grad_date" onclick="displayCalendar(getTodayDate())"/>
-                            <a href="" onclick="displayCalendar(getTodayDate()); return false">Select Date</a-->
+                            <input type="text" id="grad_date" name="grad_date" onclick="displayCalendar(getTodayDate())">
                         </p>
                         <p>
                             <label for="tshirt">T-Shirt Size</label><br />
