@@ -51,7 +51,7 @@ function displayCalendar(whichMonth) {
         calendarWin.document.write("</tr>");
 
         // ********************************************************
-        // this nsippet takes care of days in leap and non-leap years
+        // this snippet takes care of days in leap and non-leap years
         // and came from http://snippets.dzone.com/posts/show/2099
         var numDays = 32 - new Date(month, dateObject.getFullYear(), 32).getDate();
 
