@@ -40,6 +40,7 @@ if (config.sql.enabled) {
         });
     }
     sql.connect();
+    db.handleDisconnect(sql);
 }
 else {
     console.warn("SQL server disabled in config.js.  Signup and login functionality disabled.");
