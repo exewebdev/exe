@@ -88,7 +88,7 @@ app.use('/scripts', express.static(__dirname + "/static/js"));
 app.use('/images', express.static(__dirname + "/static/images"));
 app.use('/fonts', express.static(__dirname + "/static/fonts"));
 app.get('/favicon.ico', function(req, res){
-   res.sendFile(__dirname + '/static/favicon.ico'); 
+   res.sendfile(__dirname + '/static/favicon.ico');
 });
 
 app.get("/forums/:name", function(req, res) {
