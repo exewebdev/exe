@@ -543,7 +543,7 @@ function(token, refreshToken, profile, done) {
 }));
 
 //Starts the server
-var server = app.listen(process.env.port || process.env.PORT || config.port, process.env.IP || config.host, function() {
+var server = app.listen(process.env.port || config.port, process.env.IP || config.host, function() {
     var addr = server.address();
     console.log('listening on', addr.address + ':' + addr.port);
 });
