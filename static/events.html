@@ -7,4 +7,8 @@
 <div class="col-sm-12 visible-xs responsive-iframe-container" style="padding-right:0">
     <iframe src="https://calendar.google.com/calendar/embed?mode=AGENDA&amp;height=400&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=txstate.exe%40gmail.com&amp;ctz=America/Chicago" style="border: 0; width:90%; height:90%" scrolling="no"></iframe>
 </div> <!-- class="col-sm-10" -->
+{% if session.privs >= 1 %}
+    <a href="/newevent.html" class="btn btn-primary">Create New Event</a>
+{% endif %}
+<a href="/eventlogin.html" class="btn btn-primary">Event Login (for points!)</a>
 {% endblock %}

@@ -8,6 +8,7 @@ var mysql = require('mysql');
 var passport = require('passport');
 var localStrategy = require('passport-local').Strategy;
 var facebookStrategy = require("passport-facebook").Strategy;
+var ensureLogin = require("connect-ensure-login").ensureLoggedIn;
 var async = require('async');
 var gcal = require('./lib/gcalhelper');
 
@@ -67,17 +68,15 @@ app.post('/submit', function(req, res) {
     };
     var pass = hashPassword(req.body.password);
     console.info("Recieved entry with value " + user);
-    db.addNewUser(user, pass, function(){
-        passport.authenticate('local')(req, res, function() {
-                    res.redirect("/");
-        });
-    }, function(){
-        //Email likely same
-        //TODO: flash back to join page.
-        res.redirect("/join.html");
-    },function(error){
-        console.log(error);
-        res.redirect("/error.html");
+    db.addNewUser(user, pass, function(error){
+        if (error){
+            console.log(error);
+            res.redirect("/join.html");
+        } else {
+            passport.authenticate('local')(req, res, function() {
+                res.redirect('/');
+            });
+        }
     });
 });
 
@@ -124,7 +123,7 @@ app.get("/forums/:name", function(req, res) {
     });
 });
 
-app.post("/newevent", function(req, res){
+app.post("/newevent", ensureLogin("/login"), function(req, res){
     if (req.user.privs < 1){
         res.redirect("/403.html");
     } else {
@@ -149,11 +148,34 @@ app.post("/newevent", function(req, res){
     }
 });
 
-app.get("/forums/:name/newpost", function(req, res){
+//Handles event logins
+app.post("/eventlogin", ensureLogin("/login"), function(req, res){
+    //Queries the google calendar for the event happening currently
+    gcal.getCurrentEvent(function (error, event){
+       if (!error && event){
+           if (req.body.password == event.extendedProperties.private.password){
+               //Add user to attended table, and increment user's points by the point value for the event.
+               db.checkInUser(req.user, event, function(error){
+                   if (error){
+                       console.log(error);
+                       res.redirect("/error.html");
+                   } else {
+                       res.redirect("/profile/" + req.user.fname + " " + req.user.lname);
+                   }
+               });
+           }
+       } else {
+           console.log(error);
+           res.redirect("/error.html");
+       }
+    });
+});
+
+app.get("/forums/:name/newpost", ensureLogin("login.html"), function(req, res){
    res.render("static/newpost.html", {session: req.user}); 
 });
 
-app.get("/forums/:topic/:thread/reply", function(req, res){
+app.get("/forums/:topic/:thread/reply", ensureLogin("/login.html"), function(req, res){
     //Checks for login.
     if (req.user){
         res.render("static/reply.html", {session: req.user});
@@ -198,7 +220,7 @@ app.get("/forums/:topic/:thread", function(req, res){
 
 
 //Handles posting new threads
-app.post("/forums/:name/newpost", function(req, res){
+app.post("/forums/:name/newpost",  ensureLogin("/login"), function(req, res){
    if (req.user) {
        //Resolve name into an ID.
        sql.query("SELECT topic_id FROM Topic WHERE topic_name=?", [req.params.name], function(error, topicrows, fields) {
@@ -279,7 +301,7 @@ app.post("/newtopic", function(req, res) {
     }
 });
 
-app.get('/profile/:id/edit', function(req, res) {
+app.get('/profile/:id/edit', ensureLogin("/login"), function(req, res) {
     //checks for authorization before editing a profile page
     if (req.user.member_id != req.params.id) {
         res.render("static/403.html");
@@ -381,13 +403,13 @@ app.get('/logout', function(req, res) {
 app.get('/login/facebook', passport.authenticate('facebook', {scope: 'email'}));
 
 app.get('/login/facebook/callback', passport.authenticate('facebook', {
-    successRedirect: '/',
+    successReturnToOrRedirect: '/',
     failureRedirect: '/login'
 }));
 
 app.post('/login',
     passport.authenticate('local', {
-        successRedirect: '/',
+        successReturnToOrRedirect: '/',
         failureRedirect: '/login',
         failureFlash: 'Incorrect username or password.'
     })
@@ -541,3 +563,15 @@ function hashPassword(password) {
 function md5sum(text) {
     return md5(text);
 }
+
+/*function ensureLogin(url){
+    return function(req, res, next) {
+    if (!req.isAuthenticated || !req.isAuthenticated()) {
+      if (req.session) {
+        req.session.returnTo = req.originalUrl || req.url;
+      }
+      return res.redirect(url);
+    }
+    next();
+  }
+}*/

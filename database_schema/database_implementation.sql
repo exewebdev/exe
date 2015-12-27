@@ -210,27 +210,6 @@ CREATE TABLE IF NOT EXISTS `txstexe`.`MailingList` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
-
--- -----------------------------------------------------
--- Table `txstexe`.`Event`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `txstexe`.`Event` ;
-
-CREATE TABLE IF NOT EXISTS `txstexe`.`Event` (
-  `event_id` VARCHAR(50) NOT NULL,
-  `club_name` VARCHAR(20) NULL DEFAULT NULL,
-  `event_name` VARCHAR(50) NULL DEFAULT NULL,
-  `event_password` VARCHAR(50) NULL DEFAULT NULL,
-  PRIMARY KEY (`event_id`) ,
-  INDEX `club_name_idx` (`club_name` ASC) ,
-  CONSTRAINT `club_name_oncampusevent`
-    FOREIGN KEY (`club_name`)
-    REFERENCES `txstexe`.`Club` (`club_name`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
 -- -----------------------------------------------------
 -- Table `txstexe`.`Signup`
 -- -----------------------------------------------------
@@ -238,17 +217,12 @@ DROP TABLE IF EXISTS `txstexe`.`Signup` ;
 
 CREATE TABLE IF NOT EXISTS `txstexe`.`Signup` (
   `signup_id` BIGINT(20) NOT NULL AUTO_INCREMENT,
-  `event_id` BIGINT(20) NULL DEFAULT NULL,
+  `event_id` VARCHAR(50) NULL DEFAULT NULL,
   `member_id` BIGINT(20) NULL DEFAULT NULL,
   `points` BIGINT(20) NULL DEFAULT NULL,
   PRIMARY KEY (`signup_id`) ,
   INDEX `oncampusevent_id_idx` (`event_id` ASC) ,
   INDEX `member_id_idx` (`member_id` ASC) ,
-  CONSTRAINT `event_id`
-    FOREIGN KEY (`event_id`)
-    REFERENCES `txstexe`.`Event` (`event_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
   CONSTRAINT `member_id_event`
     FOREIGN KEY (`member_id`)
     REFERENCES `txstexe`.`Member` (`member_id`)
