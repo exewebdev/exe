@@ -30,10 +30,10 @@ app.set('views', __dirname);
 
 if (config.sql.enabled) {
     var sql = mysql.createConnection({
-        host: config.sql.host,
-        user: config.sql.user,
-        password: config.sql.password || "",
-        database: config.sql.dbname
+        host: process.env.CLEARDB_DATABASE_URL || config.sql.host,
+        user: process.env.CLEARDB_DATABASE_USER || config.sql.user,
+        password: process.env.CLEARDB_DATABASE_PASSWORD || config.sql.password || "",
+        database: process.env.CLEARDB_DATABASE_NAME || config.sql.dbname
     });
     sql.connect();
 }
@@ -42,7 +42,7 @@ else {
 }
 
 app.use(session({
-    secret: config.secret,
+    secret: process.env.SESSION_SECRET || config.secret,
     resave: true,
     saveUninitialized: true
 }));
@@ -477,7 +477,7 @@ passport.use(new localStrategy({
                     message: 'Incorrect username.'
                 });
             }
-            if (config.bcrypt === false) { //Bypass encryption (ONLY for development.)
+            if (bcrypt === false) { //Bypass encryption (ONLY for development.)
                 if (password == rows[0].password) {
                     console.info("Incorrect password");
                     return done(null, false, {
@@ -508,9 +508,9 @@ passport.deserializeUser(function(id, done) {
 });
 
 passport.use(new facebookStrategy({
-    clientID : config.facebook.clientID,
-    clientSecret : config.facebook.clientSecret,
-    callbackURL : config.facebook.callbackURL,
+    clientID : process.env.FB_CLIENTID || config.facebook.clientID,
+    clientSecret : process.env.FB_CLIENTSECRET || config.facebook.clientSecret,
+    callbackURL : process.env.FB_CALLBACKURL || config.facebook.callbackURL,
     profileFields: ["id", "birthday", "first_name", "last_name", "gender", "picture.width(200).height(200)",'email']
 },
 function(token, refreshToken, profile, done) {
