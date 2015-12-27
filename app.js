@@ -29,12 +29,16 @@ app.set('view engine', 'html');
 app.set('views', __dirname);
 
 if (config.sql.enabled) {
-    var sql = mysql.createConnection({
-        host: process.env.CLEARDB_DATABASE_URL || config.sql.host,
-        user: process.env.CLEARDB_DATABASE_USER || config.sql.user,
-        password: process.env.CLEARDB_DATABASE_PASSWORD || config.sql.password || "",
-        database: process.env.CLEARDB_DATABASE_NAME || config.sql.dbname
-    });
+    if (process.env.CLEARDB_DATABASE_NAME){ //for heroku's cleardb
+        var sql = mysql.createConnection(process.env.CLEARDB_DATABASE_NAME);
+    } else {
+        var sql = mysql.createConnection({
+            host: process.env.DATABASE_HOST || config.sql.host,
+            user: process.env.DATABASE_USER || config.sql.user,
+            password: process.env.DATABASE_PASSWORD || config.sql.password || "",
+            database: process.env.DATABASE_NAME || config.sql.dbname
+        });
+    }
     sql.connect();
 }
 else {
