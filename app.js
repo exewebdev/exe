@@ -30,7 +30,7 @@ app.set('views', __dirname);
 
 if (config.sql.enabled) {
     if (process.env.CLEARDB_DATABASE_NAME){ //for heroku's cleardb
-        var sql = mysql.createConnection(process.env.CLEARDB_DATABASE_NAME);
+        var sql = mysql.createConnection(process.env.CLEARDB_DATABASE_URL);
     } else {
         var sql = mysql.createConnection({
             host: process.env.DATABASE_HOST || config.sql.host,
