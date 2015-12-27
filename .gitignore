@@ -71,6 +71,9 @@ $RECYCLE.BIN/
 #Node JS Dependencies
 node_modules/
 
+#NPM Logs
+npm-debug.log
+
 #Grunt www output
 www/
 undefined/
