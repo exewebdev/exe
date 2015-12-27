@@ -29,7 +29,7 @@ app.set('view engine', 'html');
 app.set('views', __dirname);
 
 if (config.sql.enabled) {
-    if (process.env.CLEARDB_DATABASE_NAME){ //for heroku's cleardb
+    if (process.env.CLEARDB_DATABASE_URL){ //for heroku's cleardb
         var sql = mysql.createConnection(process.env.CLEARDB_DATABASE_URL);
     } else {
         var sql = mysql.createConnection({
