@@ -9,7 +9,8 @@ var passport = require('passport');
 var localStrategy = require('passport-local').Strategy;
 var facebookStrategy = require("passport-facebook").Strategy;
 var async = require('async');
-var validator = require('validator');
+var gcal = require('./lib/gcalhelper');
+
 if (config.bcrypt === false) {
     console.error("Bcrypt disabled in settings!  Do not use in production!");
 }
@@ -121,6 +122,31 @@ app.get("/forums/:name", function(req, res) {
             });
         }
     });
+});
+
+app.post("/newevent", function(req, res){
+    if (req.user.privs < 1){
+        res.redirect("/403.html");
+    } else {
+        console.log(req.body.startdate);
+        gcal.addEvent(
+            req.body.name,
+            new Date(req.body.startdate),
+            new Date(req.body.enddate),
+            req.body.location,
+            req.body.description,
+            req.body.points,
+            req.body.password,
+            function(err){
+                if (err){
+                    console.log(err);
+                    res.redirect('/error.html');
+                } else {
+                    res.redirect('/events.html');
+                }
+            }
+        );
+    }
 });
 
 app.get("/forums/:name/newpost", function(req, res){

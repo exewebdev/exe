@@ -54,6 +54,7 @@ CREATE TABLE IF NOT EXISTS `txstexe`.`Member` (
   `end_date` DATE NULL DEFAULT NULL,
   `facebook_id` VARCHAR(50) DEFAULT NULL,
   `facebook_token` VARCHAR(50) DEFAULT NULL,
+  `privs` BIGINT(1) DEFAULT 0,
   PRIMARY KEY (`member_id`) ,
   INDEX `club_name_idx` (`club_name` ASC) ,
   CONSTRAINT `club_name`
@@ -216,15 +217,10 @@ DEFAULT CHARACTER SET = utf8;
 DROP TABLE IF EXISTS `txstexe`.`Event` ;
 
 CREATE TABLE IF NOT EXISTS `txstexe`.`Event` (
-  `event_id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `event_id` VARCHAR(50) NOT NULL,
   `club_name` VARCHAR(20) NULL DEFAULT NULL,
   `event_name` VARCHAR(50) NULL DEFAULT NULL,
-  `event_type` VARCHAR(50) NULL DEFAULT NULL,
-  `building` VARCHAR(25) NULL DEFAULT NULL,
-  `room` VARCHAR(10) NULL DEFAULT NULL,
-  `date` DATE NULL DEFAULT NULL,
-  `time` TIME NULL DEFAULT NULL,
-  `price` DECIMAL(10,2) NULL DEFAULT NULL,
+  `event_password` VARCHAR(50) NULL DEFAULT NULL,
   PRIMARY KEY (`event_id`) ,
   INDEX `club_name_idx` (`club_name` ASC) ,
   CONSTRAINT `club_name_oncampusevent`

@@ -77,3 +77,6 @@ undefined/
 
 #Config file
 config.js
+
+#API Keys
+google-svc-auth.json
