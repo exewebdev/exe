@@ -29,7 +29,8 @@
     "grunt-swig": "^0.2.1"
   },
   "scripts": {
-    "test": "grunt"
+    "test": "grunt",
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
