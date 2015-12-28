@@ -195,9 +195,12 @@ app.post("/forums/:topic/:thread/reply", function(req, res){
     if (req.user){
         //TODO: Check to make sure thread exists.
         //Create the post.
-        var comment = {thread_id:req.params.thread, 
-            member_id:req.user.member_id,
-            comment:req.body.message};
+        var comment = {
+            thread_id : req.params.thread, 
+            member_id : req.user.member_id,
+            comment : req.body.message,
+            datetime: (new Date())
+        };
         db.postComment(comment, function() {
             res.redirect("/forums/" + req.params.topic + "/" + req.params.thread + "/");    
         });
@@ -230,10 +233,11 @@ app.post("/forums/:name/newpost",  ensureLogin("/login"), function(req, res){
        //Resolve name into an ID.
        sql.query("SELECT topic_id FROM Topic WHERE topic_name=?", [req.params.name], function(error, topicrows, fields) {
            //Create the thread.
-            sql.query("INSERT INTO Thread (thread_name, topic_id, thread_op_id) VALUES (?, ?, ?)",
+            sql.query("INSERT INTO Thread (thread_name, topic_id, thread_op_id, datetime) VALUES (?, ?, ?, ?)",
                 [req.body.title, 
                 topicrows[0].topic_id,
-                req.user.member_id
+                req.user.member_id,
+                (new Date())
             ], function (error){
                 if (error){
                     console.log(error);
@@ -246,7 +250,7 @@ app.post("/forums/:name/newpost",  ensureLogin("/login"), function(req, res){
                                 res.redirect("/error.html");
                             }
                         //Post the first comment in the thread.
-                        var comment = {thread_id:rows[0].thread_id, member_id:req.user.member_id, comment:req.body.message};
+                        var comment = {thread_id:rows[0].thread_id, member_id:req.user.member_id, comment:req.body.message, datetime:(new Date())};
                         db.postComment(comment, function(){
                             //Redirect to the new thread.
                             res.redirect("/forums/" + req.params.name + "/" + rows[0].thread_id + "/");
@@ -533,6 +537,7 @@ function(token, refreshToken, profile, done) {
                lname : profile.name.familyName,
                email : profile.emails[0].value,
                email_hash : md5sum(profile.emails[0].value),
+               start_date: (new Date())
            };
            db.addNewUser(user, null, function(user){
                return done(null, user);
