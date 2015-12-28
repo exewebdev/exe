@@ -246,12 +246,18 @@ app.post("/forums/:name/newpost",  ensureLogin("/login"), function(req, res){
                     //Find the newly generated thread ID.
                     sql.query("SELECT thread_id FROM Thread WHERE thread_name=? ORDER BY thread_id DESC", [req.body.title], function(error, rows){
                         if (error){
-                                console.log(error);
-                                res.redirect("/error.html");
-                            }
+                            console.log(error);
+                            res.redirect("/error.html");
+                        }
                         //Post the first comment in the thread.
-                        var comment = {thread_id:rows[0].thread_id, member_id:req.user.member_id, comment:req.body.message, datetime:(new Date())};
-                        db.postComment(comment, function(){
+                        var comment = {
+                            thread_id:rows[0].thread_id,
+                            member_id:req.user.member_id,
+                            comment:req.body.message,
+                            datetime:(new Date())
+                        };
+                        db.postComment(comment, function(error){
+                            if (error){ console.log(error);}
                             //Redirect to the new thread.
                             res.redirect("/forums/" + req.params.name + "/" + rows[0].thread_id + "/");
                         });
@@ -275,9 +281,11 @@ app.post("/newtopic", function(req, res) {
                 //create new topic
                 sql.query('INSERT INTO Forum (forum_name) VALUES (?)', [req.body.category], function() {
                     sql.query("SELECT forum_id FROM Forum WHERE forum_name=?", [req.body.category], function(error, rows, fields) {
-                        sql.query('INSERT INTO Topic (forum_id, topic_name, topic_description) VALUES (?, ?, ?)', [rows[0].forum_id,
+                        sql.query('INSERT INTO Topic (forum_id, topic_name, topic_description, datetime) VALUES (?, ?, ?, ?)',
+                            [rows[0].forum_id,
                             req.body.title,
-                            req.body.description
+                            req.body.description,
+                            (new Date())
                         ], function(error, rows, fields) {
                             if (!error) {
                                 res.redirect("forums/" + req.params.title);
@@ -290,9 +298,11 @@ app.post("/newtopic", function(req, res) {
                 });
             } else {
                 console.log(rows[0]);
-                sql.query('INSERT INTO Topic (forum_id, topic_name, topic_description) VALUES (?, ?, ?)', [rows[0].forum_id,
+                sql.query('INSERT INTO Topic (forum_id, topic_name, topic_description, datetime) VALUES (?, ?, ?, ?)', 
+                        [rows[0].forum_id,
                         req.body.title,
-                        req.body.description
+                        req.body.description,
+                        (new Date())
                     ],
                     function(error, rows, fields) {
                         if (!error) {
