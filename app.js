@@ -549,10 +549,13 @@ function(token, refreshToken, profile, done) {
                email_hash : md5sum(profile.emails[0].value),
                start_date: (new Date())
            };
-           db.addNewUser(user, null, function(user){
-               return done(null, user);
-           }, function(){
-               throw new error("Something didn't work!");  //Best error message ever
+           db.addNewUser(user, null, function(error, user){
+               if (error){
+                    console.log(error);
+                    return done(error);
+               } else {
+                    return done(null, user);
+               }
            });
        }
     });
