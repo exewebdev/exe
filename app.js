@@ -222,7 +222,7 @@ app.post("/forums/:name/newpost",  ensureLogin("/login"), function(req, res){
                     db.postComment(comment, function(error){
                         if (error){ console.log(error);}
                         //Redirect to the new thread.
-                        res.redirect("/forums/" + req.params.name + "/" + rows[0].thread_id + "/");
+                        res.redirect("/forums/" + req.params.name + "/" + thread.thread_id + "/");
                     });
                 }
             });
@@ -243,7 +243,8 @@ app.post("/newtopic", ensureLogin("/login"), function(req, res) {
             description: req.body.description
         };
         db.createTopic(topic, function(error){
-            if (!error) {
+            if (error) {
+                console.log(error);
                 res.redirect("error.html");
             } else {
                 res.redirect("forums/" + req.body.title);
@@ -327,6 +328,9 @@ app.get('/forums.html', function(req, res) {
         async.each(rows, function(row, callback) {
             var rowIndex = forum.categories.push(row);
             db.getCategoryTopics(row.forum_id, function(error, rows) {
+                if (error){
+                    console.log(error);
+                }
                 forum.categories[rowIndex - 1].topics = rows;
                 callback();
             });
