@@ -207,7 +207,7 @@ app.post("/forums/:name/newpost",  ensureLogin("/login"), function(req, res){
        //Resolve name into an ID.
        db.getTopicByName(req.params.name, function(error, topic) {
            //Create the thread.
-            db.newThread(topic.topic_id, req.body.title, req.user.member_id, function (error, thread){
+            db.createThread(topic.topic_id, req.body.title, req.user.member_id, function (error, thread){
                 if (error){
                     console.log(error);
                     res.redirect("/error.html");
@@ -503,16 +503,6 @@ var server = app.listen(process.env.port || process.env.PORT || config.port, pro
     console.log('listening on', addr.address + ':' + addr.port);
 });
 
-/*function getFormattedDate() {
-    var date = new Date();
-    var year = date.getFullYear();
-    var month = (1 + date.getMonth()).toString();
-    month = month.length > 1 ? month : '0' + month;
-    var day = date.getDate().toString();
-    day = day.length > 1 ? day : '0' + day;
-    return (year + '-' + month + '-' + day);
-}*/
-
 function hashPassword(password) {
     var salt = bcrypt.genSaltSync(10);
     var hash = bcrypt.hashSync(password, salt);
@@ -522,15 +512,3 @@ function hashPassword(password) {
 function md5sum(text) {
     return md5(text);
 }
-
-/*function ensureLogin(url){
-    return function(req, res, next) {
-    if (!req.isAuthenticated || !req.isAuthenticated()) {
-      if (req.session) {
-        req.session.returnTo = req.originalUrl || req.url;
-      }
-      return res.redirect(url);
-    }
-    next();
-  }
-}*/
