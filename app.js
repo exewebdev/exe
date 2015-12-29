@@ -80,9 +80,9 @@ app.get("/forums/:name", function(req, res) {
         db.getTopicByName(req.params.name, function(error, topic){
             if (error){
                 console.log(error);
-                res.redirect("error.html");
+                res.redirect("/error.html");
             } else if (!topic) {
-                res.redirect("404.html");
+                res.redirect("/404.html");
             } else {
             console.log(topic.topic_id);
             //Show only the last 20 posts for a given topic.
@@ -102,7 +102,7 @@ app.get("/forums/:name", function(req, res) {
     });
 });
 
-app.post("/newevent", ensureLogin("/login"), function(req, res){
+app.post("/newevent", ensureLogin("/login.html"), function(req, res){
     if (req.user.privs < 1){
         res.redirect("/403.html");
     } else {
@@ -128,7 +128,7 @@ app.post("/newevent", ensureLogin("/login"), function(req, res){
 });
 
 //Handles event logins
-app.post("/eventlogin", ensureLogin("/login"), function(req, res){
+app.post("/eventlogin", ensureLogin("/login.html"), function(req, res){
     //Queries the google calendar for the event happening currently
     gcal.getCurrentEvent(function (error, event){
        if (!error && event){
@@ -150,7 +150,7 @@ app.post("/eventlogin", ensureLogin("/login"), function(req, res){
     });
 });
 
-app.get("/forums/:name/newpost", ensureLogin("login.html"), function(req, res){
+app.get("/forums/:name/newpost", ensureLogin("/login.html"), function(req, res){
    res.render("static/newpost.html", {session: req.user}); 
 });
 
@@ -245,9 +245,9 @@ app.post("/newtopic", ensureLogin("/login"), function(req, res) {
         db.createTopic(topic, function(error){
             if (error) {
                 console.log(error);
-                res.redirect("error.html");
+                res.redirect("/error.html");
             } else {
-                res.redirect("forums/" + req.body.title);
+                res.redirect("/forums/" + req.body.title);
             }
         });
     } else {
