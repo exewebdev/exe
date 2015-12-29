@@ -255,7 +255,7 @@ a {
 
 /* Small devices (tablets, 692px and up) */
 @media (min-width: 692px)and (max-width: 893px) {
-    #slide1 { background: url('../images/club_small.png') top left no-repeat; }
+    #slide1 { background: url('../images/club_small.jpg') top left no-repeat; }
     #slide2 { background: url('../images/event_small.jpg') top left no-repeat; }
     #slide3 { background: url('../images/project_small.jpg') top left no-repeat;}
     .carousel-caption {font-size:16px}
@@ -265,8 +265,8 @@ a {
 
 /* Medium devices (desktops, 893px and up) */
 @media (min-width: 893px) and (max-width: 1080px) {
-    #slide1 { background: url('../images/club_medium.png') top left no-repeat; }
-    #slide2 { background: url('../images/event_medium.png') top left no-repeat; }
+    #slide1 { background: url('../images/club_medium.jpg') top left no-repeat; }
+    #slide2 { background: url('../images/event_medium.jpg') top left no-repeat; }
     #slide3 { background: url('../images/project_medium.jpg') top left no-repeat; }
     .carousel-caption { font-size:20px }
     .carousel-caption h4 { font-size:27px }
@@ -275,8 +275,8 @@ a {
 
 /* Large devices (large desktops, 1080px and up) */
 @media (min-width: 1080px){
-    #slide1 { background: url('../images/club_large.png') top left no-repeat;}
-    #slide2 { background: url('../images/event_large.png') top left no-repeat;}
+    #slide1 { background: url('../images/club_large.jpg') top left no-repeat;}
+    #slide2 { background: url('../images/event_large.jpg') top left no-repeat;}
     #slide3 { background: url('../images/project_large.jpg') top left no-repeat;}
     .carousel-caption { font-size:24px }
     .carousel-caption h4 { font-size:32px }
