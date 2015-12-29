@@ -25,17 +25,17 @@ a {
     background-color: #4d1717;
 }
 
-#career_nav a {
+.career_nav a {
     color:#dfd4c3;
     background-color: #4d1717;
 }
 
-#career_nav a:active {
+.career_nav a:active {
     color:#dfd4c3;
     background-color: #4d1717;
 }
 
-#career_nav a:hover {
+.career_nav a:hover {
     color: #4d1717;
     text-decoration: none;
     background-color: #9c8968;

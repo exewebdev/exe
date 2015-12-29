@@ -53,7 +53,7 @@ app.post('/submit', function(req, res) {
         tshirt_size : req.body.tshirt
     };
     var pass = hashPassword(req.body.password);
-    console.info("Recieved entry with value " + user);
+    console.info("Recieved entry with value " + user.email);
     db.addNewUser(user, pass, function(error){
         if (error){
             console.log(error);
@@ -285,7 +285,7 @@ app.get('/profile/:name', function(req, res) {
 
 //Handles profile edits.
 app.post('/profile/:id/edit', function(req, res) {
-    if (req.params.id != req.user.member_id) {
+    if (req.params.id != req.user.member_id && req.user.privs < 1) {
         res.redirect("/403.html");
     }
     else {
@@ -305,18 +305,32 @@ app.post('/profile/:id/edit', function(req, res) {
         if (req.body.password) {
             user.password = hashPassword(req.body.password);
         }
-        db.updateUser(req.params.id, user, function(error) {
-            if (error) { 
-                console.error(error);
-                res.redirect('/error.html');
-            } else {
-                //Recreate session with new password and email, then render profile page.
-                req.logout();
-                passport.authenticate('local')(req, res, function() {
-                    res.redirect('/profile/' + req.user.fname + ' ' + req.user.lname);
-                });
-            }
-        });
+        var doUpdate = function(){ 
+            db.updateUser(req.params.id, user, function(error) {
+                if (error) { 
+                    console.error(error);
+                    res.redirect('/error.html');
+                } else {
+                    //Recreate session with new password and email, then render profile page.
+                    req.logout();
+                    passport.authenticate('local')(req, res, function() {
+                        res.redirect('/profile/' + req.user.fname + ' ' + req.user.lname);
+                    });
+                }
+            });
+        };
+        //If email is being updated, ensure no other user owns email.
+        if (user.email){
+            db.getUserByEmail(user.email, function(error, member){
+                if (member && member.member_id !== req.params.id){
+                    res.redirect("/error.html");
+                } else {
+                    doUpdate();
+                }
+            });
+        } else {
+            doUpdate();
+        }
     }
 });
 

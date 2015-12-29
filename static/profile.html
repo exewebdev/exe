@@ -4,7 +4,7 @@
 <br>
 <div class="row-fluid">
     <div class="col-sm-2">
-        <img src="https://secure.gravatar.com/avatar/{{ user.emailHash }}?s=120&amp;r=g&amp;d=mm" class="img-circle" alt="gravatar">
+        <img src="https://secure.gravatar.com/avatar/{{ user.email_hash }}?s=120&amp;r=g&amp;d=mm" class="img-circle" alt="gravatar">
     </div>
     <div class="col-sm-8">
         <h2>{{ user.fname }} {{ user.lname }}</h2>
@@ -13,7 +13,7 @@
         <h6></h6>
     </div>
     <div class="col-sm-2">
-        {% if user.member_id == session.member_id %}
+        {% if user.member_id == session.member_id || session.privs > 0 %}
         <a class="btn btn-info" href="{{ user.member_id }}/edit">
             Edit
         </a>
