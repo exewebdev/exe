@@ -3,8 +3,6 @@
 }
 
 body {
-	font-family: Arial, Helvetica, sans-serif;
-	color: #061C37;
     background: #dfd4c3
 }
 
@@ -57,26 +55,6 @@ a {
     color: #dfd4c3;
 }
 
-#indexCarousel {
-    margin-top: 30px;
-    width: 80%
-}
-#indexCarousel .item {
-    height: 500px;
-}
-
-#slide1 {
-    background: url('../images/club_large.jpg') top left no-repeat;
-}
-
-#slide2 {
-    background: url('../images/event_large.jpg') top left no-repeat;
-}
-
-#slide3 {
-    background: url('../images/project_large.jpg') top left no-repeat;
-}
-
 #bigCallout{
     text-align:center;
     border-radius:10px;
@@ -87,10 +65,9 @@ a {
 
 .panel-primary {
     border-color: #4d1717;
-    
 }
 
-.panel-primary>.panel-heading{
+.panel-primary > .panel-heading{
     background-color: #4d1717;
     border-color: #4d1717;
 }
@@ -106,13 +83,6 @@ a {
 
 #join input[type="text"], input[type="email"], input[type="date"], select {
     margin-bottom: 10px
-}
-.carousel-caption {
-    font-size:24px
-}
-
-.carousel-caption h4 {
-    font-size:32px
 }
 
 .features { text-align:center }
@@ -161,7 +131,7 @@ a {
     height: 100%;
 }
 
-/****** LOGIN MODAL ******/
+/****** Login Modal ******/
 .loginmodal-container {
   padding: 30px;
   max-width: 350px;
@@ -273,18 +243,41 @@ a {
   font-size: 12px;
 }
 
-/* Portrait and landscape phone */
-@media (max-width: 480px){}
+/****** Carousel ******/
+#indexCarousel {
+    margin-top: 30px;
+    width: 80%;
+}
 
-/*landcsape phone to potrarit tablet*/
-@media (max-width: 768px){}
-    #slide1 { background: url('../images/club_large.jpg') top left no-repeat;}
-    #slide2 { background: url('../images/event_large.jpg') top left no-repeat;}
+#indexCarousel .item {
+    height: 500px;
+}
+
+/* Small devices (tablets, 692px and up) */
+@media (min-width: 692px)and (max-width: 893px) {
+    #slide1 { background: url('../images/club_small.png') top left no-repeat; }
+    #slide2 { background: url('../images/event_small.jpg') top left no-repeat; }
+    #slide3 { background: url('../images/project_small.jpg') top left no-repeat;}
+    .carousel-caption {font-size:16px}
+    .carousel-caption h4 {font-size:22px}
+    #indexCarousel .item { height: 300px; }
+}
+
+/* Medium devices (desktops, 893px and up) */
+@media (min-width: 893px) and (max-width: 1080px) {
+    #slide1 { background: url('../images/club_medium.png') top left no-repeat; }
+    #slide2 { background: url('../images/event_medium.png') top left no-repeat; }
+    #slide3 { background: url('../images/project_medium.jpg') top left no-repeat; }
+    .carousel-caption { font-size:20px }
+    .carousel-caption h4 { font-size:27px }
+    #indexCarousel .item { height:400px; }
+}
+
+/* Large devices (large desktops, 1080px and up) */
+@media (min-width: 1080px){
+    #slide1 { background: url('../images/club_large.png') top left no-repeat;}
+    #slide2 { background: url('../images/event_large.png') top left no-repeat;}
     #slide3 { background: url('../images/project_large.jpg') top left no-repeat;}
-    
-/*large tablet*/
-@media (max-width: 1200px){
-    #slide1 { background: url('../images/club_large.jpg') top left no-repeat;}
-    #slide2 { background: url('../images/event_large.jpg') top left no-repeat;}
-    #slide3 { background: url('../images/project_large.jpg') top left no-repeat;}
+    .carousel-caption { font-size:24px }
+    .carousel-caption h4 { font-size:32px }
 }
