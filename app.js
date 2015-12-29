@@ -53,7 +53,7 @@ app.post('/submit', function(req, res) {
         tshirt_size : req.body.tshirt
     };
     var pass = hashPassword(req.body.password);
-    console.info("Recieved entry with value " + user);
+    console.info("Recieved entry with value " + user.email);
     db.addNewUser(user, pass, function(error){
         if (error){
             console.log(error);
