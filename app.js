@@ -305,7 +305,7 @@ app.post('/profile/:id/edit', function(req, res) {
         if (req.body.password) {
             user.password = hashPassword(req.body.password);
         }
-        function doUpdate(){ 
+        var doUpdate = function(){ 
             db.updateUser(req.params.id, user, function(error) {
                 if (error) { 
                     console.error(error);
@@ -318,7 +318,7 @@ app.post('/profile/:id/edit', function(req, res) {
                     });
                 }
             });
-        }
+        };
         //If email is being updated, ensure no other user owns email.
         if (user.email){
             db.getUserByEmail(user.email, function(error, member){
