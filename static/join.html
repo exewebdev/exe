@@ -1,81 +1,87 @@
 {% extends 'template.html' %}
 {% block head %}
-    <script src="/js/modernizr-2.6.2.min.js"></script>
-    <script type="text/javascript">
-        /* <![CDATA[ */
-        $('body').onpagehide = function(){
-            initStorage();
-        };
-        $('body').onpageshow = function(){
-            loadStorage();
-        };
-        /* ]]> */
-    </script>
-    <script src="/js/validate_join_form.js"></script>
-    <script src="/js/calendar.js"></script>
+<script type="text/javascript" src="/js/moment.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap-datetimepicker.min.js"></script>
+<link rel="stylesheet" href="/css/bootstrap-datetimepicker.min.css" type="text/css" /> 
 {% endblock %}
 {% block title %}Join Us{% endblock %}
 
 {% block content %}
+<div class="col-sm-6" style="float:none">
 <h1 style="color:#ae9c7f; margin-top:20px">Membership Signup!</h1><br />
-                <form id="join" action="/submit" method="post" onsubmit="CheckForm()">
-                    <fieldset><legend>Your Information</legend><br />
-                        <p style="float:left">
-                            <label for="fname">First Name<span class='form_required'> *</span></label><br />
-                            <input type="text" id="fname" name ="fname" size='30' required="required" style="margin-right:5px">
-                        </p>
-                        <p style="float:left">
-                            <label for="initial">MI</label><br />
-                            <input type="text" id="initial" name="initial" size='1' maxlength='1'>
-                        </p>
-                        <p style="float:left">
-                            <label for="lname">Last Name<span class='form_required'> *</span></label><br />
-                            <input type="text" id="lname" name="lname" size='29' required="required" style="margin-left:5px">
-                        </p>
-                        <p style="clear:both">
-                            <label for="email">Email<span class='form_required'> *</span></label><br />
-                            <input type="text" id="email" name="email" size="70" required="required"/>
-                        </p>
-                        <p style="clear:both">
-                            <label for="password">Password<span class='form_required'> *</span></label><br />
-                            <input type="password" id="password" name="password" size="70" required="required"/>
-                        </p>
-                        <p>
-                            <label for="major">Major</label><br />
-                            <select id="major" name="major">
-                                <option value="">--Please Select--</option>
-                                <option value="cs">Computer Science</option>
-                                <option value="cis">Computer Information Systems</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </p>
-                        <p>
-                            <label for="classification">Classification</label><br />
-                            <select id="classification" name="classification">
-                                <option value="">--Please Select--</option>
-                                <option value="freshman">Freshman</option>
-                                <option value="sophomore">Sophomore</option>
-                                <option value="junior">Junior</option>
-                                <option value="senior">Senior</option>
-                            </select>
-                        </p>
-                        <p>
-                            <label for="grad_date">Expected Graduation Date</label><br />
-                            <input type="date" id="grad_date" name="grad_date" onclick="displayCalendar(getTodayDate())">
-                        </p>
-                        <p>
-                            <label for="tshirt">T-Shirt Size</label><br />
-                            <select id="tshirt" name="tshirt">
-                                <option value="">-Please Select--</option>
-                                <option value="small">Small</option>
-                                <option value="medium">Medium</option>
-                                <option value="large">Large</option>
-                                <option value="extra large">Extra Large</option>
-                            </select>
-                        </p>
-                        <p>
-                            <input type="submit" value="Submit" />&nbsp;<input name="reset" type="reset" value="Cancel" />
-                        </p>
-                    </fieldset>
+    <form id="join" action="/submit" method="post" onsubmit="CheckForm()">
+    <fieldset><legend>Your Information</legend><br />
+        <div class="row">
+            <div class="col-sm-6">
+                <input class="form-control" type="text" id="fname" placeholder="First Name" name="fname" required="required">
+            </div>
+            <div class="col-sm-6">
+                <input class="form-control" type="text" id="lname" placeholder="Last Name" name="lname" required="required">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <input class="form-control" type="text" id="email" placeholder="E-mail" name="email" required="required"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <label for="password">Password</label>
+                <input class="form-control" type="password" id="password" placeholer="Password" name="password" required="required"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-7">
+                <label for="major">Major</label>
+                <select id="major" class="form-control" name="major">
+                    <option value="">--Please Select--</option>
+                    <option value="cs">Computer Science</option>
+                    <option value="cis">Computer Information Systems</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <div class="col-sm-5">
+                <label for="classification">Classification</label>
+                <select id="classification" class="form-control" name="classification">
+                    <option value="">--Please Select--</option>
+                    <option value="freshman">Freshman</option>
+                    <option value="sophomore">Sophomore</option>
+                    <option value="junior">Junior</option>
+                    <option value="senior">Senior</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <label for="grad_date">Expected Graduation Date</label><br />
+                <input type='text' class="form-control" name="grad_date" id="grad_date"/>
+            </div>
+            <script type="text/javascript">
+            $(function () {
+                var options = {
+                    format: 'MM/DD/YYYY',
+                    viewMode: 'years'
+                };
+                $('#grad_date').datetimepicker(options);
+            });
+            </script>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <label for="tshirt">T-Shirt Size</label>
+                <select id="tshirt" class="form-control" name="tshirt">
+                    <option value="">-Please Select--</option>
+                    <option value="small">Small</option>
+                    <option value="medium">Medium</option>
+                    <option value="large">Large</option>
+                    <option value="extra large">Extra Large</option>
+                </select>
+            </div>
+        </div>
+        <p>
+            <input type="submit" value="Submit" />&nbsp;<input name="reset" type="reset" value="Cancel" />
+        </p>
+    </fieldset>
 </form>
+</div>
 {% endblock %}
