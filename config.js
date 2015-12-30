@@ -7,8 +7,8 @@ var config = {
     sql : {
         enabled: true,
         host : "localhost",
-        user : "pokemonmegamon",
-        password : "",
+        user : "txstexe",
+        password : "aggies92",
         dbname : "txstexe"
     },
     facebook : {
