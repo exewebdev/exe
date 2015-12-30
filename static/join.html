@@ -1,12 +1,19 @@
 {% extends 'template.html' %}
-<head>
+{% block head %}
+    <script src="/js/modernizr-2.6.2.min.js"></script>
     <script type="text/javascript">
         /* <![CDATA[ */
-        $('body').onpagehide = function(){initStorage()};
-        $('body').onpageshow = function(){loadStorage()};
+        $('body').onpagehide = function(){
+            initStorage();
+        };
+        $('body').onpageshow = function(){
+            loadStorage();
+        };
         /* ]]> */
     </script>
-</head>
+    <script src="/js/validate_join_form.js"></script>
+    <script src="/js/calendar.js"></script>
+{% endblock %}
 {% block title %}Join Us{% endblock %}
 
 {% block content %}
