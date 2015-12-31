@@ -526,7 +526,7 @@ passport.deserializeUser(function(id, done) {
 passport.use(new facebookStrategy({
     clientID : process.env.FB_CLIENTID || config.facebook.clientID,
     clientSecret : process.env.FB_CLIENTSECRET || config.facebook.clientSecret,
-    callbackURL : (process.env.FQDN || config.fqdn || "localhost") + "/login/facebook/callback",
+    callbackURL : "https://" + (process.env.FQDN || config.fqdn || "localhost") + "/login/facebook/callback",
     profileFields: ["id", "birthday", "first_name", "last_name", "picture.width(200).height(200)",'email']
 },
 function(token, refreshToken, profile, done) {
