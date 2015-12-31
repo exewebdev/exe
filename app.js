@@ -151,7 +151,7 @@ app.post("/eventlogin", ensureLogin("/login.html"), function(req, res){
     });
 });
 
-app.get("/pay", function(req, res){
+app.get("/pay", ensureLogin("/login"), function(req, res){
     paypal.payDues(req.user, function(error, payment){
         req.session.paymentId = payment.id;
         res.redirect(payment.links[1].href);
