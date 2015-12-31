@@ -1,5 +1,6 @@
 var config = require("./config");
 var db = require("./lib/dbhelper");
+var paypal = require("./lib/paypal");
 var express = require('express');
 var swig = require('swig');
 var bodyParser = require('body-parser');
@@ -148,6 +149,48 @@ app.post("/eventlogin", ensureLogin("/login.html"), function(req, res){
            res.redirect("/error.html");
        }
     });
+});
+
+app.get("/pay", function(req, res){
+    paypal.payDues(req.user, function(error, payment){
+        req.session.paymentId = payment.id;
+        res.redirect(payment.links[1].href);
+    });
+});
+
+app.get("/pay/return", function(req, res) {
+   if (req.session.paymentId && req.session.paymentId === req.query.paymentId){
+       paypal.executePayment(req.query.PayerID, req.query.paymentId, function(error){
+            if (error){
+               console.error(error);
+               res.redirecct('/error.html');
+            } else {
+               db.updateUser(req.user.member_id, {paid: 1}, function(error) {
+                    if (error){ //very bad
+                        console.error(error);
+                        res.send("Your payment has been processed, but was not registered on our database." +
+                        "<br> Please contact an officer and we will resolve this.");
+                    } else {
+                        res.redirect('/paymentsuccess');
+                    }
+                });
+            }
+        });
+   }
+});
+
+app.get("/paymentsuccess", function(req, res){
+    if (req.session.paymentId){
+        req.session.paymentId = null;
+        res.render('static/paymentsuccess.html');
+    } else {
+        res.redirect("/403.html");
+    }
+});
+
+app.get("/pay/cancel", function(req, res) {
+    req.session.paymentId = null;
+    res.redirect("/");
 });
 
 app.get("/forums/:name/newpost", ensureLogin("/login.html"), function(req, res){
@@ -483,7 +526,7 @@ passport.deserializeUser(function(id, done) {
 passport.use(new facebookStrategy({
     clientID : process.env.FB_CLIENTID || config.facebook.clientID,
     clientSecret : process.env.FB_CLIENTSECRET || config.facebook.clientSecret,
-    callbackURL : process.env.FB_CALLBACKURL || config.facebook.callbackURL,
+    callbackURL : (process.env.FQDN || config.fqdn || "localhost") + "/login/facebook/callback",
     profileFields: ["id", "birthday", "first_name", "last_name", "picture.width(200).height(200)",'email']
 },
 function(token, refreshToken, profile, done) {

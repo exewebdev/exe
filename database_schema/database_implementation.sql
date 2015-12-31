@@ -48,6 +48,7 @@ CREATE TABLE IF NOT EXISTS `txstexe`.`Member` (
   `class` VARCHAR(10) NULL DEFAULT NULL,
   `grad_date` DATE NULL DEFAULT NULL,
   `tshirt_size` VARCHAR(6) NULL DEFAULT NULL,
+  `paid` TINYINT(1) NULL DEFAULT 0,
   `post_count` BIGINT(20) NULL DEFAULT 0,
   `points` BIGINT(20) NULL DEFAULT 0,
   `start_date` DATE NULL DEFAULT NULL,
