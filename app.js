@@ -51,7 +51,7 @@ app.post('/submit', function(req, res) {
         email_hash : md5sum(req.body.email),
         major : req.body.major,
         'class' : req.body.classification,
-        grad_date : req.body.grad_date,
+        grad_date : new Date(req.body.grad_date),
         tshirt_size : req.body.tshirt
     };
     var pass = hashPassword(req.body.password);
