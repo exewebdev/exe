@@ -25,6 +25,9 @@ var config = {
         client_id : "EBWKjlELKMYqRNQ6sYvFo64FtaRLRR5BdHEESmha49TM",
         client_secret: "EO422dn3gQLgDbuwqTjzrFgFtaRLRR5BdHEESmha49TM"
     },
+    stripe : {
+        secret : ""
+    },
     //The following should absouletely be turned on in production, and is only if your computer doesn't support bcrypt.
     bcrypt: true
 };

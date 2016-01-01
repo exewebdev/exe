@@ -20,6 +20,7 @@
     "passport-facebook": "^2.0.0",
     "passport-local": "^1.0.0",
     "paypal-rest-sdk": "^1.6.8",
+    "stripe": "^4.1.0",
     "swig": "^1.4.2"
   },
   "devDependencies": {

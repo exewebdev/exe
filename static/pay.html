@@ -1,0 +1,25 @@
+{% extends 'template.html' %}
+
+{% block title %}Pay Dues{% endblock %}
+
+{% block content %}
+<h1>Pay Membership Dues</h1>
+Membership dues are $25, and you get a cool t-shirt!<br>
+We accept Paypal, Bitcoin, and most credit cards.<br>
+<!-- Paypal Checkout button -->
+<a href="/pay/paypal">
+    <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/buy-logo-medium.png" alt="Buy now with PayPal" />
+</a>
+<!-- Stripe Checkout Gadget -->
+<form action="/pay/stripe" method="POST">
+  <script
+    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+    data-key="pk_test_eqCxZfI6l6UfjOvtovUPdhYT"
+    data-name="Texas State EXE"
+    data-description="Membership Dues"
+    data-bitcoin="true"
+    data-amount="2500"
+    data-locale="auto">
+  </script>
+</form>
+{% endblock %}

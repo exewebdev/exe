@@ -1,6 +1,7 @@
 var config = require("./config");
 var db = require("./lib/dbhelper");
 var paypal = require("./lib/paypal");
+var stripe = require("./lib/stripe");
 var express = require('express');
 var swig = require('swig');
 var bodyParser = require('body-parser');
@@ -152,6 +153,31 @@ app.post("/eventlogin", ensureLogin("/login.html"), function(req, res){
 });
 
 app.get("/pay", ensureLogin("/login"), function(req, res){
+    res.render("static/pay.html");
+});
+
+app.post("/pay/stripe", ensureLogin("/login"), function(req, res){
+    var stripeToken = req.body.stripeToken;
+    var email = req.body.email;
+    req.session.paymentId = 'stripe'; //for the success page
+    stripe.executePayment(stripeToken, function(error){
+        if (error){
+            res.redirect('/error.html');
+        } else {
+            db.updateUser(req.user.member_id, {paid: 1}, function(error) {
+                    if (error){ //very bad
+                        console.error(error);
+                        res.send("Your payment has been processed, but was not registered on our database." +
+                        "<br> Please contact an officer and we will resolve this.");
+                    } else {
+                        res.redirect('/paymentsuccess');
+                    }
+            });
+        }
+    });
+});
+
+app.get("/pay/paypal", ensureLogin("/login"), function(req, res){
     paypal.payDues(req.user, function(error, payment){
         req.session.paymentId = payment.id;
         res.redirect(payment.links[1].href);
