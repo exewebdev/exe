@@ -1,0 +1,181 @@
+{% extends 'template.html' %}
+
+{% set override = true %}
+
+{% block title %}Elevator Speech{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="row">
+        <div class="col-sm-2 hidden-xs">
+            <ul class="nav nav-pills nav-stacked">
+                <li><a href="career.html" class="maroon pill">Career Planning</a></li>
+                <li><a href="resume.html" class="maroon pill">Resume</a></li>
+                <li><a href="phone_interview.html" class="maroon pill">Phone Interview</a></li>
+                <li><a href="elevator_speech.html" class="maroon pill">Elevator Speech</a></li>
+            </ul>
+        </div> <!-- class="col-sm-2" -->
+    <div class="col-sm-2 visible-xs">
+        <ul class="nav nav-pills" >
+            <li class="dropdown">
+                <a class="dropdown-toggle active maroon pills" data-toggle="dropdown" href="career.html">Career Planning
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="maroon pill" href="resume.html">Resume</a></li>
+                    <li><a class="maroon pill" href="phone_interview.html">Phone Interview</a></li>
+                    <li><a class="maroon pill" href="elevator_speech.html">Elevator Speech</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="col-sm-10 content">
+
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+            <div class="panel panel-default">
+                <div class="panel-heading content" role="tab" id="headingOne">
+                    <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            <span class="blue-text"><strong>What is an elevator speech?</strong></span>
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel">
+                    <div class="panel-body content">
+                        <p>
+                            An elevator speech is also known as a "30-second commercial." It is a clear, short message
+                            about you, only 30 seconds or less.  The ideas is that, if you find yourself sharing an
+                            elevator with a potential employer, you might only have half a minute to connect.  Who you
+                            are, what you're looking for, and the skills you bring an organization must all be stressed
+                            in your elevator speech.
+                        </p>
+                    </div> <!-- end panel-body content -->
+                </div><!-- collapseOne -->
+            </div><!-- panel panel-default -->
+
+            <div class="panel panel-default">
+                <div class="panel-heading content" role="tab" id="headingTwo">
+                    <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" href="#collapseTwo"
+                           aria-expanded="false" aria-controls="collapseTwo">
+                            <span class="blue-text"><strong>Why do you need an elevator speech?</strong></span>
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                    <div class="panel-body content">
+                        <ul>
+                            <li>To make a sincere and memorable impression</li>
+                            <li>To show off what you can do for the company</li>
+                            <li>To get a business card or an interview</li>
+                            <li>To network with key people in your career field</li>
+                            <li>To use at a Job Fair when meeting multiple people quickly over short periods of time</li>
+                            <li>to use in an Interview when asked to tell them about yourself</li>
+                        </ul>
+                    </div> <!-- end panel-body content -->
+                </div><!-- collapseTwo -->
+            </div><!-- panel panel-default -->
+
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingThree">
+                    <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            <span class="blue-text"><strong>Elevator speech template</strong></span>
+                        </a>
+                    </h4>
+                </div><!-- end headingThree -->
+                <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                    <div class="panel-body content">
+                        <ol>
+                            <li>Who are you?</li>
+                            <li>What job position and employer do you want to work for?</li>
+                            <li>What training and education do you have for this position?</li>
+                            <li>Use your resume as a guide</li>
+                            <li>What are your strengths?</li>
+                            <li>What accomplishments have you made and how have you used job-specific skills for job you
+                            want?</li>
+                            <li>Can you measure your accomplishments numerically?</li>
+                            <li>What can you provide the employer?</li>
+                            <li>What job skills and transferable experiences do you have that you can use in the future
+                            position?</li>
+                        </ol>
+                    </div> <!-- end panel-body content -->
+                </div><!-- collapseThree -->
+            </div><!-- panel panel-default -->
+
+            <div class="panel panel-default">
+                <div class="panel-heading content" role="tab" id="headingFour">
+                    <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" href="#collapseFour"
+                           aria-expanded="false" aria-controls="collapseFour">
+                            <span class="blue-text"><strong>Insider tips</strong></span>
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+                    <div class="panel-body content">
+                        <ol>
+                            <li>Don't forget to ask for a business card or a possible interview</li>
+                            <li>Close your speech by thanking the person for their time</li>
+                            <li>Make sure to change your elevator speech for each person you are speaking with to make
+                            it unique and relevant to each position</li>
+                            <li>Carry a copy of your speech with you so you can scan it quickly before you enter a job
+                            fair or interview</li>
+                        </ol>
+                    </div><!-- panel-body content -->
+                </div><!-- collapseFour -->
+            </div><!-- panel panel-default -->
+
+            <div class="panel panel-default">
+                <div class="panel-heading content" role="tab" id="headingFive">
+                    <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                            <span class="blue-text"><strong>Elevator speech example - Teaching Position</strong></span>
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+                    <div class="panel-body content">
+                        <ol>
+                            <li>Hello, Mr. Smith, my name is Mary Ann Johnson. I am a new graduate from Texas State
+                            University. I received my Bachelor of Science in Mathematics.  I also received my teaching
+                            certificate at the same time</li>
+                            <li>I am interested in the mathematics teaching position at Regan high School because I am
+                            passionate about teaching</li>
+                            <li>My training and education includes four months student teaching at Bush High School
+                            along with several student observations throughout hy four years of undergraduate course
+                            work.  I also worked as a tutor at the Learning Academy in the evenings and on weekends,
+                            whenever I was able the past two years.</li>
+                            <li>I received the student teacher of the year award at Regan High School in May. Ten of the
+                            students I tutored were able to increase their math scores on their TAKS tests by multiple
+                            points.  I can provide strong team work and a strong work ethic to staff at Regan High
+                            School.</li>
+                            <li>I have great communication skills and strong teaching skills in different courses such
+                            as Algebra, Geometry, Pre-Calculus, Calculus and Honors Trigonometry.</li>
+                            <li>I hope to be able to speak with you further about what skills I can bring to the
+                            students of Regan High School.  Here's my business card. May I have yours?  Do you have time
+                            in your schedule to meet for an interview to discuss this position further?</li>
+                            <li>Thank you so much for your time today.  I hope you have a great afternoon and I look
+                            forward to talking with you again soon.</li>
+                        </ol>
+                    </div><!-- panel-body content -->
+                </div><!-- collapseFive -->
+            </div><!-- panel panel-default -->
+
+        </div><!-- panel-group -->
+    </div> <!-- class="col-sm-10" -->
+</div><!-- row -->
+
+<div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-10" >
+        <div class="well" id="bigCallout">
+            <h3 class="hidden-xs" >www.careerservices.txstate.edu</h3>
+            <h4 class="visible-xs" >www.careerservices.txstate.edu</h4>
+            <p>LBJ Student Center Suite 5-7.2 | 512.245.2645 | CareerServices@txstate.edu</p>
+        </div><!-- end bigCallout-->
+    </div><!-- end col-sm-10 -->
+</div><!-- end row -->
+{% endblock %}
