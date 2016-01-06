@@ -1,0 +1,364 @@
+{% extends 'template.html' %}
+
+{% set override = true %}
+
+{% block title %}Elevator Speech{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-sm-2 hidden-xs">
+        <ul class="nav nav-pills nav-stacked">
+            <li><a href="career.html" class="maroon pill">Career Planning</a></li>
+            <li><a href="resume.html" class="maroon pill">Resume</a></li>
+            <li><a href="cover_letter.html" class="maroon pill">Cover Letter</a></li>
+            <li><a href="elevator_speech.html" class="maroon pill">Elevator Speech</a></li>
+            <li><a href="career_portfolio.html" class="maroon pill">Career Portfolio</a></li>
+            <li><a href="phone_interview.html" class="maroon pill">Phone Interview</a></li>
+        </ul>
+    </div> <!-- class="col-sm-2" -->
+    <div class="col-sm-2 visible-xs">
+        <ul class="nav nav-pills" >
+            <li class="dropdown">
+                <a class="dropdown-toggle active maroon pills" data-toggle="dropdown" href="career.html">Career Planning
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="maroon pill" href="resume.html">Resume</a></li>
+                    <li><a class="maroon pill" href="cover_letter.html">Cover Letter</a></li>
+                    <li><a class="maroon pill" href="elevator_speech.html">Elevator Speech</a></li>
+                    <li><a href="career_portfolio.html" class="maroon pill">Career Portfolio</a></li>
+                    <li><a class="maroon pill" href="phone_interview.html">Phone Interview</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="col-sm-10 content">
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+            <div class="panel panel-default">
+                <div class="panel-heading content" role="tab" id="headingOne">
+                    <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+                           aria-expanded="true" aria-controls="collapseOne">
+                            <span class="blue-text"><strong>A career portfolio</strong></span>
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel">
+                    <div class="panel-body content">
+                        <p>
+                            A career portfolio can be used in the job search as a creative alternative to the standard
+                            resume and cover letter.  Popularly used in areas such as advertising, public relations, and
+                            education, the career portfolio is making inroads with employers in other areas as well.
+                        </p>
+                        <p>
+                            Rather than simply listing your skills, activities, interests, education and experience, a
+                            career portfolio allows you to enhance the presentation of your skills by including examples
+                            of work such as writing samples, class papers, class projects, awards, transcripts,
+                            photographs, certificates, etc.
+                        </p>
+                        <p>
+                            A prospective employer can gain a clearer picture of who you are and what qualifications you
+                            you bring to their organization.  Those facets of your personality, skill set and
+                            professionalism taht might have gone unnoticed with a simple resume can stand out with the
+                            career portfolio.
+                        </p>
+                        <p>
+                            So, show employers what you can truly do. Provide them with a look inside your abilities by
+                            creating a career portfolio of your work!
+                        </p>
+                    </div> <!-- end panel-body content -->
+                </div><!-- collapseOne -->
+            </div><!-- panel panel-default -->
+
+            <div class="panel panel-default">
+                <div class="panel-heading content" role="tab" id="headingTwo">
+                    <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" href="#collapseTwo"
+                           aria-expanded="false" aria-controls="collapseTwo">
+                            <span class="blue-text"><strong>Understanding the career portfolio</strong></span>
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                    <div class="panel-body content">
+                        <h4>Why create a career portfolio?</h4>
+                        <ul>
+                            <li>A career portfolio can help illustrate your professional accomplishments, talents,
+                            abilities, activities, and attitudes to prospective employers.</li>
+                            <li>The career portfolio also serves as a marketing tool, offering employers a preview of
+                            your performance as a potential employee</li>
+                        </ul>
+                        <h4>How can a career portfolio help in the job search?</h4>
+                        <ul>
+                            <li>Markets your capabilities</li>
+                            <li>Documents the quality and quantity of your professional accomplishments</li>
+                            <li>Demonstrates prior work or learning experience</li>
+                            <li>Sets you apart from other candidates for the job position</li>
+                            <li>Illustrates proficiencies during or after an interview</li>
+                            <li>Helps you document your accomplishments and results</li>
+                            <li>Creates a personal database</li>
+                        </ul>
+                    </div> <!-- end panel-body content -->
+                </div><!-- collapseTwo -->
+            </div><!-- panel panel-default -->
+
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingThree">
+                    <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                           href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            <span class="blue-text"><strong>How to develop a portfolio</strong></span>
+                        </a>
+                    </h4>
+                </div><!-- end headingThree -->
+                <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                    <div class="panel-body content">
+                        <h4>Step 1: Know yourself</h4>
+                        <p>
+                            An effective portfolio needs to represent you and your strengths and should illustrate your
+                            skills, abilities, and personal characteristics.  For this reason, ou need to know what
+                            careers you are interested in, the qualifications they require, and the skills, abilities,
+                            and knowledge that you have acquired taht make you qualified when setting out to crate your
+                            portfolio.  As you begin, ask yourself:
+                        </p>
+                        <ul>
+                            <li>What do I do well</li>
+                            <li>How do I accomplish the tasks that I do well?</li>
+                            <li>WIn what tasks do I want to take part?</li>
+                            <li>Who do I want to read my portfolio</li>
+                            <li>why am I creating a portfolio?</li>
+                            <li>How can I demonstrate my skills, abilities, and knowledge to my reader?</li>
+                        </ul>
+                        <h4>Step 2: Getting Started - Collecting Materials</h4>
+                        <p>
+                            In order to begin creating your portfolio you need to first gather your materials.  Collect
+                            evidence of all your achievements, accomplishments, experiences, and skills or abilities.
+                            If you do not possess evidence, then consider constructing some items.  The items you collect
+                            will vary according to your career goals; so general items to include are:
+                        </p>
+                        <h5><strong>Community Activities</strong></h5>
+                        <ul>
+                            <li>Outline of a plan you designed for a program or presentation</li>
+                            <li>Records yu maintained during an event or activity</li>
+                            <li>Feedback you received for helping with a project</li>
+                            <li>Agenda discussing what you accomplished</li>
+                            <li>Evaluation written by a supervisor or college</li>
+                            <li>Pictures of members participating in an event you helped plan</li>
+                            <li>Newspaper clipping describing event to which you contributed</li>
+                        </ul>
+                        <h5><strong>Classroom/School Experience</strong></h5>
+                        <ul>
+                            <li>Assignment with special comments from an instructor</li>
+                            <li>Picture or representation of a class project</li>
+                            <li>Report on a topic of special interest</li>
+                            <li>Outline of a presentation</li>
+                            <li>Transcript of grades, if applicable</li>
+                            <li>Positive evaluation received from an instructor or supervisor</li>
+                            <li>Summary of a research project</li>
+                            <li>Publication or impressive paper</li>
+                            <li>Assessment instruments and results</li>
+                        </ul>
+                        <h5><strong>Academic Recognition</strong></h5>
+                        <ul>
+                            <li>Letter or certificate of scholarships or Dean's List</li>
+                            <li>Summary of scholarly research or projects</li>
+                            <li>Newspaper articles or other recognition of special honors</li>
+                            <li>Items focusing on extracurricular activities</li>
+                            <li>Award for participating in an event</li>
+                            <li>Pictures of team or individual participation in an event</li>
+                            <li>Letter of recommendation from a coach, advisor, or any academic source</li>
+                            <li>Materials from conferences or workshops in which you participated or presented</li>
+                            <li>Awards and honors for leaderships</li>
+                        </ul>
+                        <h5><strong>Special Skills</strong></h5>
+                        <ul>
+                            <li>Handouts, letters, memos, reports, charts, graphs, brochures, etc.</li>
+                            <li>Documentation of knowledge of a foreign language</li>
+                            <li>Evidence of a hobby, craft, certification, or topic of special interest</li>
+                            <li>Evidence of computer or multi-media skills</li>
+                            <li>Samples of communication/writing skills</li>
+                        </ul>
+                        <h5><strong>Work-Related Experiences</strong></h5>
+                        <ul>
+                            <li>Resume describing each job held</li>
+                            <li>Letter of recommendation from past or present employer</li>
+                            <li>Positive performance evaluation</li>
+                            <li>Recognition from supervisor or customer for performance</li>
+                            <li>Resume indicating relevant previous employement</li>
+                            <li>Training/workshop packet or handouts</li>
+                            <li>Annual report of accomplishments</li>
+                        </ul>
+                        <h5><strong>Personal Attributes</strong></h5>
+                        <ul>
+                            <li>Autobiography</li>
+                            <li>Character references supporting your strengths</li>
+                            <li>Essay focusing on career goals or personal career statement</li>
+                            <li>Appropriate personal pictures</li>
+                        </ul>
+                        <h4>Step 3: Filtering the Materials</h4>
+                        <p>
+                            Only include items that are necessary to your career pursuits. The portfolio should belong
+                            enough to exemplify your assets, yet not so overwhelming in length as to discourage a
+                            potential employer from reading it(15-25 pages is a good length). consider tailoring your
+                            portfolio directly to a desired job.  If the job asks for teamwork, public speaking, and
+                            computer and communication skills, then only include items that prove you posses those
+                            skills.
+                        </p>
+                        <h4>Step 4: Final Touches</h4>
+                        <p>
+                            The presentation of the portfolio is important.  Include a table of contents, tabs, captions,
+                            and whatever else you would like in order for it to appear organized, reader-friendly, and
+                            versatile.  Possible portfolio holders include binders, artist portfolio cases, and zipper
+                            cases. Clear sleeves to protect the materials can be purchases separately.  Captions should
+                            be include on order to clearly state importance of the item for the reader.
+                        </p>
+                        <p>
+                            You can make your portfolio stand out by adding a reflective essay in which you summarize the
+                            contents of the portfolio.  This essay many inclue a stated purpose of the portfolio, an
+                            explanation behind teh relation of educational and career goals to content of portfolio, and
+                            a reflection on what was learned from crating the portfolio, as weill as what you plan to
+                            achieve in the future.
+                        </p>
+                        <h4>Step 5: Check it Out</h4>
+                        <p>
+                            Check for typos, spelling, grammar, and formatting problems.  Then pass your portfolio to a
+                            friend to look over.  Talk through the sections of your portfolio with friend, thinking about
+                            which parts you may elaborate on in an interview.  If you plan to leave the portfolio with an
+                            employer, make sure that it is readable and self-explanatory.
+                        </p>
+                        <h4>Step 6: Sharing the Portfolio</h4>
+                        <p>
+                            If a portfolio is not requested prior to an interview, you can take it with you and offer it
+                            for viewing near the end of the meeting.  It can also be displayed during teh interview.
+                            However, leave the viewing options up to the employer so that he/she can either view it with
+                            you are after you leave.
+                        </p>
+                        <p>
+                            Creating a scaled down version of a portfolio is another options.  you can leave copies with
+                            the interviewer to keep.  make sure the copies are of good quality.  Also, eep teh items
+                            relevant to the position you are seeking.
+                        </p>
+                        <p>
+                            Other options for allowing an employer to view your portfolio are through the internet, CDs,
+                            multi-media presentation, and audio/video discs.  Electronic portfolios on the Internet are
+                            popular due to teh convenient viewing and sharing of items.  The following site can help you
+                            put together an electronic portfolio: http://www.career.fsu.edu/portfolio.
+                        </p>
+                    </div> <!-- end panel-body content -->
+                </div><!-- collapseThree -->
+            </div><!-- panel panel-default -->
+
+            <div class="panel panel-default">
+                <div class="panel-heading content" role="tab" id="headingFour">
+                    <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" href="#collapseFour"
+                           aria-expanded="false" aria-controls="collapseFour">
+                            <span class="blue-text"><strong>Portfolio tips</strong></span>
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+                    <div class="panel-body content">
+                        <ul>
+                            <li>Collect items that represent a broad range of skills</li>
+                            <li>Select and tailor the items you include to match each job for which you apply </li>
+                            <li>Choose only the best examples of your work</li>
+                            <li>design pages to have impact and be easy to read</li>
+                            <li>Select artifacts that present concrete evidence of your skills</li>
+                            <li>Label each item for easy identification</li>
+                            <li>Make your portfolio unique and creative</li>
+                            <li>Mke sure it is professional and typo-free</li>
+                        </ul>
+                    </div><!-- panel-body content -->
+                </div><!-- collapseFour -->
+            </div><!-- panel panel-default -->
+
+            <div class="panel panel-default">
+                <div class="panel-heading content" role="tab" id="headingFive">
+                    <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" href="#collapseFive"
+                           aria-expanded="false" aria-controls="collapseFive">
+                            <span class="blue-text"><strong>Portfolio example</strong></span>
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+                    <div class="panel-body content">
+                        <table>
+                            <tbody>
+                            <tr>
+                                <th style="text-align:center">TABLE OF CONTENTS</th>
+                            </tr>
+                                <tr>
+                                    <th>SECTION</th>
+                                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                    <th>PAGE</th>
+                                </tr>
+                                <tr>
+                                    <td>Resume</td>
+                                    <td></td>
+                                    <td>2</td>
+                                </tr>
+                                <tr>
+                                    <td>Coursework Information</td>
+                                    <td></td>
+                                    <td>3</td>
+                                </tr>
+                                <tr>
+                                    <td>Sample from Research Course Project</td>
+                                    <td></td>
+                                    <td>4</td>
+                                </tr>
+                                <tr>
+                                    <td>Evaluation of Research Course Project</td>
+                                    <td></td>
+                                    <td>5</td>
+                                </tr>
+                                <tr>
+                                    <td>Letter of Recommendation from Professor</td>
+                                    <td></td>
+                                    <td>6</td>
+                                </tr>
+                                <tr>
+                                    <td>Letter of Recommendation from Previous Employer</td>
+                                    <td></td>
+                                    <td>7</td>
+                                </tr>
+                                <tr>
+                                    <td>Honors and awards</td>
+                                    <td></td>
+                                    <td>8</td>
+                                </tr>
+                                <tr>
+                                    <td>Certificates and Training</td>
+                                    <td></td>
+                                    <td>9</td>
+                                </tr>
+                                <tr>
+                                    <td>Special Skills</td>
+                                    <td></td>
+                                    <td>10</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div><!-- panel-body content -->
+                </div><!-- collapseFive -->
+            </div><!-- panel panel-default -->
+
+        </div><!-- panel-group -->
+    </div> <!-- class="col-sm-10" -->
+</div><!-- row -->
+
+<div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-10" >
+        <div class="well" id="bigCallout">
+            <h3 class="hidden-xs" >www.careerservices.txstate.edu</h3>
+            <h4 class="visible-xs" >www.careerservices.txstate.edu</h4>
+            <p>LBJ Student Center Suite 5-7.2 | 512.245.2645 | CareerServices@txstate.edu</p>
+        </div><!-- end bigCallout-->
+    </div><!-- end col-sm-10 -->
+</div><!-- end row -->
+{% endblock %}
