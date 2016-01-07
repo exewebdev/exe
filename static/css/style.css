@@ -32,12 +32,13 @@ a {
     font-size:11px;
 }
 
+.dropdown-menu > li > a { color:white}
 .features { text-align:center }
 .features img { margin:0 auto 0 auto }
 .hidden { visibility:hidden; }
 .content { background-color: #FFF2DF; border-radius:10px; }
 
-.maroon { background-color: #4d1717}
+.maroon { background-color: #4d1717;}
 .gold {background-color: #ae9c7f;}
 .cornflowerblue {background-color: cornflowerblue;}
 .blue-text { color: cornflowerblue}
@@ -86,22 +87,6 @@ a {
 }
 
 /****** Career ******/
-.career_nav a {
-    color:#dfd4c3;
-    background-color: #4d1717;
-}
-
-.career_nav a:active {
-    color:#dfd4c3;
-    background-color: #4d1717;
-}
-
-.career_nav a:hover {
-    color: #4d1717;
-    text-decoration: none;
-    background-color: #9c8968;
-}
-
 .pill {
     border-radius:4px;
     color:white;
