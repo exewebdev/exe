@@ -474,6 +474,17 @@ app.get('/Projects/:page', function(req, res) {
     }
 });
 
+app.get('/career/:page', function(req, res) {
+    if (req.isAuthenticated()) {
+        res.render('./static/career/' + req.params.page, {
+            session: req.user
+        });
+    }
+    else {
+        res.render('./static/career/' + req.params.page);
+    }
+});
+
 app.get('/', function(req, res) {
     if (req.isAuthenticated()) {
         res.render('./static/index.html', {
