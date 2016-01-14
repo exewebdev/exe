@@ -13,6 +13,7 @@ var ensureLogin = require("connect-ensure-login").ensureLoggedIn;
 var async = require('async');
 var gcal = require('./lib/gcalhelper');
 
+//it's difficult for some windows systems to install bcrypt, so give option to disable (NEVER in production)
 if (config.bcrypt === false) {
     console.error("Bcrypt disabled in settings!  Do not use in production!");
 }
@@ -55,7 +56,7 @@ app.post('/submit', function(req, res) {
         tshirt_size : req.body.tshirt
     };
     var pass = hashPassword(req.body.password);
-    console.info("Recieved entry with value " + user.email);
+    console.info("Received entry with value " + user.email);
     db.addNewUser(user, pass, function(error){
         if (error){
             console.log(error);
@@ -158,7 +159,6 @@ app.get("/pay", ensureLogin("/login"), function(req, res){
 
 app.post("/pay/stripe", ensureLogin("/login"), function(req, res){
     var stripeToken = req.body.stripeToken;
-    var email = req.body.email;
     req.session.paymentId = 'stripe'; //for the success page
     stripe.executePayment(stripeToken, function(error){
         if (error){
@@ -189,7 +189,7 @@ app.get("/pay/return", function(req, res) {
        paypal.executePayment(req.query.PayerID, req.query.paymentId, function(error){
             if (error){
                console.error(error);
-               res.redirecct('/error.html');
+               res.redirect('/error.html');
             } else {
                db.updateUser(req.user.member_id, {paid: 1}, function(error) {
                     if (error){ //very bad
@@ -368,7 +368,7 @@ app.post('/profile/:id/edit', function(req, res) {
             major : req.body.major,
             'class' : req.body.classification,
             grad_date : req.body.grad_date,
-            tshirt_size : req.body.tshirt,
+            tshirt_size : req.body.tshirt
         };
         //If password not supplied, do not update password.
         if (req.body.password) {
@@ -418,6 +418,9 @@ app.get('/forums.html', function(req, res) {
                 callback();
             });
         }, function(error) {
+            if (error){
+                res.redirect("/error.html");
+            }
             res.render("static/forums.html", {
                 forum: forum,
                 session: req.user
@@ -603,8 +606,7 @@ var server = app.listen(process.env.port || process.env.PORT || config.port, pro
 
 function hashPassword(password) {
     var salt = bcrypt.genSaltSync(10);
-    var hash = bcrypt.hashSync(password, salt);
-    return hash;
+    return bcrypt.hashSync(password, salt);
 }
 
 function md5sum(text) {
