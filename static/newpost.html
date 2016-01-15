@@ -10,8 +10,8 @@
 {% block content %}
 <h1>New Thread</h1>
 <form action="newpost" method="post">
-   <h4>Title</h4><input type="text" name="title" style="width: 100%"/><br><br>
-    <textarea class="textarea" name="message" placeholder="Enter text ..." style="width: 100%; height: 300px; font-size: 14px; line-height: 18px;"></textarea> <br>
+   <h4>Title</h4><input type="text" title="title" name="title" style="width: 100%"/><br><br>
+    <textarea class="textarea" name="message" title="post content" placeholder="Enter text ..." style="width: 100%; height: 300px; font-size: 14px; line-height: 18px;"></textarea> <br>
     <input type="submit" value="Post"/>
 </form>
 <script>

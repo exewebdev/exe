@@ -20,8 +20,10 @@
 				<div class="loginmodal-container">
 					<h1>Login to Your Account</h1><br>
 				  <form action="/login" method=post>
+				    <label for="lm-user">Email</label>
 					<input type="text" id="lm-user" name="email" placeholder="Email">
-					<input type="password" id="lm-password" name="password" placeholder="Password">
+					<label for="lm-password">Password</label>
+					<input type="password" id="lm-password" name="password" title="password" placeholder="Password">
 					<input type="submit" name="login" class="login loginmodal-submit" value="Login">
 				  </form>
 				  <a href="/login/facebook" class="login loginmodal-submit loginmodal-fb">Log in with Facebook</a>
@@ -36,7 +38,7 @@
         <div class="row">
             <nav class="navbar navbar-default maroon" >
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
+                    <button type="button" class="navbar-toggle collapsed" title="mobile navbar toggle" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -137,7 +139,7 @@
                 </div> <!--col-sm-4-->
                 <div class="col-sm-2">
                     <h6 >Follow Us</h6>
-                    <a href="https://www.facebook.com/groups/TxstateEXE/"><img src ="/images/facebookicon.png"  alt="Facebook"> Facebook</a>
+                    <a href="https://www.facebook.com/groups/TxstateEXE/"><img src ="/images/facebookicon.png"  alt="FacebookIcon"> Facebook</a>
                 </div>
             </div> <!-- class="row" -->
         </div> <!-- class="container" -->

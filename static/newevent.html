@@ -11,19 +11,19 @@
 <h1>New Event</h1>
 <form action="newevent" method="post" class="input-group">
     <h4>Event Name</h4>
-    <input type="text" name="name" style="width: 100%" />
+    <input type="text" title="name" name="name" style="width: 100%" />
     <br>
     <h4>Description</h4>
-    <input type="text" name="description" style="width: 100%" />
+    <input type="text" title="description" name="description" style="width: 100%" />
     <br>
     <h4>Location</h4>
-    <input type="text" name="location" />
+    <input type="text" title="location" name="location" />
     <div class="container">
         <div class='col-md-5'>
             <h4>Start Date</h4>
             <div class="form-group">
                 <div class='input-group date' id='datetimepicker6'>
-                    <input type='text' class="form-control" name="startdate"/>
+                    <input type='text' title="start date" class="form-control" name="startdate"/>
                     <span class="input-group-addon">
                     <span class="glyphicon glyphicon-calendar"></span>
                     </span>
@@ -34,7 +34,7 @@
             <h4>End Date</h4>
             <div class="form-group">
                 <div class='input-group date' id='datetimepicker7'>
-                    <input type='text' class="form-control" name="enddate"/>
+                    <input type='text' title="end date" class="form-control" name="enddate"/>
                     <span class="input-group-addon">
                     <span class="glyphicon glyphicon-calendar"></span>
                     </span>
@@ -43,9 +43,9 @@
         </div>
     </div>
     <h4>Point Value</h4>
-    <input type="text" name="points" style="width: 100%" />
+    <input type="text" title="point value" name="points" style="width: 100%" />
     <h4>Event Password</h4>
-    <input type="text" name="password" style="width: 100%" />
+    <input type="text" title="event password" name="password" style="width: 100%" />
     <input type="submit" value="Create" />
 </form>
     <script type="text/javascript">

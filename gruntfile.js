@@ -32,13 +32,31 @@ module.exports = function(grunt) {
                 },
             src: ['static/css/style.css']
         }
-    }
+    }, accessibility: {
+            options : {
+                accessibilityLevel: 'WCAG2A',
+                 reportLevels: {
+                    notice: false,
+                    warning: false,
+                    error: true
+                },
+                //the following are ignored by the accessability checker - if edited, please leave rationale for doing so!
+                ignore :[
+                    "WCAG2A.Principle2.Guideline2_4.2_4_1.H64.1", //ignored because many generated iframes do not create titles, esp. stripe's iframe which cannot be manually retitled
+                    "WCAG2A.Principle1.Guideline1_3.1_3_1.H42.2" //ignored because headers are populated on live site, but not on swig prerenders
+                ]
+            },
+            test : {
+              src: ['www/**/*.html']
+            }
+        }
     });
 
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-swig');
     grunt.loadNpmTasks('grunt-html');
     grunt.loadNpmTasks('grunt-contrib-csslint');
-
-    grunt.registerTask('default', ['jshint', 'swig', 'htmllint', 'csslint']);
+    grunt.loadNpmTasks('grunt-accessibility');
+    
+    grunt.registerTask('default', ['jshint', 'swig', 'htmllint', 'csslint', 'accessibility']);
 };
