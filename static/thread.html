@@ -3,6 +3,7 @@
 {% block title %}{{ thread.thread_name }} - EXE Forums{% endblock %}
 
 {% block content %}
+<h1>{{ thread.thread_name }}</h1>
 {% set count = 0 %}
 {% for post in posts %}
 {% set count = count+1 %}

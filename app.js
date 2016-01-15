@@ -255,19 +255,29 @@ app.post("/forums/:topic/:thread/reply", function(req, res){
 
 //Handles threads.
 app.get("/forums/:topic/:thread", function(req, res){
-    //Gets topics
+    //Gets thread comments
     db.getThreadComments(req.params.thread, 20, function(error, rows){
         if (error){
             console.log(error);
             res.redirect("/error.html");
         } else {
-            res.render("static/thread.html", {
-            posts: rows,
-            session: req.user
+            //get thread info
+            db.getThread({thread_id : req.params.thread}, function(err, thread){
+                if (err){
+                   console.error(error);
+                   res.redirect("/error.html");
+                } else {
+                    res.render("static/thread.html", {
+                        thread: thread[0],
+                        posts: rows,
+                        session: req.user
+                    });
+                }
             });
         }
     });
 });
+
 
 
 //Handles posting new threads
