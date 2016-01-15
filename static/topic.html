@@ -3,9 +3,12 @@
 {% block title %}{{ topic.topic_name }} - EXE Forums{% endblock %}
 
 {% block content %}
-<h1>{{ topic.topic_name }}</h1>
 <div class="panel panel-primary">
     <div class="panel-heading"><a href="/forums.html">Forums</a> > {{ topic.topic_name }}</div>
+</div>
+<h1>{{ topic.topic_name }}</h1>
+<div class="panel panel-primary">
+    <div class="panel-heading">Threads</div>
     <div class="panel-content">
         <ul class="list-group">
         {% for thread in threads %}
@@ -14,7 +17,7 @@
                 <div class="col-sm-8">
                     <h4 class="list-group-item-heading">
                         <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-                        <a href = "./{{ thread.thread_id }}/">{{ thread.thread_name }}</a>
+                        <a href = "/forums/{{ topic.topic_name }}/{{ thread.thread_id }}/">{{ thread.thread_name }}</a>
                     </h4>
                     <a href = "/profile/{{ thread.opfname }} {{ thread.oplname }}">{{ thread.opfname }} {{ thread.oplname }}</a>, {{ thread.opdatetime.toLocaleString() }}
                 </div>

@@ -269,6 +269,9 @@ app.get("/forums/:topic/:thread", function(req, res){
                 } else {
                     res.render("static/thread.html", {
                         thread: thread[0],
+                        topic: {
+                            topic_name : req.params.topic
+                        },
                         posts: rows,
                         session: req.user
                     });

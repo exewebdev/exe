@@ -3,6 +3,9 @@
 {% block title %}Forums{% endblock %}
 
 {% block content %}
+<div class="panel panel-primary">
+    <div class="panel-heading">Forums</div>
+</div>
 {% for category in forum.categories %}
 <div class="panel panel-primary">
     <div class="panel-heading">{{ category.forum_name }}</div>

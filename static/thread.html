@@ -3,6 +3,11 @@
 {% block title %}{{ thread.thread_name }} - EXE Forums{% endblock %}
 
 {% block content %}
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <a href="/forums.html">Forums</a> > <a href="/forums/{{ topic.topic_name }}">{% if !topic %}Topic Name{% endif %}{{ topic.topic_name }}</a> > {{ thread.thread_name }}
+    </div>
+</div>
 <h1>{{ thread.thread_name }}</h1>
 {% set count = 0 %}
 {% for post in posts %}
