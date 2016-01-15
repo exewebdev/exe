@@ -110,6 +110,19 @@ a {
     color: red;
 }
 
+.signup-or {
+    font-size: 18px;
+	position: relative;
+	left: 50%;
+    top: -30px;
+	margin-left: -1.5em;
+	background-color: #FFF2DF;
+	width: 3em;
+	text-align: center;
+	padding-left: 1em;
+	padding-right: 1em;
+}
+
 /****** Login Modal ******/
 .loginmodal-container {
   padding: 30px;

@@ -7,8 +7,13 @@
 {% block title %}Join Us{% endblock %}
 
 {% block content %}
-<div class="col-sm-6" style="float:none">
+<div class="col-sm-6">
 <h1 style="color:#ae9c7f; margin-top:20px">Membership Signup!</h1><br />
+    <a href="/login/facebook" class="login loginmodal-submit loginmodal-fb"><img src="/images/facebookicon.png" alt="FacebookIcon">Sign up with Facebook</a>
+    <div class="row">
+        <hr>
+        <span class="signup-or">or</span>
+    </div>
     <form id="join" action="/submit" method="post" onsubmit="CheckForm()">
     <fieldset><legend>Your Information<span class='form_required'> *</span></legend><br />
         <div class="row">
