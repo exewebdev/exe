@@ -12,6 +12,7 @@ var facebookStrategy = require("passport-facebook").Strategy;
 var ensureLogin = require("connect-ensure-login").ensureLoggedIn;
 var async = require('async');
 var gcal = require('./lib/gcalhelper');
+var mail = require('./lib/mailhelper');
 
 //it's difficult for some windows systems to install bcrypt, so give option to disable (NEVER in production)
 if (config.bcrypt === false) {
@@ -53,7 +54,8 @@ app.post('/submit', function(req, res) {
         major : req.body.major,
         'class' : req.body.classification,
         grad_date : new Date(req.body.grad_date),
-        tshirt_size : req.body.tshirt
+        tshirt_size : req.body.tshirt,
+        subscribe : req.body.subscribe
     };
     var pass = hashPassword(req.body.password);
     console.info("Received entry with value " + user.email);
@@ -62,6 +64,7 @@ app.post('/submit', function(req, res) {
             console.log(error);
             res.redirect("/join.html");
         } else {
+            if (req.body.subscribe) mail.subscribeUser(user);
             passport.authenticate('local')(req, res, function() {
                 res.redirect('/');
             });
@@ -154,7 +157,10 @@ app.post("/eventlogin", ensureLogin("/login.html"), function(req, res){
 });
 
 app.get("/pay", ensureLogin("/login"), function(req, res){
-    res.render("static/pay.html");
+    res.render("static/pay.html",{
+        session: req.user,
+        stripe: {public_key: process.env.STRIPE_PUBLIC || config.stripe.public || "pk_test_eqCxZfI6l6UfjOvtovUPdhYT"}
+    });
 });
 
 app.post("/pay/stripe", ensureLogin("/login"), function(req, res){
@@ -370,9 +376,10 @@ app.post('/fbupdate', ensureLogin("/login"), function(req, res){
         major : req.body.major,
         'class' : req.body.classification,
         grad_date : req.body.grad_date,
-        tshirt_size : req.body.tshirt
+        tshirt_size : req.body.tshirt,
     };
     db.updateUser(req.user.member_id, user, function(error) {
+        if (req.body.subscribe) mail.subscribeUser(req.user);
         res.redirect("/");
     });
 });
@@ -403,8 +410,11 @@ app.post('/profile/:id/editprofile', function(req, res) {
                     console.error(error);
                     res.redirect('/error.html');
                 } else {
+                    if (req.body.subscribe && req.user.subscribe === false) mail.subscribeUser(req.user);
+                    if (!req.body.subscribe && req.user.subscribe === true) mail.unsubscribeUser(req.user);
                     //Recreate session with new password and email, then render profile page.
                     req.logout();
+                    //TODO: don't allow logins with 
                     passport.authenticate('local')(req, res, function() {
                         res.redirect('/profile/' + req.user.fname + ' ' + req.user.lname);
                     });
@@ -466,7 +476,7 @@ app.get('/logout', function(req, res) {
 app.get('/login/facebook', passport.authenticate('facebook', {scope: 'email'}));
 
 app.get('/login/facebook/callback', function(req, res){
-    //if just signed up, req.user = true;
+    //if just signed up, req.user.new = true;
     if (req.user.new === true){
         res.redirect('/fbcompletesignup.html');
     } else if(req.session.returnTo !== undefined){

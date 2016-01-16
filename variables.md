@@ -41,3 +41,13 @@ These can all be obtained from the Google Developer Console at https://console.d
 `PAYPAL_ID` - The ID of the merchant account that will be recieving Paypal payments.
 
 `PAYPAL_SECRET` - The secret for the merchant account, obtainable from https://developer.paypal.com/developer/applications/`
+
+### Stripe (for card payments)
+`STRIPE_SECRET` - Your Stripe secret key.
+
+`STRIPE_PUBLIC` - Yuor publishable Stripe key.
+
+### Mailchimp
+`MAILCHIMP_API` - Your Mailchimp API Key.
+
+`MAILCHIMP_LIST` - The list ID to add signups to.

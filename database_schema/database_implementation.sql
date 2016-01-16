@@ -55,6 +55,7 @@ CREATE TABLE IF NOT EXISTS `txstexe`.`Member` (
   `end_date` DATE NULL DEFAULT NULL,
   `facebook_id` VARCHAR(50) DEFAULT NULL,
   `facebook_token` VARCHAR(50) DEFAULT NULL,
+  `subscribe` TINYINT(1) NULL DEFAULT 0,
   `privs` BIGINT(1) DEFAULT 0,
   PRIMARY KEY (`member_id`) ,
   INDEX `club_name_idx` (`club_name` ASC) ,

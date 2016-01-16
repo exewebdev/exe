@@ -14,7 +14,7 @@ We accept Paypal, Bitcoin, and most credit cards.<br>
 <form action="/pay/stripe" method="POST">
   <script
     src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-    data-key="pk_test_eqCxZfI6l6UfjOvtovUPdhYT"
+    data-key="{{ stripe.public_key }}"
     data-name="Texas State EXE"
     data-description="Membership Dues"
     data-bitcoin="true"
