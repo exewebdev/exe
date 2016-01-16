@@ -475,7 +475,8 @@ app.get('/logout', function(req, res) {
 
 app.get('/login/facebook', passport.authenticate('facebook', {scope: 'email'}));
 
-app.get('/login/facebook/callback', function(req, res){
+app.get('/login/facebook/callback', passport.authenticate('facebook', {failureRedirect: '/login' }),
+  function(req, res) {
     //if just signed up, req.user.new = true;
     if (req.user.new === true){
         res.redirect('/fbcompletesignup.html');
