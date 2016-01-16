@@ -4,40 +4,17 @@
 <script type="text/javascript" src="/js/bootstrap-datetimepicker.min.js"></script>
 <link rel="stylesheet" href="/css/bootstrap-datetimepicker.min.css" type="text/css" /> 
 {% endblock %}
-{% block title %}Join Us{% endblock %}
+{% block title %}Additional information{% endblock %}
 
 {% block content %}
 <div class="col-sm-6">
-<h1 style="color:#ae9c7f; margin-top:20px">Membership Signup!</h1><br />
-    <a href="/login/facebook" class="login loginmodal-submit loginmodal-fb"><img src="/images/facebookicon.png" alt="FacebookIcon">Sign up with Facebook</a>
-    <div class="row">
-        <hr>
-        <span class="signup-or">or</span>
-    </div>
-    <form id="join" action="/submit" method="post">
-    <fieldset><legend>Your Information<span class='form_required'> *</span></legend><br />
-        <div class="row">
-            <div class="col-sm-6">
-                <label for="fname">First Name</label>
-                <input class="form-control" type="text" id="fname" placeholder="First Name" name="fname" required="required">
-            </div>
-            <div class="col-sm-6">
-                <label for="lname">Last Name</label>
-                <input class="form-control" type="text" id="lname" placeholder="Last Name" name="lname" required="required">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <label for="email">Email</label>
-                <input class="form-control" type="text" id="email" placeholder="E-mail" name="email" required="required"/>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <label for="password">Password</label>
-                <input class="form-control" type="password" id="password" name="password" required="required"/>
-            </div>
-        </div>
+    <h1>Success!</h1>
+    <p>
+        You are all signed up!  If you want, you can fill out some additional information so we know more about you. <br>
+        This information is all optional - if you want, you can start browsing now!
+    </p>
+    <form id="update" action="/fbupdate" method="post" onsubmit="CheckForm()">
+    <fieldset><legend>Aditional Information</legend><br />
         <div class="row">
             <div class="col-sm-7">
                 <label for="major">Major</label>

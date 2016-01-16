@@ -365,13 +365,23 @@ app.get('/profile/:name', function(req, res) {
     });
 });
 
+app.post('/fbupdate', ensureLogin("/login"), function(req, res){
+    var user = {  
+        major : req.body.major,
+        'class' : req.body.classification,
+        grad_date : req.body.grad_date,
+        tshirt_size : req.body.tshirt
+    };
+    db.updateUser(req.user.member_id, user, function(error) {
+        res.redirect("/");
+    });
+});
 //Handles profile edits.
-app.post('/profile/:id/edit', function(req, res) {
+app.post('/profile/:id/editprofile', function(req, res) {
     if (req.params.id != req.user.member_id && req.user.privs < 1) {
         res.redirect("/403.html");
     }
     else {
-        //TODO: Check for email collision before SQL update
         var user = {  
             fname : req.body.fname,
             mi : req.body.initial,
@@ -455,10 +465,18 @@ app.get('/logout', function(req, res) {
 
 app.get('/login/facebook', passport.authenticate('facebook', {scope: 'email'}));
 
-app.get('/login/facebook/callback', passport.authenticate('facebook', {
-    successReturnToOrRedirect: '/',
-    failureRedirect: '/login'
-}));
+app.get('/login/facebook/callback', function(req, res){
+    //if just signed up, req.user = true;
+    if (req.user.new === true){
+        res.redirect('/fbcompletesignup.html');
+    } else if(req.session.returnTo !== undefined){
+        var url = req.session.returnTo;
+        req.session.returnTo = undefined;
+        res.redirect(url);
+    } else {
+        res.redirect("/");
+    }
+});
 
 app.post('/login',
     passport.authenticate('local', {
@@ -604,6 +622,8 @@ function(token, refreshToken, profile, done) {
                     console.log(error);
                     return done(error);
                } else {
+                    //adds a new tag to user, so we can redirect to finish registration page
+                    user.new = true;
                     return done(null, user);
                }
            });
