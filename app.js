@@ -156,6 +156,20 @@ app.post("/eventlogin", ensureLogin("/login.html"), function(req, res){
     });
 });
 
+app.get("/:var(roster|roster.html)", ensureLogin("/login"), function(req,res){
+    if (req.user.privs < 1){
+        res.redirect("/403.html");
+    } else {
+        db.getAllUsers(function(err, users){
+            if (err){
+                res.redirect("error.html");
+            } else {
+                res.render("static/roster.html", {members: users, session: req.user});
+            }
+        });
+    }
+});
+
 app.get("/pay", ensureLogin("/login"), function(req, res){
     res.render("static/pay.html",{
         session: req.user,

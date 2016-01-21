@@ -1,0 +1,28 @@
+{% extends 'template.html' %}
+
+{% block title %}Pay Dues{% endblock %}
+
+{% block content %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Paid?</th>
+                <th>T-Shirt Size</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for member in members %}
+            <tr>
+                <td>{{ member.fname }}</td>
+                <td>{{ member.lname }}</td>
+                <td>{{ member.email }}</td>
+                <td>{% if member.paid == 1 %} Yes {% else %} No {% endif %}</td>
+                <td>{{ member.tshirt }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
