@@ -21,5 +21,9 @@ We accept Paypal, Bitcoin, and most credit cards.<br>
     data-amount="2500"
     data-locale="auto">
   </script>
-</form>
+</form><br>
+{% if session.tshirt_size == null %}
+<h4>We noticed that we don't have your t-shirt size on file!  Please <a href="/profile/{{session.member_id}}/edit">edit your profile</a> so we can get you the right sized t-shirt.
+</h4>
+{% endif %}
 {% endblock %}
