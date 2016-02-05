@@ -90,13 +90,11 @@ app.get("/forums/:name", function(req, res) {
             } else if (!topic) {
                 res.redirect("/404.html");
             } else {
-            console.log(topic.topic_id);
             //Show only the last 20 posts for a given topic.
             db.getTopicPosts(topic.topic_id, 20, function(error, rows) {
                 if (error){
                     console.log(error);
                 } else {
-                    console.log(rows[0]);
                     res.render("static/topic.html", {
                         topic: topic,
                         threads: rows,
@@ -112,7 +110,6 @@ app.post("/newevent", ensureLogin("/login.html"), function(req, res){
     if (req.user.privs < 1){
         res.redirect("/403.html");
     } else {
-        console.log(req.body.startdate);
         gcal.addEvent(
             req.body.name,
             new Date(req.body.startdate),
@@ -363,8 +360,14 @@ app.get('/profile/:id/edit', ensureLogin("/login"), function(req, res) {
         res.render("static/403.html");
     }
     else {
-        res.render("static/editprofile.html", {
-            session: req.user
+        db.getUserById(req.params.id, function(err, user){
+            if (err){
+                res.redirect("/error.html");
+            }
+            res.render("static/editprofile.html", {
+                session: req.user,
+                user: user
+            });
         });
     }
 });
@@ -397,23 +400,22 @@ app.post('/fbupdate', ensureLogin("/login"), function(req, res){
         res.redirect("/");
     });
 });
-//Handles profile edits.
+
+// Handles profile edits.
 app.post('/profile/:id/editprofile', function(req, res) {
     if (req.params.id != req.user.member_id && req.user.privs < 1) {
         res.redirect("/403.html");
     }
     else {
-        var user = {  
-            fname : req.body.fname,
-            mi : req.body.initial,
-            lname : req.body.lname,
-            email : req.body.email,
-            email_hash : md5sum(req.body.email),
-            major : req.body.major,
-            'class' : req.body.classification,
-            grad_date : req.body.grad_date,
-            tshirt_size : req.body.tshirt
-        };
+        var user = req.body;
+        if (!req.body.subscribe) user.subscribe = 0; //marks user as unsubscribed if box not checked
+        //remove blank values from update
+        for (var key in user){
+            if (user[key] === ''){
+                delete user[key];
+            }
+        }
+        if (user.grad_date) user.grad_date = new Date(user.grad_date); //converts grad date into JS friendly format
         //If password not supplied, do not update password.
         if (req.body.password) {
             user.password = hashPassword(req.body.password);
@@ -424,13 +426,31 @@ app.post('/profile/:id/editprofile', function(req, res) {
                     console.error(error);
                     res.redirect('/error.html');
                 } else {
-                    if (req.body.subscribe && req.user.subscribe === false) mail.subscribeUser(req.user);
-                    if (!req.body.subscribe && req.user.subscribe === true) mail.unsubscribeUser(req.user);
-                    //Recreate session with new password and email, then render profile page.
-                    req.logout();
-                    //TODO: don't allow logins with 
-                    passport.authenticate('local')(req, res, function() {
-                        res.redirect('/profile/' + req.user.fname + ' ' + req.user.lname);
+                    //Fetches new user profile data.
+                    db.getUserById(req.params.id, function(err, user) {
+                        //Subscribes or unsubscribes user.
+                        if (req.body.subscribe && user.subscribe === false) mail.subscribeUser(req.user);
+                        if (!req.body.subscribe && user.subscribe === true) mail.unsubscribeUser(req.user);
+                        //Recreate session if current user is user being updated.
+                        if (req.params.id === req.user.member_id){
+                            //Recreate session with new password and email, then render profile page.
+                            req.logout();
+                            if (err) {
+                                console.log(err);
+                                res.redirect("/error.html");   
+                            } else {
+                                req.login(user, function(err){
+                                    if (err) {
+                                        console.log(err);
+                                        res.redirect("/error.html");   
+                                    } else {
+                                        res.redirect('/profile/' + user.fname + ' ' + user.lname);
+                                    }
+                                });
+                            }
+                        } else {
+                            res.redirect('/profile/' + user.fname + ' ' + user.lname);
+                        }
                     });
                 }
             });
@@ -438,7 +458,8 @@ app.post('/profile/:id/editprofile', function(req, res) {
         //If email is being updated, ensure no other user owns email.
         if (user.email){
             db.getUserByEmail(user.email, function(error, member){
-                if (member && member.member_id !== req.params.id){
+                if (member && member.member_id === req.params.id){
+                    console.error("ERROR: Email collision " + member.member_id + " " + req.params.id);
                     res.redirect("/error.html");
                 } else {
                     doUpdate();
@@ -454,7 +475,7 @@ app.get('/forums.html', function(req, res) {
     var forum = {
         categories: []
     };
-    db.getCategories(function(error, rows){
+    db.getCategories(function(error, rows) {
         async.each(rows, function(row, callback) {
             var rowIndex = forum.categories.push(row);
             db.getCategoryTopics(row.forum_id, function(error, rows) {
@@ -627,12 +648,11 @@ passport.use(new facebookStrategy({
 },
 function(token, refreshToken, profile, done) {
     db.getUserByFacebookId(profile.id, function(error, user){
-       if (error){
+       if (error) {
           return done(error);
-       } else if (user){ //User is already authenticated with facebook
+       } else if (user) { //User is already authenticated with facebook
            return done(null, user);
        } else {
-           console.log(profile);
            var newuser = {
                facebook_id : profile.id,
                facebook_token : token,

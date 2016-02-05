@@ -1,66 +1,95 @@
 {% extends 'template.html' %}
+{% block head %}
+<script type="text/javascript" src="/js/moment.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap-datetimepicker.min.js"></script>
+<link rel="stylesheet" href="/css/bootstrap-datetimepicker.min.css" type="text/css" /> 
+{% endblock %}
 {% block title %}Edit Profile{% endblock %}
 {% block content %}
-<br>
 <h1 class="page-header">Editing profile</h1>
-<form id="join" action="edit" method="post" onsubmit="CheckForm()">
-                    <fieldset><legend>Your Information</legend><br />
-                        <p style="float:left">
-                            <label for="fname">First Name<span class='form_required'> *</span></label><br />
-                            <input type="text" id="fname" name ="fname" size='30' required="required" value="{{ session.fname }}" style="margin-right:5px">
-                        </p>
-                        <p style="float:left">
-                            <label for="initial">MI</label><br />
-                            <input type="text" id="initial" name="initial" size='1' maxlength='1' value="{{ session.mi }}">
-                        </p>
-                        <p style="float:left">
-                            <label for="lname">Last Name<span class='form_required'> *</span></label><br />
-                            <input type="text" id="lname" name="lname" size='29' required="required" style="margin-left:5px" value="{{ session.lname }}">
-                        </p>
-                        <p style="clear:both">
-                            <label for="email">Email<span class='form_required'> *</span></label><br />
-                            <input type="text" id="email" name="email" size="70" required="required" value="{{ session.email }}"/>
-                        </p>
-                        <p style="clear:both">
-                            <label for="password">Password<span class='form_required'> *</span></label><br />
-                            <input type="password" id="password" name="password" size="70" required="required"/>
-                        </p>
-                        <p>
-                            <label for="major">Major</label><br />
-                            <select id="major" name="major">
-                                <option value="" {% if session.major == '' %}selected{% endif %}>--Please Select--</option>
-                                <option value="cs" {% if session.major == 'cs' %}selected{% endif %}>Computer Science</option>
-                                <option value="cis" {% if session.major == 'cis' %}selected{% endif %}>Computer Information Systems</option>
-                                <option value="other" {% if session.major == 'other' %}selected{% endif %}>Other</option>
-                            </select>
-                        </p>
-                        <p>
-                            <label for="classification">Classification</label><br />
-                            <select id="classification" name="classification">
-                                <option value="" {% if session.classification == '' %}selected{% endif %}>--Please Select--</option>
-                                <option value="freshman" {% if session.class == 'freshman' %}selected{% endif %}>Freshman</option>
-                                <option value="sophomore" {% if session.class == 'sophomore' %}selected{% endif %}>Sophomore</option>
-                                <option value="junior" {% if session.class == 'junior' %}selected{% endif %}>Junior</option>
-                                <option value="senior" {% if session.class == 'senior' %}selected{% endif %}>Senior</option>
-                            </select>
-                        </p>
-                        <p>
-                            <label for="grad_date">Expected Graduation Date</label><br />
-                            <input type="date" id="grad_date" name="grad_date" value="{{ session.grad_date.toISOString() }}" />
-                        </p>
-                        <p>
-                            <label for="tshirt">T-Shirt Size</label><br />
-                            <select id="tshirt" name="tshirt">
-                                <option value="" {% if session.tshirt_size == '' %}selected{% endif %}>-Please Select--</option>
-                                <option value="small" {% if session.tshirt_size == 'small' %}selected{% endif %}>Small</option>
-                                <option value="medium" {% if session.tshirt_size == 'medium' %}selected{% endif %}>Medium</option>
-                                <option value="large" {% if session.tshirt_size == 'large' %}selected{% endif %}>Large</option>
-                                <option value="xl" {% if session.tshirt_size == 'xl' %}selected{% endif %}>Extra Large</option>
-                            </select>
-                        </p>
-                        <p>
-                            <input type="submit" value="Submit" />&nbsp;<input name="reset" type="reset" value="Reset" />
-                        </p>
-                        </fieldset>
-                        </form>
+<form id="join" action="editprofile" method="post">
+<fieldset><legend>Your Information<span class='form_required'> *</span></legend><br />
+        <div class="row">
+            <div class="col-sm-6">
+                <label for="fname">First Name</label>
+                <input class="form-control" type="text" id="fname" placeholder="First Name" name="fname" value="{{ user.fname }}" required="required">
+            </div>
+            <div class="col-sm-6">
+                <label for="lname">Last Name</label>
+                <input class="form-control" type="text" id="lname" placeholder="Last Name" name="lname" value="{{ user.lname }}" required="required">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <label for="email">Email</label>
+                <input class="form-control" type="text" id="email" placeholder="E-mail" name="email" value="{{ user.email }}" required="required"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <label for="password">Password</label>
+                <input class="form-control" type="password" id="password" name="password" required="required"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-7">
+                <label for="major">Major</label>
+                <select id="major" class="form-control" name="major">
+                    <option value="" {% if user.major == '' %}selected{% endif %}>--Please Select--</option>
+                    <option value="cs" {% if user.major == 'cs' %}selected{% endif %}>Computer Science</option>
+                    <option value="cis" {% if user.major == 'cis' %}selected{% endif %}>Computer Information Systems</option>
+                    <option value="other" {% if user.major == 'other' %}selected{% endif %}>Other</option>
+                </select>
+            </div>
+            <div class="col-sm-5">
+                <label for="classification">Classification</label>
+                <select id="classification" class="form-control" name="class">
+                    <option value="" {% if user.classification == '' %}selected{% endif %}>--Please Select--</option>
+                    <option value="freshman" {% if user.class == 'freshman' %}selected{% endif %}>Freshman</option>
+                    <option value="sophomore" {% if user.class == 'sophomore' %}selected{% endif %}>Sophomore</option>
+                    <option value="junior" {% if user.class == 'junior' %}selected{% endif %}>Junior</option>
+                    <option value="senior" {% if user.class == 'senior' %}selected{% endif %}>Senior</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <label for="grad_date">Expected Graduation Date</label><br />
+                <input type='text' class="form-control" name="grad_date" id="grad_date"/>
+            </div>
+            <script type="text/javascript">
+            $(function () {
+                var options = {
+                    defaultDate: '{{ user.grad_date.toISOString() }}',
+                    format: 'MM/DD/YYYY',
+                    viewMode: 'years'
+                };
+                $('#grad_date').datetimepicker(options);
+            });
+            </script>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <label for="tshirt">T-Shirt Size</label>
+                <select id="tshirt" class="form-control" name="tshirt_size">
+                    <option value="" {% if user.tshirt_size == '' %}selected{% endif %}>-Please Select--</option>
+                    <option value="small" {% if user.tshirt_size == 'small' %}selected{% endif %}>Small</option>
+                    <option value="medium" {% if user.tshirt_size == 'medium' %}selected{% endif %}>Medium</option>
+                    <option value="large" {% if user.tshirt_size == 'large' %}selected{% endif %}>Large</option>
+                    <option value="xl" {% if user.tshirt_size == 'xl' %}selected{% endif %}>Extra Large</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="checkbox">
+                    <label><input name="subscribe" type="checkbox" {% if user.subscribe == 1 %}checked {% endif %}value="1">I'd like to subscribe to the EXE Mailing list.</label>
+                </div>
+            </div>
+        </div>
+        <div>
+            <input type="submit" value="Submit" />&nbsp;<input name="reset" type="reset" value="Cancel" />
+        </div>
+    </fieldset>
+</form>
 {% endblock %}
