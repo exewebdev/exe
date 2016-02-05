@@ -28,7 +28,7 @@
         <div class="row">
             <div class="col-sm-12">
                 <label for="password">Password</label>
-                <input class="form-control" type="password" id="password" name="password" required="required"/>
+                <input class="form-control" type="password" id="password" name="password"/>
             </div>
         </div>
         <div class="row">
@@ -87,6 +87,23 @@
                 </div>
             </div>
         </div>
+        {% if session.privs >= 1 %}
+        <fieldset><legend>Admin Stuff</legend><br />
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="checkbox">
+                    <label><input name="paid" type="checkbox" {% if user.paid == 1 %}checked {% endif %}value="1">Member is paid.</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="checkbox">
+                    <label><input name="privs" type="checkbox" {% if user.privs == 1 %}checked {% endif %}value="1">Member has admin powers.</label>
+                </div>
+            </div>
+        </div>
+        {% endif %}
         <div>
             <input type="submit" value="Submit" />&nbsp;<input name="reset" type="reset" value="Cancel" />
         </div>

@@ -356,7 +356,7 @@ app.post("/newtopic", ensureLogin("/login"), function(req, res) {
 
 app.get('/profile/:id/edit', ensureLogin("/login"), function(req, res) {
     //checks for authorization before editing a profile page
-    if (req.user.member_id != req.params.id) {
+    if (req.user.member_id != req.params.id && req.user.privs === 0) {
         res.render("static/403.html");
     }
     else {
@@ -409,6 +409,14 @@ app.post('/profile/:id/editprofile', function(req, res) {
     else {
         var user = req.body;
         if (!req.body.subscribe) user.subscribe = 0; //marks user as unsubscribed if box not checked
+        //admin powers
+        if (req.user.privs >= 1){
+            if (!req.body.privs) user.privs = 0; //demote user
+            if (!req.body.paid) user.paid = 0; //remove payment from user
+        } else { //clear paid and privs from all non-admin requests
+            delete user.paid;
+            delete user.privs;
+        }
         //remove blank values from update
         for (var key in user){
             if (user[key] === ''){
