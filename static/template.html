@@ -13,7 +13,7 @@
     {# Templates can add their own stylesheets and scripts, if they wish. #}
     {% block head %}{% endblock %}
 </head>
-<body onload="getTodayDate()">
+<body>
     <!-- Login popup from Bootsnipp (http://bootsnipp.com/snippets/featured/clean-modal-login-form) -->
     <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
     	  <div class="modal-dialog">
@@ -82,6 +82,9 @@
                         <li><a href="/forums.html">Forums</a></li>
                         {% if session.privs >= 1 %}
                             <li><a href="/roster.html">Roster</a></li>
+                        {% endif %}
+                        {% if session.paid === 0 %}
+                            <li><a href="/pay.html">Pay Dues</a></li>
                         {% endif %}
                     </ul>
                     <ul class="nav navbar-nav navbar-right" style="margin-right:5px">

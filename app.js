@@ -174,6 +174,13 @@ app.get("/pay", ensureLogin("/login"), function(req, res){
     });
 });
 
+app.get("/pay.html", ensureLogin("/login"), function(req, res){
+    res.render("static/pay.html",{
+        session: req.user,
+        stripe: {public_key: process.env.STRIPE_PUBLIC || config.stripe.public || "pk_test_eqCxZfI6l6UfjOvtovUPdhYT"}
+    });
+});
+
 app.post("/pay/stripe", ensureLogin("/login"), function(req, res){
     var stripeToken = req.body.stripeToken;
     req.session.paymentId = 'stripe'; //for the success page
