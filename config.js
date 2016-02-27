@@ -30,6 +30,9 @@ var config = {
         secret : "",
         public : ""
     },
+    google : {
+        calendar_id : "someuser@example.com"
+    },
     //The following should absouletely be turned on in production, and is only if your computer doesn't support bcrypt.
     bcrypt: true
 };
