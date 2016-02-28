@@ -78,6 +78,12 @@ app.use('/js', express.static(__dirname + "/static/js"));
 app.use('/scripts', express.static(__dirname + "/static/js"));
 app.use('/images', express.static(__dirname + "/static/images"));
 app.use('/fonts', express.static(__dirname + "/static/fonts"));
+app.get('/robots.txt', function(req, res){
+   res.sendfile(__dirname + '/static/robots.txt');
+});
+app.get('/sitemap.xml', function(req, res){
+   res.sendfile(__dirname + '/static/sitemap.xml');
+});
 app.get('/favicon.ico', function(req, res){
    res.sendfile(__dirname + '/static/favicon.ico');
 });
