@@ -9,6 +9,8 @@ var app = express();
 var passport = require('passport');
 var localStrategy = require('passport-local').Strategy;
 var facebookStrategy = require("passport-facebook").Strategy;
+var JwtStrategy = require('passport-jwt').Strategy;
+var ExtractJwt = require('passport-jwt').ExtractJwt;
 var ensureLogin = require("connect-ensure-login").ensureLoggedIn;
 var async = require('async');
 var gcal = require('./lib/gcalhelper');
@@ -529,11 +531,32 @@ app.get('/logout', function(req, res) {
     res.redirect('/');
 });
 
+app.get('/txstlogin', function(req, res) {
+    res.render('./static/txstlogin.html', {
+        message: req.flash('error'),
+        callbackURL: "https://" + (process.env.FQDN || config.fqdn || "localhost") + "/login/txstate/callback"
+    });
+});
+
 app.get('/login/facebook', passport.authenticate('facebook', {scope: 'email'}));
 
 app.get('/login/facebook/callback', passport.authenticate('facebook', {failureRedirect: '/login' }),
   function(req, res) {
     //if just signed up, req.user.new = true;
+    if (req.user.new === true){
+        res.redirect('/fbcompletesignup.html');
+    } else if(req.session.returnTo !== undefined){
+        var url = req.session.returnTo;
+        req.session.returnTo = undefined;
+        res.redirect(url);
+    } else {
+        res.redirect("/");
+    }
+});
+
+app.get('/login/txstate/callback', passport.authenticate('jwt', {failureRedirect: '/txstlogin.html'}),
+    function(req, res) {
+        //if just signed up, req.user.new = true;
     if (req.user.new === true){
         res.redirect('/fbcompletesignup.html');
     } else if(req.session.returnTo !== undefined){
@@ -552,6 +575,7 @@ app.post('/login',
         failureFlash: 'Incorrect username or password.'
     })
 );
+//Uses a JWT token to authenticate a request.
 
 app.get('/:page', function(req, res) {
     if (req.isAuthenticated()) {
@@ -694,6 +718,43 @@ function(token, refreshToken, profile, done) {
                }
            });
        }
+    });
+}));
+
+//JWT (aka Luke's Texas State API) based authentication.
+var opts = {};
+opts.jwtFromRequest = ExtractJwt.fromUrlQueryParameter('jwt');
+opts.secretOrKey = process.env.JWT_SECRET || config.txst.secret || "secret";
+passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
+    //Query for the email in the database.
+    //Since this is a Texas State Email, it is OK if they have an account already - we know it belongs to them.
+    db.getUserByEmail(jwt_payload.email, function(err, user) {
+        if (err) {
+            console.error(err);
+            return done(err, false);
+        }
+        if (user) {
+            done(null, user);
+        } else {
+            //Create a new account
+            var newuser = {
+               fname : jwt_payload.fname,
+               lname : jwt_payload.lname,
+               email : jwt_payload.email,
+               email_hash : md5sum(jwt_payload.email),
+               start_date: (new Date())
+            };
+           db.addNewUser(newuser, null, function(error, user){
+               if (error){
+                    console.log(error);
+                    return done(error);
+               } else {
+                    //adds a new tag to user, so we can redirect to finish registration page
+                    user.new = true;
+                    return done(null, user);
+               }
+           });
+        }
     });
 }));
 

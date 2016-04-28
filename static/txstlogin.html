@@ -1,0 +1,16 @@
+{% extends 'template.html' %}
+
+{% block title %}Texas State Login{% endblock %}
+
+{% block content %}
+{% if message %}
+<div class="alert alert-danger" role="alert">{{ message }}</div>
+{% endif %}
+<h1 style="color:#ae9c7f; margin-top:20px">Texas State Login</h1><br />
+				  <form action="https://cs.txstate.edu/~l_d130/auth.php" method=post>
+					<input type="text" title="username" name="username" placeholder="Net ID">
+					<input type="password" title="password" name="password" placeholder="Password">
+					<input type="hidden" name="ondone" value="{{callbackURL}}">
+					<input type="submit" name="login" class="login loginmodal-submit" value="Login">
+				  </form>
+{% endblock %}

@@ -213,6 +213,21 @@ a {
     background-color: #4d90fe;
 }
 
+.loginmodal-tx{
+    color: #fff;
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+    background-color: #501214;
+    text-decoration: none;
+}
+
+.loginmodal-tx:hover{
+    text-decoration: none;
+    color: #fff;
+    background-color: #68181a;
+}
+
 .loginmodal-submit:hover {
   /* border: 1px solid #2f5bb7; */
   border:0;
