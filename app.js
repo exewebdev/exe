@@ -21,7 +21,7 @@ if (config.bcrypt === false) {
     console.error("Bcrypt disabled in settings!  Do not use in production!");
 }
 else {
-    var bcrypt = require('bcrypt');
+    var bcrypt = require('bcryptjs');
 }
 var md5 = require('md5');
 
