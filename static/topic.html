@@ -17,13 +17,14 @@
                 <div class="col-sm-8">
                     <h4 class="list-group-item-heading">
                         <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-                        <a href = "/forums/{{ topic.topic_name }}/{{ thread.thread_id }}/">{{ thread.thread_name }}</a>
+                        <a href = "/forums/{{ topic.topic_name }}/{{ thread.dataValues.thread_id }}/">{{ thread.dataValues.thread_name }}</a>
                     </h4>
-                    <a href = "/profile/{{ thread.opfname }} {{ thread.oplname }}">{{ thread.opfname }} {{ thread.oplname }}</a>, {{ thread.opdatetime.toLocaleString() }}
+                    <a href = "/profile/{{ thread.dataValues.op.dataValues.fname }} {{ thread.dataValues.op.dataValues.lname }}">{{ thread.dataValues.op.dataValues.fname }} {{ thread.dataValues.op.dataValues.lname }}</a>, {{ thread.dataValues.createdAt.toLocaleString() }}
                 </div>
                 <div class="col-sm-4">
-                    Replies: {{ thread.post_count }}<br>
-                    Last post on {{ thread.datetime.toLocaleString() }} by <a href = "/profile/{{ thread.fname }} {{ thread.lname }}">{{ thread.fname }} {{ thread.lname }}</a>
+                    Replies: {{ thread.dataValues.post_count }}<br>
+                    {% set lastpost=thread.dataValues.Comments[0] %}
+                    Last post on {{ lastpost.datetime.toLocaleString() }} by <a href = "/profile/{{ lastpost.Member.fname }} {{ lastpost.Member.lname }}">{{ lastpost.Member.fname }} {{ lastpost.Member.lname }}</a>
                 </div>
             </div>
         </li>

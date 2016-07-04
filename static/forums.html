@@ -6,20 +6,20 @@
 <div class="panel panel-primary">
     <div class="panel-heading">Forums</div>
 </div>
-{% for category in forum.categories %}
+{% for category in forum %}
 <div class="panel panel-primary">
     <div class="panel-heading">{{ category.forum_name }}</div>
     <div class="panel-content">
         <ul class="list-group">
-        {% for topic in category.topics %}
+        {% for topic in category.Topics %}
         <li class="list-group-item">
             <h4 class="list-group-item-heading">
                 <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-                <a href = "/forums/{{ topic.topic_name }}/">
-                {{ topic.topic_name }}
+                <a href = "/forums/{{ topic.dataValues.topic_name }}/">
+                {{ topic.dataValues.topic_name }}
                 </a>
             </h4>
-            <p class="list-group-item-text">{{ topic.topic_description }}</p>
+            <p class="list-group-item-text">{{ topic.dataValues.topic_description }}</p>
         </li>
         {% endfor %}
         </ul>

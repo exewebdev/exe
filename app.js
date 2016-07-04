@@ -91,29 +91,23 @@ app.get('/favicon.ico', function(req, res){
 });
 
 app.get("/forums/:name", function(req, res) {
-        db.getTopicByName(req.params.name, function(error, topic){
-            if (error){
-                console.log(error);
-                res.redirect("/error.html");
-            } else if (!topic) {
-                res.redirect("/404.html");
-            } else {
+    db.getTopicByName(req.params.name, function(error, topic){
+        if (error){
+            console.log(error);
+            res.redirect("/error.html");
+        } else if (!topic) {
+            res.redirect("/404.html");
+        } else {
             //Show only the last 20 posts for a given topic.
-            db.getTopicPosts(topic.topic_id, 20, function(error, rows) {
-                if (error){
-                    console.log(error);
-                } else {
-                    res.render("static/topic.html", {
-                        topic: topic,
-                        threads: rows,
-                        session: req.user
-                    });
-                }
+            console.log(topic.Threads[0].dataValues.Comments[1].datetime.toLocaleString());
+            res.render("static/topic.html", {
+                topic: topic,
+                threads: topic.Threads,
+                session: req.user
             });
         }
     });
 });
-
 app.post("/newevent", ensureLogin("/login.html"), function(req, res){
     if (req.user.privs < 1){
         res.redirect("/403.html");
@@ -288,28 +282,16 @@ app.post("/forums/:topic/:thread/reply", function(req, res){
 //Handles threads.
 app.get("/forums/:topic/:thread", function(req, res){
     //Gets thread comments
-    db.getThreadComments(req.params.thread, 20, function(error, rows){
-        if (error){
-            console.log(error);
-            res.redirect("/error.html");
-        } else {
-            //get thread info
-            db.getThread({thread_id : req.params.thread}, function(err, thread){
-                if (err){
-                   console.error(error);
-                   res.redirect("/error.html");
-                } else {
-                    res.render("static/thread.html", {
-                        thread: thread[0],
-                        topic: {
-                            topic_name : req.params.topic
-                        },
-                        posts: rows,
-                        session: req.user
-                    });
-                }
-            });
-        }
+    db.getThread({thread_id : req.params.thread}, function(err, thread){
+        console.log(thread.Comments);
+        res.render("static/thread.html", {
+            thread: thread,
+            topic: {
+                topic_name : req.params.topic
+            },
+            posts: thread.Comments,
+            session: req.user
+        });
     });
 });
 
@@ -317,33 +299,18 @@ app.get("/forums/:topic/:thread", function(req, res){
 
 //Handles posting new threads
 app.post("/forums/:name/newpost",  ensureLogin("/login"), function(req, res){
-   if (req.user) {
-       //Resolve name into an ID.
-       db.getTopicByName(req.params.name, function(error, topic) {
-           //Create the thread.
-            db.createThread(topic.topic_id, req.body.title, req.user.member_id, function (error, thread){
-                if (error){
-                    console.log(error);
-                    res.redirect("/error.html");
-                } else {
-                    //Post the first comment in the thread.
-                    var comment = {
-                        thread_id:thread.thread_id,
-                        member_id:req.user.member_id,
-                        comment:req.body.message,
-                        datetime:(new Date())
-                    };
-                    db.postComment(comment, function(error){
-                        if (error){ console.log(error);}
-                        //Redirect to the new thread.
-                        res.redirect("/forums/" + req.params.name + "/" + thread.thread_id + "/");
-                    });
-                }
-            });
+    //Resolve name into an ID.
+    db.getTopicByName(req.params.name, function(error, topic) {
+       //Create the thread.
+       var comment = {
+            member_id:req.user.member_id,
+            comment:req.body.message,
+            datetime:(new Date())
+        };
+        db.createThread(topic.topic_id, req.body.title, req.user.member_id, comment, function (error, thread){
+            res.redirect("/forums/" + req.params.name + "/" + thread.thread_id + "/");
         });
-   } else {
-       res.redirect("/login.html");
-   }
+    });
 });
 
 //Handles creating new topics.
@@ -495,27 +462,11 @@ app.post('/profile/:id/editprofile', function(req, res) {
 });
 
 app.get('/forums.html', function(req, res) {
-    var forum = {
-        categories: []
-    };
-    db.getCategories(function(error, rows) {
-        async.each(rows, function(row, callback) {
-            var rowIndex = forum.categories.push(row);
-            db.getCategoryTopics(row.forum_id, function(error, rows) {
-                if (error){
-                    console.log(error);
-                }
-                forum.categories[rowIndex - 1].topics = rows;
-                callback();
-            });
-        }, function(error) {
-            if (error){
-                res.redirect("/error.html");
-            }
-            res.render("static/forums.html", {
-                forum: forum,
-                session: req.user
-            });
+    db.getCategories(function(forum) {
+        console.log(forum);
+        res.render("static/forums.html", {
+            forum: forum,
+            session: req.user
         });
     });
 });

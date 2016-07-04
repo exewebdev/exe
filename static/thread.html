@@ -19,20 +19,20 @@
                 #{{ count }}
                 </div>
             <div class="col-sm-11" style = "text-align: right">
-                {{ post.datetime.toLocaleString() }}
+                {{ post.dataValues.datetime.toLocaleString() }}
             </div>
         </div>
     </div>
     <div class="panel-content">
         <div class="row">
             <div class="col-sm-2">
-                <img src="https://secure.gravatar.com/avatar/{{ post.email_hash }}?s=100&r=g&d=mm"/> <br>
-                <a href="/profile/{{ post.fname }} {{ post.lname }}">{{ post.fname }} {{ post.lname }}</a><br>
-                Posts: {{ post.post_count }}
+                <img src="https://secure.gravatar.com/avatar/{{ post.dataValues.Member.dataValues.email_hash }}?s=100&r=g&d=mm"/> <br>
+                <a href="/profile/{{ post.dataValues.Member.dataValues.fname }} {{ post.dataValues.Member.dataValues.lname }}">{{ post.dataValues.Member.dataValues.fname }} {{ post.dataValues.Member.dataValues.lname }}</a><br>
+                Posts: {{ post.dataValues.Member.dataValues.post_count }}
             </div>
             <div class="col-sm-10">
                 {% autoescape false %}
-                {{ post.comment }}
+                {{ post.dataValues.comment }}
                 {% endautoescape %}
             </div>
         </div>
