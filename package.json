@@ -36,6 +36,7 @@
   },
   "scripts": {
     "test": "grunt",
+    "postinstall": "cp config.js.example config.js",
     "start": "node app.js"
   },
   "repository": {
