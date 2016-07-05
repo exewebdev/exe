@@ -15,6 +15,7 @@ var ensureLogin = require("connect-ensure-login").ensureLoggedIn;
 var async = require('async');
 var gcal = require('./lib/gcalhelper');
 var mail = require('./lib/mailhelper');
+var api = require('./lib/api');
 
 //it's difficult for some windows systems to install bcrypt, so give option to disable (NEVER in production)
 if (config.bcrypt === false) {
@@ -80,6 +81,45 @@ app.use('/js', express.static(__dirname + "/static/js"));
 app.use('/scripts', express.static(__dirname + "/static/js"));
 app.use('/images', express.static(__dirname + "/static/images"));
 app.use('/fonts', express.static(__dirname + "/static/fonts"));
+
+//Require authentication for all API endpoints, and restirct to admins (for now)
+var verifyAdmin = function(req, res, next){
+    var failAuth = function (req, res){
+        console.log('Unable to authenticate user');
+        console.log(req.headers.authorization);
+        res.header('WWW-Authenticate', 'Basic realm="Admin Area"');
+        if (req.headers.authorization) {
+            setTimeout(function () {
+                res.send('Authentication required', 401);
+            }, 5000);
+        } else {
+            res.send('Authentication required', 401);
+        }
+    }
+    if (req.headers.authorization && req.headers.authorization.search('Basic ') === 0) {
+        // fetch login and password
+        var userpass = new Buffer(req.headers.authorization.split(' ')[1], 'base64').toString(); //stored as user:password
+        var uname = userpass.split(':')[0];
+        var pass = userpass.split(':')[1];
+        
+        //Fetch member by uname (email)
+        db.getUserByEmail(uname, function(err, user){
+            //Check to see if user is an admin (privs >0)
+            if (user && user.privs >= 1){
+                //Validate user's password
+                db.getPasswordHash(user.member_id, function(error, storedpassword){
+                    if (bcrypt.compareSync(pass, storedpassword.password)){
+                        next();
+                        return;
+                    } else failAuth(req, res);
+                });
+            } else failAuth(req, res);
+        });
+    } else failAuth(req, res);
+}
+
+app.use('/api', verifyAdmin, api);
+
 app.get('/robots.txt', function(req, res){
    res.sendfile(__dirname + '/static/robots.txt');
 });
@@ -606,13 +646,13 @@ passport.use(new localStrategy({
                         return done(error);
                     } else {
                         if (bcrypt === false) { //Bypass encryption (ONLY for development.)
-                            if (password !== storedpassword) {
+                            if (password !== storedpassword.password) {
                                 console.info("Incorrect password");
                                 return done(null, false, {
                                     message: 'Incorrect password.'
                                 });
                             }
-                        } else if (!bcrypt.compareSync(password, storedpassword)) {
+                        } else if (!bcrypt.compareSync(password, storedpassword.password)) {
                             console.info("Incorrect password");
                             return done(null, false, {
                             message: 'Incorrect password.'
