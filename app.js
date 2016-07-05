@@ -108,7 +108,7 @@ var verifyAdmin = function(req, res, next){
             if (user && user.privs >= 1){
                 //Validate user's password
                 db.getPasswordHash(user.member_id, function(error, storedpassword){
-                    if (bcrypt.compareSync(pass, storedpassword.password)){
+                    if (bcrypt.compareSync(pass, storedpassword.password.toString())){
                         next();
                         return;
                     } else failAuth(req, res);
