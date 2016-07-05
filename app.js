@@ -99,7 +99,6 @@ app.get("/forums/:name", function(req, res) {
             res.redirect("/404.html");
         } else {
             //Show only the last 20 posts for a given topic.
-            console.log(topic.Threads[0].dataValues.Comments[1].datetime.toLocaleString());
             res.render("static/topic.html", {
                 topic: topic,
                 threads: topic.Threads,
@@ -283,7 +282,6 @@ app.post("/forums/:topic/:thread/reply", function(req, res){
 app.get("/forums/:topic/:thread", function(req, res){
     //Gets thread comments
     db.getThread({thread_id : req.params.thread}, function(err, thread){
-        console.log(thread.Comments);
         res.render("static/thread.html", {
             thread: thread,
             topic: {
@@ -463,7 +461,6 @@ app.post('/profile/:id/editprofile', function(req, res) {
 
 app.get('/forums.html', function(req, res) {
     db.getCategories(function(forum) {
-        console.log(forum);
         res.render("static/forums.html", {
             forum: forum,
             session: req.user
