@@ -95,7 +95,7 @@ var verifyAdmin = function(req, res, next){
         } else {
             res.send('Authentication required', 401);
         }
-    }
+    };
     if (req.headers.authorization && req.headers.authorization.search('Basic ') === 0) {
         // fetch login and password
         var userpass = new Buffer(req.headers.authorization.split(' ')[1], 'base64').toString(); //stored as user:password
@@ -116,7 +116,7 @@ var verifyAdmin = function(req, res, next){
             } else failAuth(req, res);
         });
     } else failAuth(req, res);
-}
+};
 
 app.use('/api', verifyAdmin, api);
 
