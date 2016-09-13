@@ -202,6 +202,7 @@ app.get("/:var(roster|roster.html)", ensureLogin("/login"), function(req,res){
             if (err){
                 res.redirect("error.html");
             } else {
+                console.log(users);
                 res.render("static/roster.html", {members: users, session: req.user});
             }
         });

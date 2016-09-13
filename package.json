@@ -7,6 +7,7 @@
     "async": "^1.5.0",
     "bcryptjs": "^2.3.0",
     "body-parser": "^1.14.1",
+    "chai": "^3.5.0",
     "connect-ensure-login": "^0.1.1",
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.0",
@@ -22,7 +23,7 @@
     "passport-jwt": "^2.0.0",
     "passport-local": "^1.0.0",
     "paypal-rest-sdk": "^1.6.8",
-    "sequelize": "^3.23.4",
+    "sequelize": "3.23.4",
     "stripe": "^4.1.0",
     "swig": "^1.4.2"
   },

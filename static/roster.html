@@ -19,14 +19,14 @@
         <tbody>
         {% for member in members %}
             <tr>
-                <td><a href="profile/{{ member.member_id }}/edit"><span class="glyphicon glyphicon-pencil"></span></a></td>
-                <td>{{ member.fname }}</td>
-                <td>{{ member.lname }}</td>
-                <td>{{ member.email }}</td>
-                <td>{% if member.paid == 1 %} Yes {% else %} No {% endif %}</td>
-                <td>{{ member.tshirt_size }}</td>
-                <td>{{ member.points }}</td>
-                <td>{% if member.privs >= 1 %} Yes {% else %} No {% endif %}</td>
+                <td><a href="profile/{{ member.dataValues.member_id }}/edit"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                <td>{{ member.dataValues.fname }}</td>
+                <td>{{ member.dataValues.lname }}</td>
+                <td>{{ member.dataValues.email }}</td>
+                <td>{% if member.dataValues.paid == 1 %} Yes {% else %} No {% endif %}</td>
+                <td>{{ member.dataValues.tshirt_size }}</td>
+                <td>{{ member.dataValues.points }}</td>
+                <td>{% if member.dataValues.privs >= 1 %} Yes {% else %} No {% endif %}</td>
                 <td></td>
             </tr>
         {% endfor %}
