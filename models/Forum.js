@@ -11,14 +11,6 @@ module.exports = function(sequelize, DataTypes) {
     forum_name: {
       type: DataTypes.STRING,
       allowNull: false
-    },
-    club_name: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      references: {
-        model: 'Club',
-        key: 'club_name'
-      }
     }
   }, {
     timestamps: false,

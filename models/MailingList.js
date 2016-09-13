@@ -8,14 +8,6 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true,
       autoIncrement: true
     },
-    club_name: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      references: {
-        model: 'Club',
-        key: 'club_name'
-      }
-    },
     member_id: {
       type: DataTypes.BIGINT,
       allowNull: true,
