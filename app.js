@@ -641,19 +641,12 @@ passport.use(new localStrategy({
                 });
             } else {
                 //Gets password hash for user.
-                db.getPasswordHash(user.member_id, function(error, storedpassword){
+                db.getPasswordHash(user.dataValues.member_id, function(error, storedpassword){
                     if (error) {
                         console.log(error);
                         return done(error);
                     } else {
-                        if (bcrypt === false) { //Bypass encryption (ONLY for development.)
-                            if (password !== storedpassword.password) {
-                                console.info("Incorrect password");
-                                return done(null, false, {
-                                    message: 'Incorrect password.'
-                                });
-                            }
-                        } else if (!bcrypt.compareSync(password, storedpassword.password)) {
+                        if (!bcrypt.compareSync(password, storedpassword.password)) {
                             console.info("Incorrect password");
                             return done(null, false, {
                             message: 'Incorrect password.'
