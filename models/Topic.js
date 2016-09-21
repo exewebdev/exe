@@ -10,7 +10,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     forum_id: {
       type: DataTypes.BIGINT,
-      allowNull: true,
+      allowNull: false,
       references: {
         model: 'Forum',
         key: 'forum_id'
@@ -18,7 +18,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     topic_name: {
       type: DataTypes.STRING,
-      allowNull: true
+      allowNull: false
     },
     topic_description: {
       type: DataTypes.TEXT,

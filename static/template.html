@@ -84,7 +84,7 @@
                         {% if session.privs >= 1 %}
                             <li><a href="/roster.html">Roster</a></li>
                         {% endif %}
-                        {% if session.paid === 0 %}
+                        {% if session.paid == false %}
                             <li><a href="/pay.html">Pay Dues</a></li>
                         {% endif %}
                     </ul>

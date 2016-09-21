@@ -16,14 +16,7 @@ var async = require('async');
 var gcal = require('./lib/gcalhelper');
 var mail = require('./lib/mailhelper');
 var api = require('./lib/api');
-
-//it's difficult for some windows systems to install bcrypt, so give option to disable (NEVER in production)
-if (config.bcrypt === false) {
-    console.error("Bcrypt disabled in settings!  Do not use in production!");
-}
-else {
-    var bcrypt = require('bcryptjs');
-}
+var bcrypt = require('bcryptjs');
 var md5 = require('md5');
 
 var session = require('express-session');
@@ -175,16 +168,16 @@ app.post("/newevent", ensureLogin("/login.html"), function(req, res){
 app.post("/eventlogin", ensureLogin("/login.html"), function(req, res){
     //Queries the google calendar for the event happening currently
     gcal.getCurrentEvent(function (error, event){
-       if (!error && event){
-           if (req.body.password == event.extendedProperties.private.password){
-               //Add user to attended table, and increment user's points by the point value for the event.
-               db.checkInUser(req.user, event, function(error){
-                   if (error){
-                       console.log(error);
-                       res.redirect("/error.html");
-                   } else {
-                       res.redirect("/profile/" + req.user.fname + " " + req.user.lname);
-                   }
+        if (!error && event){
+            if (req.body.password == event.extendedProperties.private.password){
+                //Add user to attended table, and increment user's points by the point value for the event.
+                db.checkInUser(req.user, event, function(error){
+                    if (error){
+                        console.log(error);
+                        res.redirect("/error.html");
+                    } else {
+                        res.redirect("/profile/" + req.user.fname + " " + req.user.lname);
+                    }
                });
            }
        } else {
@@ -209,14 +202,7 @@ app.get("/:var(roster|roster.html)", ensureLogin("/login"), function(req,res){
     }
 });
 
-app.get("/pay", ensureLogin("/login"), function(req, res){
-    res.render("static/pay.html",{
-        session: req.user,
-        stripe: {public_key: process.env.STRIPE_PUBLIC || config.stripe.public || "pk_test_eqCxZfI6l6UfjOvtovUPdhYT"}
-    });
-});
-
-app.get("/pay.html", ensureLogin("/login"), function(req, res){
+app.get("/:var(pay|pay.html)", ensureLogin("/login"), function(req, res){
     res.render("static/pay.html",{
         session: req.user,
         stripe: {public_key: process.env.STRIPE_PUBLIC || config.stripe.public || "pk_test_eqCxZfI6l6UfjOvtovUPdhYT"}
